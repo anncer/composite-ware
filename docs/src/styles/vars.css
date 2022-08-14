@@ -1,0 +1,18 @@
+.markdown-body {
+  --docs-code-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+
+  --docs-color-warning: #e7c000;
+  --docs-color-danger: #4d0000;
+
+  --docs-bg-code: #282c34;
+  --docs-bg-code-inline: rgba(27, 31, 35, 0.05);
+  --docs-bg-block: #f3f5f7;
+}
+
+html.dark .markdown-body {
+  --docs-bg-code: #1d1f22;
+  --docs-bg-code-inline: rgba(29, 31, 34, 0.7);
+  --docs-bg-block: #242222;
+  --docs-bg-table-stripe: #444;
+}

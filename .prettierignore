@@ -1,0 +1,12 @@
+/dist/*
+/node_modules/**
+/.history/**
+.local
+.output.js
+
+**/*.svg
+**/*.sh
+
+/public/*
+
+# build,demo,src,docs,test}/**

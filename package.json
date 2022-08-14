@@ -1,0 +1,147 @@
+{
+  "name": "composite-ware",
+  "version": "0.0.1",
+  "description": "a component library for Vue 3 base element-plus",
+  "main": "lib/index.umd.js",
+  "module": "lib/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.es.js",
+      "require": "./lib/index.umd.js"
+    },
+    "./lib/": "./lib/",
+    "./*": "./*"
+  },
+  "types": "types/index.d.ts",
+  "style": "theme-chalk/index.css",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && npm run build:lib && npm run build:types && npm run build:theme",
+    "build:lib": "rimraf lib  && vite build --config build/build-lib.ts",
+    "build:types": "rimraf types && vue-tsc --declaration --emitDeclarationOnly",
+    "build:theme": "pnpm run -C packages/theme-chalk build",
+    "build:docs": "rimraf lib && vite build --config ./vite.config.ts ./docs",
+    "check": "npm run lint:test && vue-tsc --noEmit",
+    "test": "vitest",
+    "lint": "eslint . --fix --ext .ts,.vue,.js",
+    "lint:test": "eslint . --ext .ts,.vue,.js --max-warnings 0",
+    "gen": "node ./script/gen/index.js",
+    "prettier": "prettier --write .",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anncer/composite-ware.git"
+  },
+  "keywords": [
+    "composite-ware",
+    "composite-components",
+    "composite",
+    "composite-ui",
+    "vue",
+    "ui"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anncer/composite-ware/issues"
+  },
+  "homepage": "https://github.com/anncer/composite-ware#readme",
+  "peerDependencies": {
+    "@vueuse/core": "^8.x.x",
+    "vue": "^3.2.x",
+    "vue-router": "^4.0.x"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.0.6",
+    "@types/sass": "^1.43.1",
+    "@vue/shared": "^3.2.37",
+    "@vueuse/core": "^9.0.0",
+    "element-plus": "^2.2.13",
+    "lodash": "^4.17.21",
+    "sass": "^1.54.0",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.2"
+  },
+  "devDependencies": {
+    "@docsearch/css": "^3.1.1",
+    "@docsearch/js": "^3.1.1",
+    "@stackblitz/sdk": "^1.8.0",
+    "@types/gulp": "^4.0.9",
+    "@types/lodash": "^4.14.182",
+    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it-container": "^2.0.5",
+    "@types/node": "^18.6.2",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "@vitejs/plugin-vue": "^3.0.0",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
+    "@vue/compiler-sfc": "^3.2.37",
+    "@vue/server-renderer": "^3.2.37",
+    "@vue/test-utils": "^2.0.2",
+    "@vueuse/head": "^0.7.7",
+    "autoprefixer": "^10.4.7",
+    "components-helper": "^2.0.0",
+    "consola": "^2.15.3",
+    "cssnano": "^5.1.12",
+    "escape-html": "^1.0.3",
+    "eslint": "^8.20.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-vue": "^9.3.0",
+    "esno": "^0.16.3",
+    "execa": "^5.1.0",
+    "fast-glob": "^3.2.11",
+    "gulp": "^4.0.2",
+    "handlebars": "^4.7.7",
+    "husky": "^8.0.1",
+    "inquirer": "^9.0.2",
+    "jsdom": "^20.0.0",
+    "lint-staged": "^13.0.3",
+    "markdown-it": "^13.0.1",
+    "markdown-it-anchor": "^8.6.4",
+    "markdown-it-container": "^3.0.0",
+    "postcss": "^8.4.14",
+    "prettier": "^2.7.1",
+    "prismjs": "^1.28.0",
+    "resize-observer-polyfill": "^1.5.1",
+    "rimraf": "^3.0.2",
+    "sitemap": "^7.1.1",
+    "typescript": "^4.6.4",
+    "unplugin-vue-define-options": "^0.6.2",
+    "vite": "^3.0.0",
+    "vite-plugin-pwa": "^0.12.3",
+    "vite-plugin-vue-markdown": "^0.21.1",
+    "vitest": "^0.19.1",
+    "vue-tsc": "^0.38.4",
+    "workbox-window": "^6.5.3"
+  },
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": [
+        "@algolia/client-search",
+        "@types/react",
+        "markdown-it",
+        "react-dom",
+        "react"
+      ]
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "not ie 11",
+    "not op_mini all"
+  ],
+  "vetur": {
+    "tags": "lib/tags.json",
+    "attributes": "lib/attributes.json"
+  },
+  "web-types": "lib/web-types.json",
+  "files": [
+    "lib",
+    "theme-chalk",
+    "types",
+    "packages/components"
+  ]
+}

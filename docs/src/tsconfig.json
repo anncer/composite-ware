@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "preserve",
+    // "paths": {
+    //   "docs": ["./src/index"]
+    // }
+  },
+  "include": [".", "../../env.d.ts"]
+}
