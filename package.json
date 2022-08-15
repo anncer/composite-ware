@@ -1,6 +1,6 @@
 {
   "name": "composite-ware",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "a component library for Vue 3 base element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
@@ -12,7 +12,7 @@
     "./lib/": "./lib/",
     "./*": "./*"
   },
-  "types": "types/index.d.ts",
+  "types": "types/components/index.d.ts",
   "style": "theme-chalk/index.css",
   "engines": {
     "node": ">=16.0.0"
@@ -37,12 +37,7 @@
     "url": "git+https://github.com/anncer/composite-ware.git"
   },
   "keywords": [
-    "composite-ware",
-    "composite-components",
-    "composite",
-    "composite-ui",
-    "vue",
-    "ui"
+    "composite-ware"
   ],
   "license": "MIT",
   "bugs": {
@@ -53,6 +48,9 @@
     "@vueuse/core": "^8.x.x",
     "vue": "^3.2.x",
     "vue-router": "^4.0.x"
+  },
+  "publishConfig": {
+    "registry": "http://10.122.163.225:8081/repository/npm-repo-hostd/"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
