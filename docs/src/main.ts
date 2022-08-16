@@ -3,11 +3,12 @@ import { createHead } from '@vueuse/head'
 import { createRouter } from "./router/index";
 
 import App from './App.vue'
-import "./styles/index.css";
-
+import elementPlus from "element-plus";
 import CompositePlus from '../../packages/components';
 
 // import IconExternalLink from './components/IconExternalLink.vue'
+import "element-plus/dist/index.css";
+import "./styles/index.scss";
 import ProCode from './components/ProCode.vue'
 
 const head = createHead()
@@ -18,4 +19,4 @@ const app = createApp(App)
 app
   .component('ProCode', ProCode)
 
-app.use(CompositePlus).use(router).use(head).mount('#app')
+app.use(elementPlus).use(CompositePlus).use(router).use(head).mount('#app')

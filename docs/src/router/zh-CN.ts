@@ -46,7 +46,7 @@ const zhCN: RouteRecordRaw[] = [
     path: "/zh-CN/components/",
     redirect: "/zh-CN/components/button",
     component: Layout,
-    meta: { title: "Components", icon: markRaw(TakeawayBox) },
+    meta: { title: "组件", icon: markRaw(TakeawayBox) },
     children: [
       {
         path: "/zh-CN/components/button",
