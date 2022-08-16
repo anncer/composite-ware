@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { useClipboard } from "@vueuse/core";
 import {
   CaretTop,
@@ -73,7 +73,7 @@ const { isSupported, copied, copy } = useClipboard({
 const meta = ref<HTMLElement>({} as HTMLElement);
 const isFixContorl = ref(false);
 const codeAreaHeight = ref(0);
-const link = computed(() => props.link?.replace(/^@/, github));
+const link = computed(() => props.link?.replace(/^@docs/, github));
 
 onMounted(() => {
   const foundDescs = meta.value.getElementsByClassName("description");
@@ -99,7 +99,7 @@ function open () {
   console.log('open')
 }
 
-const show = ref(false)
+const show = ref(true)
 watch(show, (value) => {
   if (value) {
     meta.value.style.height = `${codeAreaHeight.value}px`

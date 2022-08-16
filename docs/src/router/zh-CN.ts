@@ -44,14 +44,19 @@ const zhCN: RouteRecordRaw[] = [
   },
   {
     path: "/zh-CN/components/",
-    redirect: "/zh-CN/components/button",
+    redirect: "/zh-CN/components/link",
     component: Layout,
     meta: { title: "组件", icon: markRaw(TakeawayBox) },
     children: [
       {
-        path: "/zh-CN/components/button",
-        component: () => import("../../docs/zh-CN/components/button.md"),
-        meta: { title: "button" }
+        path: "/zh-CN/components/link",
+        component: () => import("../../docs/zh-CN/components/link.md"),
+        meta: { title: "link" }
+      },
+      {
+        path: "/zh-CN/components/orgSelector",
+        component: () => import("../../docs/zh-CN/components/orgSelector.md"),
+        meta: { title: "orgSelector" }
       }
     ]
   }

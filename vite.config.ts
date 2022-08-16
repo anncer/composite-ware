@@ -7,7 +7,7 @@ import { VitePWA } from "vite-plugin-pwa";
 import anchor from "markdown-it-anchor";
 import highlight from "./build/plugin/highlight";
 import snippet from "./build/plugin/snippet";
-import examples from "./build/plugin/examples";
+import example from "./build/plugin/example";
 import createContainer from "./build/plugin/create-container";
 import externalLinkIcon from "./build/plugin/external-link-icon";
 import preWrapper from "./build/plugin/pre-wrapper";
@@ -51,7 +51,7 @@ export default defineConfig({
       markdownItSetup(md) {
         md.use(snippet)
           .use(preWrapper)
-          .use(container, "examples", examples)
+          .use(container, "example", example)
           .use(externalLinkIcon)
           .use(anchor, {
             slugify: (str) => str.replace(/[ ]/g, "-").toLowerCase(),

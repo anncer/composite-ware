@@ -7,6 +7,10 @@ meta:
 
 # 介绍
 
+::: example 示例
+@docs/example/org-selector/base.vue
+:::
+
 composite-ware 是一个基于 [element-plus](https://element-plus.org/), [vue](https://v3.vuejs.org/), [vue-router](https://next.router.vuejs.org/) 的一个适用于中后台开发的一套组件库
 
 ## 起因

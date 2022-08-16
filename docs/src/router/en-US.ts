@@ -44,14 +44,19 @@ const enUS: RouteRecordRaw[] = [
   },
   {
     path: "/en-US/components/",
-    redirect: "/en-US/components/button",
+    redirect: "/en-US/components/link",
     component: Layout,
     meta: { title: "Components", icon: markRaw(TakeawayBox) },
     children: [
       {
-        path: "/en-US/components/button",
-        component: () => import("../../docs/en-US/components/button.md"),
-        meta: { title: "button" }
+        path: "/en-US/components/link",
+        component: () => import("../../docs/en-US/components/link.md"),
+        meta: { title: "link" }
+      },
+      {
+        path: "/en-US/components/orgSelector",
+        component: () => import("../../docs/en-US/components/orgSelector.md"),
+        meta: { title: "orgSelector" }
       }
     ]
   }

@@ -16,7 +16,7 @@ const router = createRouter();
 
 const app = createApp(App)
 // .component('IconExternalLink', IconExternalLink)
-app
-  .component('ProCode', ProCode)
+app.component('ProCode', ProCode)
+
 
 app.use(elementPlus).use(CompositePlus).use(router).use(head).mount('#app')
