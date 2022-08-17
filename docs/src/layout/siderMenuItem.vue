@@ -54,7 +54,6 @@ export default defineComponent({
   },
   setup(props) {
     const { item } = toRefs(props);
-    console.log(item, 'item')
     const checkPromise = (item: RouteRecordRaw) => {
       return isProperty(item, "isShow") && !item.hidden;
     };
