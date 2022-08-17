@@ -1,10 +1,24 @@
 ---
-title: link
+title: Link
 meta:
-  - name: link
-    content: link
+  - name: description
+    content: Generate appropriate tags based on link information
 ---
 
-# 链接
+# Link
 
-文字超链接
+> Generate appropriate tags based on link information
+
+## Use
+
+### Basic Use
+
+::: example 示例
+@docs/example/link/base.vue
+:::
+
+### Props
+
+| Name | Description  | Type              | Options | Default |
+| ---- | ------------ | ----------------- | ------- | ------- |
+| to   | link address | string / undefind | -       | -       |

@@ -11,7 +11,7 @@ import { linkProps } from './props'
 import type { UnknownObject } from '../types/index'
 
 export default defineComponent({
-  name: 'ProLink',
+  name: 'CeLink',
   props: linkProps,
   setup(props, { slots }) {
     const type = computed(() => {
@@ -33,7 +33,7 @@ export default defineComponent({
     return () =>
       h(
         resolveDynamicComponent(type.value) as DefineComponent,
-        mergeProps(attr.value, { class: 'pro-link' }),
+        mergeProps(attr.value, { class: 'e-link' }),
         slots
       )
   },

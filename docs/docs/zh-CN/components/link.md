@@ -1,10 +1,23 @@
 ---
-title: link
+title: Link
 meta:
-  - name: link
-    content: link
+  - name: description
+    content: 根据链接信息生成合适的标签
 ---
 
-# 链接
+# Link
 
-文字超链接
+> 根据链接信息生成合适的标签
+
+## 使用
+
+### 基础用法
+
+::: example 示例
+@docs/example/link/base.vue
+:::
+### 配置
+
+| 参数 | 说明     | 类型              | 可选值 | 默认值 |
+| ---- | -------- | ----------------- | ------ | ------ |
+| to   | 链接地址 | string / undefind | -      | -      |
