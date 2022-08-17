@@ -23,13 +23,13 @@
 </template>
 
 <script setup lang="ts">
-import { baseSelectorProps, tableColumnEmits } from './tableColumn.ts'
+import { tableProps, tableColumnEmits } from './tableColumn.ts'
 defineOpitons({
   name: 'tableColumn'
 })
 
-const props = defineProps(baseSelectorProps)
-
+const props = defineProps(tableProps)
+console.log(props, props)
 const emit = defineEmits(tableColumnEmits)
 
 
