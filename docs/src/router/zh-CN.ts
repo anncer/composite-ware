@@ -54,6 +54,11 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: "link" }
       },
       {
+        path: "/zh-CN/components/tableColumn",
+        component: () => import("../../docs/zh-CN/components/tableColumn.md"),
+        meta: { title: "tableColumn" }
+      },
+      {
         path: "/zh-CN/components/orgSelector",
         component: () => import("../../docs/zh-CN/components/orgSelector.md"),
         meta: { title: "orgSelector" }

@@ -5,7 +5,7 @@ meta:
     content: 根据链接信息生成合适的标签
 ---
 
-# Link
+## Link
 
 > 根据链接信息生成合适的标签
 
@@ -16,6 +16,7 @@ meta:
 ::: example 示例
 @docs/example/link/base.vue
 :::
+
 ### 配置
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |

@@ -5,7 +5,7 @@ meta:
     content: Generate appropriate tags based on link information
 ---
 
-# Link
+## Link
 
 > Generate appropriate tags based on link information
 
