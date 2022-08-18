@@ -1,15 +1,24 @@
 <template>
-  <div :style="sty" v-bind="elprops">
-    <el-table ref="tableBox" >
+  <div :style="sty">
+    <el-table ref="tableBox" :data="data" v-bind="elProps">
       <slot name="expand"></slot>
-      <el-table-column
+      <template
         v-for="(col,idx) in columns"
         :type="col.type"
-        :key="'-columns-'+code"
-        :prop="col.code"
-        v-bind="col"
+        :key="'-columns-'+col.code"
       >
-      </el-table-column>
+        <el-table-column
+          :prop="col.code"
+          v-bind="col"
+        >
+           <template v-if="!col.renderContext" #default="scope">
+           </template>
+           <template v-else #default="scope">
+            <div v-html="col.renderContext(scope)"></div>
+          </template>
+        </el-table-column>
+      </template>
+
       <slot></slot>
     </el-table>
   </div>
@@ -17,11 +26,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { tableProps, tableColumnEmits } from './default.ts'
-import { isEmpty } from '@composite-ware/utils'
-
-const tableKeys = [
-  "height,",
+import { tableProps, hasdProps } from './default'
+import { isEmpty, isProperty } from '@composite-ware/utils'
+type IElKey<T = typeof hasdProps> = keyof T
+// type IElKeys<T = typeof hasdProps> = IElKey<T>[]
+// type IElProps<T = typeof hasdProps> = {
+//   [Key in IElKey<T>]: T[Key]
+// }
+const tableKeys:IElKey[] = [
+  "height",
   "maxHeight",
   "border",
   "stripe",
@@ -35,36 +48,40 @@ const tableKeys = [
   "headerCellClassName",
   "headerCellStyle",
   "defaultSort",
+  "spanMethod",
+  "rowClassName",
+  "rowStyle",
+  "cellClassName",
+  "cellStyle",
+  "headerRowClassName",
+  "headerRowStyle",
+  "headerCellClassName",
+  "headerCellStyle",
+  "defaultSort"
 ]
-
 export default defineComponent({
   name: 'CeTableColumn',
   props: tableProps,
   setup(props) {
-    console.log(props, 'props')
-
-    const {columns, isPagination, data, minHeight, boxStyle } = props
-    const elProps = {}
+    const {columns, isPagination, data, boxStyle, height, stripe } = props
+    let elProps:any = {}
     tableKeys.forEach(key => {
-      if (props[key]) {
+      if (props[key] !== undefined) {
+        console.log(props[key],key, 'key')
         elProps[key] = props[key]
       }
     });
-    // const boxStyle:css
     let sty = {}
     if (!isEmpty(boxStyle)) {
       sty = boxStyle
     }
+    return {
+      elProps,
+      sty,
+      columns,
+      isPagination,
+      data,
+    }
   }
 })
-
-// defineOpitons({
-//   name: 'CeTableColumn'
-// })
-
-// const props = defineProps(tableProps)
-// console.log(props, 'props')
-// const emit = defineEmits(tableColumnEmits)
-
-
 </script>

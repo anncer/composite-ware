@@ -11,7 +11,7 @@ export interface TableColumnProp {
   type?: string;
   width?: string;
   minWidth?: string;
-  code?: string;
+  code: string;
   className?: string;
   labelClassName?: string;
   align?: 'left' | 'center' | 'right';
@@ -25,8 +25,8 @@ export interface TableColumnProp {
   formatter?: UnknownFunction;
 
   renderHeader?: UnknownFunction;
-
-  // render?: (row: T) => string | MaybeArray<VNode>
+  renderContext?: UnknownFunction;
+  // render?: () => string | MaybeArray<VNode>;
   showOverflowTooltip?: boolean;
 
   sortable?: boolean | 'custom';
@@ -37,23 +37,13 @@ export interface TableColumnProp {
   resizable ?: boolean;
 }
 
-export type ITableColumns = Array<TableColumnProp | UnknownObject>
+export type ITableColumns = Array<TableColumnProp>
 
 type PaginationKeys = Array<keyof typeof paginationProps>
 
 export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
 
-export const tableProps = {
-  ...paginationProps,
-  isPagination: Boolean,
-  columns: {
-    type: Array as PropType<ITableColumns>,
-    default: undefined,
-  },
-  data: {
-    type: Array as PropType<DefaultRow[]>,
-    default: () => [],
-  },
+export const hasdProps = {
   height: [String, Number],
   maxHeight: [String, Number],
   border: {
@@ -64,17 +54,14 @@ export const tableProps = {
     defalut: false,
     type: Boolean
   },
-  boxStyle: {
-    type: Object as PropType<CSSProperties>,
-    default: () => ({}),
-  },
   spanMethod: Function as PropType<TableProps<DefaultRow>['spanMethod']>,
+
   rowClassName: [String, Function] as PropType<TableProps<DefaultRow>['rowClassName']>,
   rowStyle: [Object, Function] as PropType<TableProps<DefaultRow>['rowStyle']>,
   cellClassName: [String, Function] as PropType<
     TableProps<DefaultRow>['cellClassName']
   >,
-   cellStyle: [Object, Function] as PropType<
+  cellStyle: [Object, Function] as PropType<
     TableProps<DefaultRow>['cellStyle']
   >,
   headerRowClassName: [String, Function] as PropType<
@@ -90,6 +77,25 @@ export const tableProps = {
     TableProps<DefaultRow>['headerCellStyle']
   >,
   defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
+
+}
+export const tableProps = {
+  ...paginationProps,
+  ...hasdProps,
+  isPagination: Boolean,
+  columns: {
+    type: Array as PropType<ITableColumns>,
+    require: true
+  },
+  data: {
+    type: Array as PropType<DefaultRow[]>,
+    default: () => [],
+  },
+  minHeight: [String, Number],
+  boxStyle: {
+    type: Object as PropType<CSSProperties>,
+    default: () => ({}),
+  }
 }
 
 export const tableColumnEmits = {

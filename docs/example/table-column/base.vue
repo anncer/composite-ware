@@ -1,15 +1,14 @@
 <template>
   <div>
-    <ce-table-column :columns="columns" :data="list">
+    <ce-table-column :columns="columns" :data="list" >
       <el-table-column label="Operations">
         <template #default="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)"
+          <el-button size="small"
             >Edit</el-button
           >
           <el-button
             size="small"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
             >Delete</el-button
           >
         </template>
@@ -23,7 +22,11 @@ const columns = [
   {
     label: "姓名",
     code: 'name',
-    align: 'left'
+    align: 'left',
+    renderContext: (scope) => {
+      console.log(scope.row.name, 'scope')
+      return `<span>${scope.row.name}水水水水</span>`
+    }
   },
   {
     label: "工号",
