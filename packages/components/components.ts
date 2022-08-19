@@ -1,15 +1,15 @@
 export * from './link/index'
-export * from './table-column/index'
+export * from './table/index'
 
 import { CeLink } from './link/index'
-import { CeTableColumn } from './table-column/src/tableColumn'
+import { CeTable } from './table/src/table'
 
 
 import type { Plugin } from 'vue'
 
 export default {
  CeLink,
- CeTableColumn
+ CeTable
 } as Record<string, Plugin>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -17,6 +17,6 @@ export default {
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CeLink: typeof CeLink
-    CeTableColumn: typeof CeTableColumn
+    CeTable: typeof CeTable
   }
 }

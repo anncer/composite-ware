@@ -2,13 +2,12 @@ import { PropType, CSSProperties } from 'vue'
 
 import { paginationProps } from 'element-plus'
 
-import type { UnknownFunction, UnknownObject } from '../../types/index'
+import type { UnknownFunction } from '../../types/index'
 import type { Placement } from 'element-plus'
 import type {  TableProps, DefaultRow } from 'element-plus/es/components/table/src/table/defaults'
-
 export interface TableColumnProp {
   label: string;
-  type?: string;
+  type?: 'selection' | 'index' | 'expand';
   width?: string;
   minWidth?: string;
   code: string;
@@ -26,7 +25,7 @@ export interface TableColumnProp {
 
   renderHeader?: UnknownFunction;
   renderContext?: UnknownFunction;
-  // render?: () => string | MaybeArray<VNode>;
+
   showOverflowTooltip?: boolean;
 
   sortable?: boolean | 'custom';
@@ -79,10 +78,20 @@ export const hasdProps = {
   defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
 
 }
+
+export const tableItemProps = {
+  item: {
+    type: Object as PropType<ITableColumns>,
+    require: true
+  }
+}
 export const tableProps = {
   ...paginationProps,
   ...hasdProps,
+
   isPagination: Boolean,
+  singleSelection: Boolean,
+
   columns: {
     type: Array as PropType<ITableColumns>,
     require: true
@@ -91,6 +100,7 @@ export const tableProps = {
     type: Array as PropType<DefaultRow[]>,
     default: () => [],
   },
+
   minHeight: [String, Number],
   boxStyle: {
     type: Object as PropType<CSSProperties>,
@@ -98,7 +108,29 @@ export const tableProps = {
   }
 }
 
-export const tableColumnEmits = {
-  load: (evt: Event) => evt instanceof Event,
-  select: () => {},
-}
+export const tableEmits = [
+  "select",
+  "select-all",
+  "selection-change",
+  "cell-mouse-enter",
+  "cell-mouse-leave",
+  "cell-contextmenu",
+  "cell-click",
+  "cell-dblclick",
+  "row-click",
+  "row-contextmenu",
+  "row-dblclick",
+  "header-click",
+  "header-contextmenu",
+  "sort-change",
+  "filter-change",
+  "current-change",
+  "header-dragend",
+  "expand-change",
+  'update:current-page',
+  'update:page-size',
+  'size-change',
+  'current-change',
+  'prev-click',
+  'next-click',
+]

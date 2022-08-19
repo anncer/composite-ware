@@ -1,7 +1,7 @@
 <template>
   <div>
-    <ce-table-column :columns="columns" :data="list" >
-      <el-table-column label="Operations">
+    <ce-table ref="tableRef123" :columns="columns" :data="list" @row-click="rowClick" :select-on-indeterminate="false" >
+      <el-table label="Operations">
         <template #default="scope">
           <el-button size="small"
             >Edit</el-button
@@ -12,13 +12,19 @@
             >Delete</el-button
           >
         </template>
-      </el-table-column>
-    </ce-table-column>
+      </el-table>
+    </ce-table>
   </div>
 </template>
 
 <script setup lang="ts">
+import {ref, onMounted} from 'vue'
 const columns = [
+  {
+    label: "选择",
+    code: '',
+    type: "selection"
+  },
   {
     label: "姓名",
     code: 'name',
@@ -47,4 +53,16 @@ const list = [
   {name: '赵六', code: '333', address: '南京市'},
   {name: '刘七', code: '333', address: '广州市'},
 ]
+const tableRef123 = ref(null)
+const rowClick = (a,b,c) => {
+  console.log(a,b,c, 'dd')
+}
+onMounted(() => {
+
+  const r1 = tableRef123.value.getTableRef()
+  const r2 = tableRef123.value.tableRef
+  console.log(r1 === r2, 'rrrrr')
+  console.log(r1, 'r1');
+  console.log(r2, 'r2');
+});
 </script>

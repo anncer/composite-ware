@@ -54,9 +54,9 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: "link" }
       },
       {
-        path: "/en-US/components/tableColumn",
-        component: () => import("../../docs/en-US/components/tableColumn.md"),
-        meta: { title: "tableColumn" }
+        path: "/en-US/components/table",
+        component: () => import("../../docs/en-US/components/table.md"),
+        meta: { title: "table" }
       },
       {
         path: "/en-US/components/orgSelector",

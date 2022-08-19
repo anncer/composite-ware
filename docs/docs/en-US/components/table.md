@@ -1,11 +1,11 @@
 ---
-title: tableColumn
+title: table
 meta:
-  - name: tableColumn
-    content: tableColumn
+  - name: table
+    content: table
 ---
 
-## tableColumn
+## table
 
 > Generate appropriate tags based on link information
 
@@ -14,5 +14,5 @@ meta:
 ### Basic Use
 
 ::: example 示例
-@docs/example/table-column/base.vue
+@docs/example/table/base.vue
 :::
