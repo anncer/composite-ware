@@ -1,15 +1,26 @@
-export * from './link/index'
-export * from './table/index'
+export * from './link'
+export * from './table'
+export * from './breadcrumb'
+export * from './item'
+export * from './title'
+export * from './card'
 
-import { CeLink } from './link/index'
+import { CeLink } from './link'
 import { CeTable } from './table/src/table'
-
+import { CeBreadcrumb } from './breadcrumb'
+import { CeItem } from './item'
+import { CeTitle } from './title'
+import { CeCard } from './card'
 
 import type { Plugin } from 'vue'
 
 export default {
  CeLink,
- CeTable
+ CeTable,
+ CeBreadcrumb,
+ CeItem,
+ CeTitle,
+ CeCard
 } as Record<string, Plugin>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -18,5 +29,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CeLink: typeof CeLink
     CeTable: typeof CeTable
+    CeBreadcrumb: typeof CeBreadcrumb
+    CeItem: typeof CeItem
+    CeTitle: typeof CeTitle,
+    CeCard: typeof CeCard
   }
 }

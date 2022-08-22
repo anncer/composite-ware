@@ -1,0 +1,41 @@
+// card
+.ce-card_wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  color: #303133;
+  transition: .3s;
+  flex-direction: column;
+
+  &:hover {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+  }
+
+  .ce-card_header {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .ce-card_body {
+    // padding: 24px;
+    background: #fdfdfd;
+    flex: 1;
+
+  }
+
+  .ce-card_footer {
+    height: 50px;
+    line-height: 50px;
+    font-size: 14px;
+  }
+}
+
+.ce-card_shadow {
+  box-shadow: 0 0 20px 0 rgba(37, 38, 94, 0.05);
+}

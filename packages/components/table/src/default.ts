@@ -81,10 +81,10 @@ export const hasdProps = {
 
 export const tableItemProps = {
   item: {
-    type: Object as PropType<ITableColumns>,
+    type: Object as PropType<TableColumnProp>,
     require: true
   }
-}
+} as const
 export const tableProps = {
   ...paginationProps,
   ...hasdProps,
@@ -107,6 +107,8 @@ export const tableProps = {
     default: () => ({}),
   }
 }
+
+export type IElKey<T = typeof hasdProps> = keyof T
 
 export const tableEmits = [
   "select",

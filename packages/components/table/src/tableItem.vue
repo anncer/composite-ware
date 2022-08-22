@@ -1,9 +1,9 @@
 <template>
   <el-table-column
-  :prop="item.code"
+  :prop="item && item.code"
   v-bind="item"
   >
-    <template v-if="!item.renderContext" #default="scope"></template>
+    <template v-if="item && !item.renderContext" #default></template>
     <template v-else #default="scope">
       <div v-html="item.renderContext(scope)"></div>
     </template>
@@ -11,16 +11,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { tableItemProps } from './default'
-console.log(tableItemProps, 'tableItemProps')
+
 export default defineComponent({
   name: "CeTableItem",
   props: tableItemProps,
   setup (props) {
     const { item } = props
     return {
-      item,
+      item
     }
   }
 })
