@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { CSSProperties, defineComponent } from 'vue';
-import { CardProps } from './card'
+import { CardProps } from './props'
 
 export default defineComponent({
   name: "CeCard",

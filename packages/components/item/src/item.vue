@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed } from 'vue';
-import { ItemProps, IItemProps } from './item'
+import { ItemProps } from './props'
 
 export default defineComponent({
   name: "CeItem",

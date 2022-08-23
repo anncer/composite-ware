@@ -13,7 +13,8 @@
 
 <script lang="ts">
 import { defineComponent, computed } from 'vue';
-import { TitleProps } from './title'
+import { TitleProps } from './props'
+
 export default defineComponent({
   name: "CeTitle",
   props: TitleProps,

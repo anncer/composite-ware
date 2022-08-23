@@ -59,6 +59,26 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: "table" }
       },
       {
+        path: "/zh-CN/components/card",
+        component: () => import("../../docs/zh-CN/components/card.md"),
+        meta: { title: "card" }
+      },
+      {
+        path: "/zh-CN/components/item",
+        component: () => import("../../docs/zh-CN/components/item.md"),
+        meta: { title: "item" }
+      },
+      {
+        path: "/zh-CN/components/title",
+        component: () => import("../../docs/zh-CN/components/title.md"),
+        meta: { title: "title" }
+      },
+      {
+        path: "/zh-CN/components/baseSelector",
+        component: () => import("../../docs/zh-CN/components/baseSelector.md"),
+        meta: { title: "baseSelector" }
+      },
+      {
         path: "/zh-CN/components/orgSelector",
         component: () => import("../../docs/zh-CN/components/orgSelector.md"),
         meta: { title: "orgSelector" }
