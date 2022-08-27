@@ -2,7 +2,7 @@
   <div>
     <ce-table :columns="columns" :data="list" @row-click="rowClick" :select-on-indeterminate="false" >
 
-      <el-table label="Operations">
+      <el-table-column label="Operations">
         <template #default>
           <el-button size="small"
             >Edit</el-button
@@ -13,7 +13,7 @@
             >Delete</el-button
           >
         </template>
-      </el-table>
+      </el-table-column>
     </ce-table>
   </div>
 </template>

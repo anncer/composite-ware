@@ -8,6 +8,7 @@ import CompositePlus from '../../packages/components';
 
 // import IconExternalLink from './components/IconExternalLink.vue'
 import "element-plus/dist/index.css";
+import "@composite-ware/theme-chalk/src/index.scss";
 import "./styles/index.scss";
 import ProCode from './components/ProCode.vue'
 

@@ -3,13 +3,13 @@ import { ITableColumns } from '@composite-ware/components/table/src/default'
 
 export interface IQueryProps {
   code: string,
+  type: 'select' | 'input'
   label?: string,
   optValue?: string,
   optLabel?: string,
   url?: string,
   method?: 'get' | 'post' | 'delete' | 'patch',
   headers?: any,
-  type: 'select' | 'input'
 }
 
 export type IQuerys = Array<IQueryProps>
@@ -48,8 +48,10 @@ export const baseSelectorProps = ({
     type: Boolean
   },
   query: {
-    type: Array as PropType<IQuerys>,
-    require: true
+    type: Array as PropType<IQuerys>
+  },
+  defalutSelected: {
+    type: Array,
   }
 }) as const
 

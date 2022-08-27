@@ -6,14 +6,22 @@
       v-bind="elProps"
       v-on= tableEvents
     >
-      <slot name="prev"></slot>
-      <template
-        v-for="(col,idx) in columns"
-        :type="col.type"
-        :key="'-columns-'+col.code"
-      >
-        <table-item :item="col"></table-item>
-      </template>
+        <slot name="prev"></slot>
+        <template
+          v-for="item in columns"
+          :type="item.type"
+          :key="'-columns-'+item.code"
+        >
+         <el-table-column
+          :prop="item && item.code"
+          v-bind="item"
+          >
+            <template v-if="item && !item.renderContext" #default></template>
+            <template v-else #default="scope">
+              <div v-html="item.renderContext(scope)"></div>
+            </template>
+        </el-table-column>
+        </template>
       <slot></slot>
     </el-table>
     <div v-if="isPagination">
@@ -116,7 +124,7 @@ export default defineComponent({
 
     makeEvents(tableEmits, tableEvents)
     makeEvents(paginationEs, paginationEvents)
-
+    console.log(columns, '11columns')
     return {
       elProps,
       sty,

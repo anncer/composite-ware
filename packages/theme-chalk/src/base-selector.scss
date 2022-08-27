@@ -1,0 +1,26 @@
+.el-table__header .ce-table-radio {
+  .el-checkbox{
+    display: none !important;
+  }
+
+}
+
+.ce-table-radio .el-checkbox__inner{
+  border-radius: 50% !important;
+  &::after{
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color: #fff;
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%) scale(0);
+    transition: transform .15s ease-in;
+  }
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner::after{
+  transform: translate(-50%,-50%) scale(1)
+}

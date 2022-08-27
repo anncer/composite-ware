@@ -34,7 +34,11 @@
         </el-form>
       </el-col>
     </el-row>
-    <ce-table></ce-table>
+    <ce-table :data="list" :columns="columns" @selection-change="handleSelectionChange">
+      <template  #prev>
+        <el-table-column :class-name="selectionClazz" type="selection" width="40" ></el-table-column>
+      </template>
+    </ce-table>
     <div slot="footer">
       <el-button type="primary" @click="handleConfirm">确 定</el-button>
       <el-button @click="handleCancle">取 消</el-button>
@@ -45,10 +49,10 @@
 <script lang="ts">
 import { defineComponent, ref, reactive, watch, toRefs } from 'vue';
 import { baseSelectorProps, baseSelectorEmits } from './props'
-import { CeTable } from '@composite-ware/components/table/index'
-import { isEmpty } from '@composite-ware/utils';
-import Api from '@composite-ware/service'
-
+import { CeTable } from '@composite-ware/components/table'
+import { useQueryParams, useSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
+import { IQuerys } from './props'
+import type { Ref } from 'vue'
 
 export default defineComponent({
   name: "CeBaseSelector",
@@ -56,64 +60,62 @@ export default defineComponent({
   components: { CeTable },
   emits: baseSelectorEmits,
   setup(props, {emit}) {
-    const { title,  show, width, query } = toRefs(props)
-    const isShow = ref(false)
 
+    const tableData:any = []
+    const cacheData:any = []
+    let oldSelection:any = {}
+    let currentSelection:any = []
+    let defaultSelection:any = []
+
+    const { title,  show, width, query  } = toRefs(props)
+    const { defalutSelected } = props
+    const { columns, multiple } = props
+
+    console.log(multiple, 'multiple')
+    console.log(columns, 'columns')
+
+    const isShow = ref(false)
     watch(show, (value) => {
       isShow.value = value
     })
 
+    useSetDefalutSelected(defalutSelected as any[])
+
+    const handleSelectionChange = (val:any) => {
+      useSelectionChange(val)
+    }
+
+    const list = [
+      {fullName: '张三', code: '123', deptName: '人事处', empTypeName: '北京市', erpNo: '111'},
+      {fullName: '李四', code: '222', deptName: '信息处', empTypeName: '天津市', erpNo: '222'},
+      {fullName: '王五', code: '312', deptName: '质量安全环保处', empTypeName: '上海市', erpNo: '333'},
+      {fullName: '赵六', code: '423', deptName: '南京市', empTypeName: '南京市', erpNo: '444'},
+      {fullName: '刘七', code: '512', deptName: '广州市', empTypeName: '广州市', erpNo: '555'},
+    ]
+
+    const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
+
     const searchParams:any = reactive({})
     const searchParamsOptions:any = reactive({})
+    useQueryParams(query as Ref<IQuerys>, searchParams, searchParamsOptions)
 
-    const handleConfirm = () => {
-      console.log('confirm')
-    }
-
-    const handleCancle = () => {
-      console.log('handleCancle')
-    }
-
-    const handleClosed = () => {
-      console.log('handleClosed')
-      emit('closed', false)
-    }
-    const urls:any[] = []
-    if (query && query.value && !isEmpty(query.value)) {
-      query.value.forEach(q => {
-        searchParams[q.code] = null
-        if (q.url) {
-          const method = q.method?.toUpperCase() || 'GET'
-          const params:any = {
-            url: q.url,
-            method
-          }
-          if (q.headers) {
-            params.headers = q.headers
-          }
-          urls.push(Api.request(params))
-        }
-
-
-      });
-      Promise.all(urls)
-        .then(responseArr => {
-          responseArr
-          console.log(responseArr[0], 'responseArr')
-        })
-      console.log(urls, 'urls')
-    }
-
+    const { handleConfirm, handleCancle, handleClosed } = usePaginationEvents(emit)
     return {
+      multiple,
       isShow,
       title,
       width,
       query,
+      columns,
+      list,
+      tableData,
+      selectionClazz,
       handleConfirm,
       handleCancle,
       handleClosed,
       searchParams,
-      searchParamsOptions
+      searchParamsOptions,
+      handleSelectionChange
     }
   }
 })
