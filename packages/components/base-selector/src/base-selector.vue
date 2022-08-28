@@ -13,16 +13,16 @@
         <el-form
           ref="searchParams"
           label-position="top"
-          :model="searchParams"
+          :model="queryProps"
           inline
           label-width="80px"
         >
-        <el-form-item v-for="it in query" :key="it.code" :label="it.label">
+        <el-form-item v-for="it in queryProps" :key="it.code" :label="it.label">
           <template v-if="it.type==='input'">
-            <el-input v-model="searchParams[it.code]" clearable></el-input>
+            <el-input v-model="it.value" clearable></el-input>
           </template>
           <template v-if="it.type==='select'">
-            <el-select v-model="searchParams[it.code]" placeholder="请选择" filterable clearable>
+            <el-select v-model="it.value" placeholder="请选择" filterable clearable>
               <el-option
                v-for="opt in searchParamsOptions[it.code]"
               :label="opt[it.optLabel || 'label']"
@@ -47,11 +47,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, watch, toRefs } from 'vue';
+import { defineComponent, ref, reactive, watch, toRefs, mergeProps } from 'vue';
 import { baseSelectorProps, baseSelectorEmits } from './props'
 import { CeTable } from '@composite-ware/components/table'
 import { useQueryParams, useSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
-import { IQuerys } from './props'
+import { IQuerys, IQueryProp  } from './props'
 import type { Ref } from 'vue'
 
 export default defineComponent({
@@ -67,9 +67,8 @@ export default defineComponent({
     let currentSelection:any = []
     let defaultSelection:any = []
 
-    const { title,  show, width, query  } = toRefs(props)
-    const { defalutSelected } = props
-    const { columns, multiple } = props
+    const { title,  show, width  } = toRefs(props)
+    const { columns, multiple, defalutSelected, query } = props
 
     console.log(multiple, 'multiple')
     console.log(columns, 'columns')
@@ -94,18 +93,22 @@ export default defineComponent({
     ]
 
     const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
-
-    const searchParams:any = reactive({})
     const searchParamsOptions:any = reactive({})
-    useQueryParams(query as Ref<IQuerys>, searchParams, searchParamsOptions)
+
+    const {queryProps, isDef} = useQueryParams(query as IQuerys)
+    console.log(queryProps, 'queryProps')
+    console.log(isDef, 'isDef')
 
     const { handleConfirm, handleCancle, handleClosed } = usePaginationEvents(emit)
+
+    console.log(query, 'query')
+
     return {
       multiple,
       isShow,
       title,
       width,
-      query,
+      queryProps,
       columns,
       list,
       tableData,
@@ -113,7 +116,6 @@ export default defineComponent({
       handleConfirm,
       handleCancle,
       handleClosed,
-      searchParams,
       searchParamsOptions,
       handleSelectionChange
     }

@@ -1,54 +1,45 @@
 import Api from '@composite-ware/service'
-import { isEmpty } from '@composite-ware/utils';
-import { reactive } from 'vue'
+import { isEmpty, isProperty } from '@composite-ware/utils';
+import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-type emitFn = (event: string, ...args: any[]) => void
 import { IQuerys } from './props'
-export const useQueryParams = (query:Ref<IQuerys> | undefined, searchParams: any, searchParamsOptions: any) => {
-  const urls:any[] = []
+type emitFn = (event: string, ...args: any[]) => void
 
-    if (query && query.value && !isEmpty(query.value)) {
-      query.value.forEach(q => {
-        searchParams[q.code] = null
-        if (q.url) {
-          const method = q.method?.toUpperCase() || 'GET'
-          const params:any = {
-            url: q.url,
-            method
-          }
-          if (q.headers) {
-            params.headers = q.headers
-          }
-          urls.push(Api.request(params))
+export const useQueryParams = (query:IQuerys | undefined) => {
+  const reqs:any[] = []
+  const queryProps:Ref<IQuerys> = ref([])
+  let isDef = false
+  if (query) {
+    query.forEach(it => {
+      if (!isProperty(it, 'vlaue')) {
+        it.value = ''
+        isDef = true
+      }
+      queryProps.value.push(it)
+      if (it.url) {
+        const method = it.method?.toUpperCase() || 'GET'
+        const reqParam:any = {
+          url: it.url,
+          method
         }
-      });
-      Promise.all(urls)
-        .then(responseArr => {
-          responseArr
-          console.log(responseArr[0], 'responseArr')
-        })
-      console.log(urls, 'urls')
-    }
+        if (it.headers) {
+          reqParam.headers = it.headers
+        }
+        if (it.params) {
+          reqParam.data = it.params
+        }
+        // reqs.push(Api.request(params))
+      }
+    })
+  }
+  Promise.all(reqs)
+    .then(responseArr => {
+      console.log(responseArr[0], 'responseArr')
+    })
+  return {queryProps, isDef}
 }
 
 export const useSelectionChange = (val: any) => {
-
-      // if (!val.length) {
-      //   currentSelection = []
-      //   oldSelection = {}
-      // } else {
-      // const ids:any[] = val.map((it:any)=> it.code)
-      // const a = ids.filter(it => !oldSelection.includes(it))
-      // console.log(a, 'aaa')
-      // currentSelection = a
-      // oldSelection = a
-      // }
-
-      // if (val.length > 1) {
-
-      // } else {
-      //   currentSelection = val
-      // }
       console.log(val, 'val')
 }
 

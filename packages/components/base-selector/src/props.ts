@@ -1,7 +1,7 @@
 import { PropType } from 'vue'
 import { ITableColumns } from '@composite-ware/components/table/src/default'
 
-export interface IQueryProps {
+export interface IQueryProp {
   code: string,
   type: 'select' | 'input'
   label?: string,
@@ -10,9 +10,17 @@ export interface IQueryProps {
   url?: string,
   method?: 'get' | 'post' | 'delete' | 'patch',
   headers?: any,
+  value?: any,
+  params?: any
 }
 
-export type IQuerys = Array<IQueryProps>
+export type IQuerys = Array<IQueryProp>
+
+// export interface IQueryPropsValue extends IQueryProps{
+//   value: any
+// }
+
+// export type IQueryPropsValues = Array<IQueryPropsValue>
 
 export const baseSelectorProps = ({
   show: {
