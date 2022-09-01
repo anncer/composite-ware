@@ -89,7 +89,10 @@ export const tableProps = {
   ...paginationProps,
   ...hasdProps,
 
-  isPagination: Boolean,
+  isPagination: {
+    type: Boolean,
+    default: true
+  },
   singleSelection: Boolean,
 
   columns: {
@@ -110,6 +113,8 @@ export const tableProps = {
 
 export type IElKey<T = typeof hasdProps> = keyof T
 
+export const paginationEs = ["update:current-page", "update:page-size", 'size-change', 'current-change', 'prev-click', 'next-click']
+
 export const tableEmits = [
   "select",
   "select-all",
@@ -126,13 +131,7 @@ export const tableEmits = [
   "header-contextmenu",
   "sort-change",
   "filter-change",
-  "current-change",
+  "table-current",
   "header-dragend",
   "expand-change",
-  'update:current-page',
-  'update:page-size',
-  'size-change',
-  'current-change',
-  'prev-click',
-  'next-click',
 ]

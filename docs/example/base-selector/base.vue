@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-button @click="handleClick">显示搜索器</el-button>
-    <ce-baseSelector :multiple="false" :show="show" width="60%" @closed="handleClosed" :columns="columns" :query="query">
+    <el-button ref="refButton" @click="handleClick">显示搜索器</el-button>
+    <ce-baseSelector :multiple="true" :show="show" width="60%" @closed="handleClosed" :columns="columns" :query="query">
 
     </ce-baseSelector>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const show = ref(false)
 const handleClick = () => {
   show.value = true
@@ -52,6 +52,12 @@ const columns = [
       code: 'erpNo'
     }
   ]
+const refButton:any = ref(null)
+onMounted(() => {
+  const { disabled } = refButton
+  console.log(disabled, 'disabled')
+  console.log(refButton, 'refButton')
+})
 
 const handleClosed = () => {
   show.value = false

@@ -7,7 +7,6 @@
     :width="width"
     @close="handleClosed"
   >
-
     <el-row class="bi-params-line clearfix">
       <el-col :span="24">
         <el-form
@@ -34,7 +33,7 @@
         </el-form>
       </el-col>
     </el-row>
-    <ce-table :data="list" :columns="columns" @selection-change="handleSelectionChange">
+    <ce-table ref="refCeTable" :data="tableData" @current-change="handleCurrentChange" layout="prev, pager, next" :total="15" :columns="columns" @select="handleSelecct">
       <template  #prev>
         <el-table-column :class-name="selectionClazz" type="selection" width="40" ></el-table-column>
       </template>
@@ -46,79 +45,86 @@
   </el-dialog>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, reactive, watch, toRefs, mergeProps } from 'vue';
-import { baseSelectorProps, baseSelectorEmits } from './props'
-import { CeTable } from '@composite-ware/components/table'
-import { useQueryParams, useSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
-import { IQuerys, IQueryProp  } from './props'
+<script lang="ts" setup>
+import { ref, reactive, watch, toRefs, onMounted } from 'vue';
 import type { Ref } from 'vue'
+import { baseSelectorProps, baseSelectorEmits } from './props'
+import CeTable from '@composite-ware/components/table'
+import { useQueryParams, useSingleSelectionChange, useMultipleSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
+import { IQuerys } from './props'
 
-export default defineComponent({
-  name: "CeBaseSelector",
-  props: baseSelectorProps,
-  components: { CeTable },
-  emits: baseSelectorEmits,
-  setup(props, {emit}) {
+  defineOptions({
+    name: 'CeBaseSelector',
+  })
+  const props = defineProps(baseSelectorProps)
+  const emit = defineEmits(baseSelectorEmits)
 
-    const tableData:any = []
-    const cacheData:any = []
-    let oldSelection:any = {}
-    let currentSelection:any = []
-    let defaultSelection:any = []
+  const key = props.prop.key
+  const refCeTable:any = ref(null)
 
-    const { title,  show, width  } = toRefs(props)
-    const { columns, multiple, defalutSelected, query } = props
+  // const tableData:any = []
+  const cacheData:any = []
+  let currentSelection:any = []
+  let defaultSelection:any = []
 
-    console.log(multiple, 'multiple')
-    console.log(columns, 'columns')
+  const { title,  show, width  } = toRefs(props)
+  const { columns, multiple, defalutSelected, query } = props
 
-    const isShow = ref(false)
-    watch(show, (value) => {
-      isShow.value = value
-    })
+  console.log(multiple, 'multiple')
+  console.log(columns, 'columns')
 
-    useSetDefalutSelected(defalutSelected as any[])
+  const isShow = ref(false)
+  watch(show, (value) => {
+    isShow.value = value
+  })
 
-    const handleSelectionChange = (val:any) => {
-      useSelectionChange(val)
+  useSetDefalutSelected(defalutSelected as any[])
+
+  const handleSelecct = (section:any) => {
+    console.log(section, 'section')
+    const table = refCeTable.value.getTableRef()
+    if (!multiple) {
+      currentSelection = useSingleSelectionChange(section, table)
+    } else {
+      currentSelection = useMultipleSelectionChange(section)
     }
-
-    const list = [
-      {fullName: '张三', code: '123', deptName: '人事处', empTypeName: '北京市', erpNo: '111'},
-      {fullName: '李四', code: '222', deptName: '信息处', empTypeName: '天津市', erpNo: '222'},
-      {fullName: '王五', code: '312', deptName: '质量安全环保处', empTypeName: '上海市', erpNo: '333'},
-      {fullName: '赵六', code: '423', deptName: '南京市', empTypeName: '南京市', erpNo: '444'},
-      {fullName: '刘七', code: '512', deptName: '广州市', empTypeName: '广州市', erpNo: '555'},
-    ]
-
-    const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
-    const searchParamsOptions:any = reactive({})
-
-    const {queryProps, isDef} = useQueryParams(query as IQuerys)
-    console.log(queryProps, 'queryProps')
-    console.log(isDef, 'isDef')
-
-    const { handleConfirm, handleCancle, handleClosed } = usePaginationEvents(emit)
-
-    console.log(query, 'query')
-
-    return {
-      multiple,
-      isShow,
-      title,
-      width,
-      queryProps,
-      columns,
-      list,
-      tableData,
-      selectionClazz,
-      handleConfirm,
-      handleCancle,
-      handleClosed,
-      searchParamsOptions,
-      handleSelectionChange
-    }
+    console.log(currentSelection, 'currentSelection')
   }
-})
+
+  const list = [
+    {fullName: '张三', id: '01', deptName: '人事处', empTypeName: '北京市', erpNo: '111'},
+    {fullName: '李四', id: '02', deptName: '信息处', empTypeName: '天津市', erpNo: '222'},
+    {fullName: '王五', id: '03', deptName: '质量安全环保处', empTypeName: '上海市', erpNo: '333'},
+    {fullName: '赵六', id: '04', deptName: '南京市', empTypeName: '南京市', erpNo: '444'},
+    {fullName: '刘七', id: '05', deptName: '广州市', empTypeName: '广州市', erpNo: '555'},
+    {fullName: 'tom', id: '06', deptName: '212', empTypeName: '深圳', erpNo: '666'},
+    {fullName: 'tony', id: '07', deptName: '1111', empTypeName: '佛山', erpNo: '777'},
+    {fullName: 'nancy', id: '08', deptName: '3333', empTypeName: '东莞', erpNo: '888'},
+    {fullName: 'john', id: '09', deptName: '555', empTypeName: '江苏', erpNo: '999'},
+    {fullName: 'black', id: '10', deptName: '777', empTypeName: '福州', erpNo: '1111'},
+    {fullName: 'fox', id: '11', deptName: '888', empTypeName: '抚顺', erpNo: '2222'},
+    {fullName: 'white', id: '12', deptName: '999', empTypeName: '唐山', erpNo: '3333'},
+    {fullName: 'lucy', id: '13', deptName: 'xxx', empTypeName: '湖北', erpNo: '4444'},
+    {fullName: 'lulu', id: '14', deptName: 'ddd', empTypeName: '海南', erpNo: '5555'},
+    {fullName: 'marry', id: '15', deptName: 'eee', empTypeName: '广西', erpNo: '6666'},
+  ]
+
+  const tableData:Ref<any[]> = ref(list.slice(0,10))
+  // let tableData = list.slice(0,10)
+  const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
+  const searchParamsOptions:any = reactive({})
+
+  const handleCurrentChange = (val:any) => {
+    tableData.value = list.slice((val - 1 ) * 10, val* 10)
+  }
+
+  const {queryProps, isDef} = useQueryParams(query as IQuerys)
+
+  const { handleConfirm, handleCancle, handleClosed } = usePaginationEvents(emit)
+
+  console.log(query, 'query')
+
+  onMounted(() => {
+    console.log(refCeTable, 'refCeTable')
+  })
 </script>

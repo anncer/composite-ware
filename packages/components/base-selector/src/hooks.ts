@@ -39,8 +39,15 @@ export const useQueryParams = (query:IQuerys | undefined) => {
   return {queryProps, isDef}
 }
 
-export const useSelectionChange = (val: any) => {
-      console.log(val, 'val')
+export const useSingleSelectionChange = (section: any, table: any) => {
+  if (section.length > 1) {
+    table.value.toggleRowSelection(section.shift(), false); // 用于多选表格，切换某一行的选中状态，如果使用了第二个参数，则是设置这一行选中与否（selected 为 true 则选中）
+  }
+  return table.value.getSelectionRows()
+}
+
+export const useMultipleSelectionChange = (val: any) => {
+  console.log(val, 'val')
 }
 
 export const usePaginationEvents = (emit: emitFn) => {

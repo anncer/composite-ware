@@ -22,6 +22,10 @@ export type IQuerys = Array<IQueryProp>
 
 // export type IQueryPropsValues = Array<IQueryPropsValue>
 
+export interface dataProp {
+  key: string
+}
+
 export const baseSelectorProps = ({
   show: {
     default: false,
@@ -60,6 +64,11 @@ export const baseSelectorProps = ({
   },
   defalutSelected: {
     type: Array,
+  },
+  // 数据的唯一键，用于标识数据
+  prop: {
+    type: Object as PropType<dataProp>,
+    default: () => ({ key: 'id' })
   }
 }) as const
 
