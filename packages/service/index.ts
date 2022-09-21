@@ -1,17 +1,24 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import GlobalRequest from "./request";
-import { BASE_URL, TIME_OUT } from "./request/config";
-// import cookie from "@/utils/cache";
+import { cookie } from "@composite-ware/utils";
+import { AxiosRequestHeaders } from 'axios'
 
 const Api = new GlobalRequest({
-  baseURL: BASE_URL,
-  timeout: TIME_OUT,
+  baseURL: "",
   interceptors: {
     requestInterceptor: (config) => {
-      // const token = cookie.get("Authorization");
-      // if (token) {
-      //   config.headers!.Authorization = `Bearer ${token}`;
-      // }
+      let token = cookie.get("ESP-TOKEN")
+      if (token) {
+        const headers:AxiosRequestHeaders = {};
+        headers['ESP-TOKEN'] = token;
+        headers.Authorization = token;
+        const url = config.url
+        if (url?.includes('dmpp') && !url.includes('login')){
+          const t = cookie.get("DMPP-TOKEN")
+          headers.Authorization = `${t}`;
+        }
+        config.headers = config.headers ? { ...config.headers, ...headers } : headers;
+      }
       return config;
     },
     requestInterceptorCatch: (error) => {

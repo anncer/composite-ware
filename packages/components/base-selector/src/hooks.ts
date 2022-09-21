@@ -2,8 +2,41 @@ import Api from '@composite-ware/service'
 import { isEmpty, isProperty } from '@composite-ware/utils';
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import { IQuerys } from './props'
+import { IQuerys, IUserParamsProp } from './props'
 type emitFn = (event: string, ...args: any[]) => void
+
+const baseUserServiceApi = "/api/admin-v2/user/page/or/list"
+
+export const useGetData = (userParams: IUserParamsProp | undefined = {}, query?:object | undefined) => {
+  const { url, method, headers, params, loading} = userParams
+  const userRequestMethod = method ? method : "post"
+  const path: string = url ? url : baseUserServiceApi
+  const baseParams = {
+    enabledPage: true,
+    page: 1,
+    size: 10,
+    ids: [],
+    params: {}
+  }
+  const reqParams:any = { data: params || baseParams, loading: loading || true}
+  query && (reqParams.data = Object.assign(reqParams.data, query))
+  headers && (reqParams.headers = headers)
+  return useApiService(path, userRequestMethod, reqParams)
+}
+
+export const useUserDataByPage = (page:number, size:number) => {
+  return useGetData(undefined, {page, size})
+}
+
+export const useApiService = (url: string, method: string = "GET", params?: Object) => {
+  const reqParam:any = {
+    url,
+    method,
+    ...params
+  }
+  console.log(reqParam, 'reqParam')
+  return Api.request(reqParam)
+}
 
 export const useQueryParams = (query:IQuerys | undefined) => {
   const reqs:any[] = []
@@ -19,8 +52,6 @@ export const useQueryParams = (query:IQuerys | undefined) => {
       if (it.url) {
         const method = it.method?.toUpperCase() || 'GET'
         const reqParam:any = {
-          url: it.url,
-          method
         }
         if (it.headers) {
           reqParam.headers = it.headers
@@ -28,7 +59,8 @@ export const useQueryParams = (query:IQuerys | undefined) => {
         if (it.params) {
           reqParam.data = it.params
         }
-        // reqs.push(Api.request(params))
+        // http://10.28.89.10:8765/api/admin-v2/user/page/or/list
+        // reqs.push(useApiService(url, method, reqParam))
       }
     })
   }
@@ -46,8 +78,15 @@ export const useSingleSelectionChange = (section: any, table: any) => {
   return table.value.getSelectionRows()
 }
 
-export const useMultipleSelectionChange = (val: any) => {
-  console.log(val, 'val')
+export const useMultipleSelectionChange = (val: any, cacheMultipleSelection:any, key: string) => {
+  const n:any = []
+  val.forEach((v:any) => {
+    const isHas = cacheMultipleSelection.filter((item:any) => { return item[key] === v[key]}).length;
+    if (isHas === 0) {
+      n.push(v)
+    }
+  });
+  return n
 }
 
 export const usePaginationEvents = (emit: emitFn) => {

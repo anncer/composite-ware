@@ -24,9 +24,7 @@
         </template>
       <slot></slot>
     </el-table>
-    <div v-if="isPagination">
-      <el-pagination v-on="paginationEvents" v-bind="paginationProps"/>
-    </div>
+    <el-pagination  v-if="isPage"  v-model:currentPage="currentPage" v-model:page-size="pageSize" v-on="paginationEvents" v-bind="paginationProps"/>
   </div>
 </template>
 
@@ -73,23 +71,25 @@ import { isEmpty } from '@composite-ware/utils'
   const props = defineProps(tableProps)
   const emit = defineEmits(tableEmits)
 
-  const { isPagination,  boxStyle, height, stripe } = props
-  const { columns, data  } = toRefs(props)
+  const { columns, data, isPage,  boxStyle, currentPage, pageSize  } = toRefs(props)
 
   let elProps:any = {}
   let paginationProps:any = {}
 
   tableKeys.forEach(key => {
-    if (props[key] !== undefined) {
+    if (props[key] !== undefined && props[key] !== "") {
       elProps[key] = props[key]
     }
   });
 
   paginationKeys.forEach(key => {
-    if (props[key] !== undefined) {
+    if (props[key] !== undefined && props[key] !== "" && !['currentPage', 'pageSize'].includes(key)) {
       paginationProps[key] = props[key]
     }
   });
+
+  console.log(isPage, 'isPage')
+  console.log(paginationProps, 'paginationProps')
 
   let sty = {}
   if (!isEmpty(boxStyle)) {

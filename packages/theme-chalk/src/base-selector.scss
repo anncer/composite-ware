@@ -21,6 +21,6 @@
   }
 }
 
-.el-checkbox__input.is-checked .el-checkbox__inner::after{
+.is-single .el-checkbox__input.is-checked .el-checkbox__inner::after{
   transform: translate(-50%,-50%) scale(1)
 }

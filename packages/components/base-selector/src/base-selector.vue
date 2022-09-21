@@ -33,7 +33,21 @@
         </el-form>
       </el-col>
     </el-row>
-    <ce-table ref="refCeTable" :data="tableData" @current-change="handleCurrentChange" layout="prev, pager, next" :total="15" :columns="columns" @select="handleSelecct">
+    <ce-table ref="refCeTable"
+      :class="[multiple? 'is-multiple' : 'is-single']"
+      :data="tableData2"
+      :columns="columns"
+      @selection-change="handleSelectionChange"
+      @select="handleSelecct"
+
+      :isPage="true"
+      layout="prev, pager, next"
+      :total="15"
+      :currentPage="currentPage"
+      :pageSize="pageSize"
+      :background="true"
+      @current-change="handleCurrentChange"
+    >
       <template  #prev>
         <el-table-column :class-name="selectionClazz" type="selection" width="40" ></el-table-column>
       </template>
@@ -46,16 +60,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, watch, toRefs, onMounted } from 'vue';
+import { ref, reactive, watch, toRefs, onMounted, nextTick } from 'vue';
 import type { Ref } from 'vue'
 import { baseSelectorProps, baseSelectorEmits } from './props'
-import CeTable from '@composite-ware/components/table'
-import { useQueryParams, useSingleSelectionChange, useMultipleSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
 import { IQuerys } from './props'
+import CeTable from '@composite-ware/components/table'
+import { useUserDataByPage, useGetData, useQueryParams, useSingleSelectionChange, useMultipleSelectionChange, usePaginationEvents, useSetDefalutSelected } from './hooks'
 
   defineOptions({
     name: 'CeBaseSelector',
   })
+
   const props = defineProps(baseSelectorProps)
   const emit = defineEmits(baseSelectorEmits)
 
@@ -63,12 +78,13 @@ import { IQuerys } from './props'
   const refCeTable:any = ref(null)
 
   // const tableData:any = []
-  const cacheData:any = []
   let currentSelection:any = []
+  let cacheMultipleSelection:any = []
+  let multipleSelection:any = []
   let defaultSelection:any = []
 
-  const { title,  show, width  } = toRefs(props)
-  const { columns, multiple, defalutSelected, query } = props
+  const { title,  show, width } = toRefs(props)
+  const { columns, multiple, defalutSelected, query, userParams } = props
 
   console.log(multiple, 'multiple')
   console.log(columns, 'columns')
@@ -77,21 +93,67 @@ import { IQuerys } from './props'
   watch(show, (value) => {
     isShow.value = value
   })
-
+  // 设置默认选中项
   useSetDefalutSelected(defalutSelected as any[])
 
+  // 获取表格数据相关
+  const tableData:Ref<any[]> = ref([])
+  const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
+  const searchParamsOptions:any = reactive({})
+
+  const currentPage = ref(1)
+  const pageSize = ref(10)
+  const pageTotal = ref(0)
+
+  const getPageData = () => {
+    useGetData(userParams, {page: currentPage.value, size: pageSize.value})
+      .then((res:any) => {
+        const resdata = res.data
+        const {data, total} = resdata
+        tableData.value = data
+        pageTotal.value = total * 1
+        console.log(pageTotal.value, 'pageTotal')
+      })
+  }
+
+  // getPageData()
+
+  const handleCurrentChange = (v:any) => {
+    currentPage.value = v
+    tableData2.value = list.slice((v - 1 ) * 10, v* 10)
+    // getPageData()
+  }
+
+  const handleSelectionChange = (val:any) => {
+    console.log(val, 'handleSelectionChange')
+  // 重新请求数据
+  // tableData.value = list.slice((val - 1 ) * 10, val* 10)
+  // 如果是多选则缓存已经选择的值
+  // cacheMultipleSelection = cacheMultipleSelection.concat(currentSelection)
+  // console.log(cacheMultipleSelection, 'cacheMultipleSelection')
+  // const table = refCeTable.value.getTableRef()
+  // currentSelection.forEach((element:any) => {
+  //   console.log(element, 'eeee')
+  //   nextTick( () => {
+  //     table.value.toggleRowSelection(element, true)
+  //   })
+  // });
+
+  // const table = refCeTable.value.getTableRef()
+}
   const handleSelecct = (section:any) => {
     console.log(section, 'section')
     const table = refCeTable.value.getTableRef()
     if (!multiple) {
       currentSelection = useSingleSelectionChange(section, table)
     } else {
-      currentSelection = useMultipleSelectionChange(section)
+      // currentSelection = useMultipleSelectionChange(section, cacheMultipleSelection, key)
     }
-    console.log(currentSelection, 'currentSelection')
+    // console.log(table.value.getSelectionRows(), 'getSelectionRows')
+    // console.log(currentSelection, 'currentSelection')
   }
 
-  const list = [
+    const list = [
     {fullName: '张三', id: '01', deptName: '人事处', empTypeName: '北京市', erpNo: '111'},
     {fullName: '李四', id: '02', deptName: '信息处', empTypeName: '天津市', erpNo: '222'},
     {fullName: '王五', id: '03', deptName: '质量安全环保处', empTypeName: '上海市', erpNo: '333'},
@@ -108,15 +170,8 @@ import { IQuerys } from './props'
     {fullName: 'lulu', id: '14', deptName: 'ddd', empTypeName: '海南', erpNo: '5555'},
     {fullName: 'marry', id: '15', deptName: 'eee', empTypeName: '广西', erpNo: '6666'},
   ]
+   const tableData2:Ref<any[]> = ref(list.slice(0,10))
 
-  const tableData:Ref<any[]> = ref(list.slice(0,10))
-  // let tableData = list.slice(0,10)
-  const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
-  const searchParamsOptions:any = reactive({})
-
-  const handleCurrentChange = (val:any) => {
-    tableData.value = list.slice((val - 1 ) * 10, val* 10)
-  }
 
   const {queryProps, isDef} = useQueryParams(query as IQuerys)
 

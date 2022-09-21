@@ -85,13 +85,14 @@ export const tableItemProps = {
     require: true
   }
 } as const
+
 export const tableProps = {
   ...paginationProps,
   ...hasdProps,
 
-  isPagination: {
+  isPage: {
     type: Boolean,
-    default: true
+    default: false
   },
   singleSelection: Boolean,
 

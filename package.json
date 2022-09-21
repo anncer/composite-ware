@@ -54,11 +54,13 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.0.6",
+    "@types/js-cookie": "^3.0.2",
     "@types/sass": "^1.43.1",
     "@vue/shared": "^3.2.37",
     "@vueuse/core": "^9.0.0",
     "axios": "^0.27.2",
     "element-plus": "^2.2.13",
+    "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "sass": "^1.54.0",
     "vue": "^3.2.37",

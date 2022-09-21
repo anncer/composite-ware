@@ -26,6 +26,18 @@ export interface dataProp {
   key: string
 }
 
+export interface IFieldsProp {
+  name: string
+  code: string
+}
+export interface IUserParamsProp {
+  url?: string
+  method?: string
+  headers?: Object
+  params?: Object,
+  loading?: Boolean,
+  fields?: IFieldsProp
+}
 export const baseSelectorProps = ({
   show: {
     default: false,
@@ -43,14 +55,23 @@ export const baseSelectorProps = ({
     default: '100%',
     type: String
   },
-  userSrc: {
-    type: String,
-    require: true
+  // 人员选择器接口的选项
+  userParams: {
+    type: Object as PropType<IUserParamsProp>
   },
-  orgSrc: {
-    type: String,
-    require: true
-  },
+  // // 人员选择器接口的地址
+  // userSrc: {
+  //   type: String,
+  // },
+
+  // userRequestMethod: {
+  //   type: String,
+  //   default: "POST"
+  // },
+  // orgSrc: {
+  //   type: String,
+  //   require: true
+  // },
   columns: {
     type: Array as PropType<ITableColumns>,
     require: true

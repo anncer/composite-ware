@@ -1,8 +1,7 @@
 <template>
   <div>
     <el-button ref="refButton" @click="handleClick">显示搜索器</el-button>
-    <ce-baseSelector :multiple="true" :show="show" width="60%" @closed="handleClosed" :columns="columns" :query="query">
-
+    <ce-baseSelector :stripe="true" :multiple="false" :show="show" width="60%" @closed="handleClosed" :columns="columns2" :query="query">
     </ce-baseSelector>
   </div>
 </template>
@@ -37,6 +36,20 @@ const query = [
 const columns = [
     {
       label: '姓名',
+      code: 'name'
+    },
+    {
+      label: 'id',
+      code: 'id'
+    },
+    {
+      label: 'ERP编号',
+      code: 'empNo'
+    }
+  ]
+const columns2 = [
+    {
+      label: '姓名',
       code: 'fullName'
     },
     {
@@ -54,9 +67,9 @@ const columns = [
   ]
 const refButton:any = ref(null)
 onMounted(() => {
-  const { disabled } = refButton
-  console.log(disabled, 'disabled')
-  console.log(refButton, 'refButton')
+  // const { disabled } = refButton
+  // console.log(disabled, 'disabled')
+  // console.log(refButton, 'refButton')
 })
 
 const handleClosed = () => {
