@@ -1,13 +1,17 @@
 <template>
   <ce-link class="docs-link">
-    normal text
+    normalText
   </ce-link>
+  <br/>
+  <br/>
   <ce-link
     to="/en-US/guide/"
     class="docs-link"
   >
     guide
   </ce-link>
+  <br/>
+  <br/>
   <ce-link
     to="https://www.baidu.com"
     class="docs-link"

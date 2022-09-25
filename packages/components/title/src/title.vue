@@ -1,9 +1,15 @@
 <template>
    <div class="ce-title"  :style="boxStyle">
       <i v-if="line" class="ce-title-line" :style="{borderLeft: lineColor}"></i>
-      <span class="ce-title_text">{{title}}</span>
-      <div v-if="$slots&&$slots.icon" class="ce-title_icons">
-        <slot name="icon" />
+      <div v-if="title" class="ce-title_text">{{title}}</div>
+      <div v-if="$slots&&$slots.default" class="ce-title_text">
+        <slot></slot>
+      </div>
+      <el-icon class="ce-title_suffix" size="18px" v-if="suffixIcon" @click="handleTap">
+        <component :is="suffixIcon" />
+      </el-icon>
+      <div v-if="$slots&&$slots.suffix" class="ce-title_suffix">
+        <slot name="suffix" />
       </div>
       <div v-if="$slots&&$slots.btns" class="ce-title_btns">
         <slot name="btns" />
@@ -11,30 +17,21 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, computed } from 'vue';
+<script lang="ts" setup>
+import { defineProps } from 'vue';
 import { TitleProps } from './props'
 
-export default defineComponent({
-  name: "CeTitle",
-  props: TitleProps,
-  setup(props) {
-    const { line, height, fontSize, left, title, lineColor } = props
-
-    const turnPropToStyle = (str: string | number ): string => {
-      return typeof str === 'string' ? str : str + 'px'
-    }
-
-    const boxStyle = computed(() => {
-      return { height: turnPropToStyle(height), fontSize: turnPropToStyle(fontSize), paddingLeft: turnPropToStyle(left) }
-    })
-
-    return {
-      line,
-      boxStyle,
-      title,
-      lineColor
-    }
-  }
+defineOptions({
+   name: "CeTitle",
 })
+const props = defineProps(TitleProps)
+
+const emits = defineEmits(['suffix'])
+  const { line, title, lineColor, boxStyle } = props
+
+
+  const handleTap = ($event:Event) => {
+    emits('suffix', $event)
+  }
+
 </script>

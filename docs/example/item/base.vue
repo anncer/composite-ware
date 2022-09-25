@@ -1,5 +1,7 @@
 <template>
+
   <ce-item label="姓名:">
-    <span>张三</span>
+    <el-input></el-input>
   </ce-item>
+
 </template>

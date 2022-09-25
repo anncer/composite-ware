@@ -14,20 +14,27 @@ export default defineComponent({
   name: 'CeLink',
   props: linkProps,
   setup(props, { slots }) {
+    const target: Boolean = props.target
     const type = computed(() => {
       return props.to ? (isURL(props.to) ? 'a' : 'router-link') : 'span'
     })
 
     const attr = computed<UnknownObject>(() => {
-      return props.to
-        ? isURL(props.to)
-          ? {
-              href: props.to,
-              target: '_blank',
-              rel: 'noopener noreferrer',
-            }
-          : { to: props.to }
-        : {}
+      return target ?
+              {
+                to: props.to,
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              }
+              : props.to
+                ? isURL(props.to)
+                  ? {
+                      href: props.to,
+                      target: '_blank',
+                      rel: 'noopener noreferrer',
+                    }
+                  : { to: props.to }
+                : {}
     })
 
     return () =>

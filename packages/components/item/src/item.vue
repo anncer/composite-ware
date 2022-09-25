@@ -1,7 +1,10 @@
 <template>
-  <div class="ce-item" :class="{'inline':inline}" :style="boxLong">
-    <label class="ce-item_label" :style="labelStyle">{{ label }}</label>
-    <div class="ce-item_content" :style="contextStyle">
+  <div class="ce-item" :class="{'inline':isInline}" >
+    <label v-if="label" class="ce-item_label" :style="labelStyle">{{ label }}</label>
+    <div v-else-if="$slots&&$slots.label" class="ce-item_label">
+      <slot name="label" />
+    </div>
+    <div class="ce-item_content">
       <slot></slot>
     </div>
   </div>
@@ -15,7 +18,7 @@ export default defineComponent({
   name: "CeItem",
   props: ItemProps,
   setup(props) {
-    const { width, height, labelWidth, label } = props
+    const {  labelWidth, label, inline } = props
     const turnPropToStyle = (str: string | number | undefined): string | undefined => {
       if (!str) {
         return undefined
@@ -23,27 +26,16 @@ export default defineComponent({
       return typeof str === 'string' ? str : str + 'px'
     }
     const _labwid = turnPropToStyle(labelWidth)
-    const _height = turnPropToStyle(height)
-    const inline = ref(labelWidth !== undefined)
-
-    const boxLong = computed(() => {
-      return width ? { width: turnPropToStyle(width)} : {}
-    });
-
+    const isInline = ref(labelWidth !== undefined || inline)
     const labelStyle = computed(() => {
-      return _labwid ? { width: _labwid, lineHeight: _height } : {}
+      return _labwid ? { width: _labwid } : {}
     });
 
-    const contextStyle = computed(() => {
-      return _labwid ? { marginLeft: _labwid, lineHeight: _height } : { lineHeight: height }
-    });
 
     return {
-      boxLong,
-      inline,
+      isInline,
       label,
       labelStyle,
-      contextStyle
     }
   }
 })

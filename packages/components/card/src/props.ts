@@ -1,3 +1,4 @@
+import {PropType, CSSProperties } from 'vue';
 export const CardProps = ({
   shadow: {
     default: true,
@@ -11,23 +12,7 @@ export const CardProps = ({
     default: '',
     type: String
   },
-  border: {
-    default: 'rgba(230, 241, 255, 1)',
-    type: String
+  bodyStyle: {
+    type: Object as PropType<CSSProperties>
   },
-  padding: {
-    type: [String, Number]
-  },
-  paddingTop: {
-    type: [String, Number]
-  },
-  paddingLeft: {
-    type: [String, Number]
-  },
-  paddingBottom: {
-    type: [String, Number]
-  },
-  paddingRight: {
-    type: [String, Number]
-  }
 })

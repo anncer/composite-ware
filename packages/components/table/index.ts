@@ -4,4 +4,4 @@ import table from './src/table.vue'
 export const CeTable = withInstall(table)
 export default CeTable
 
-export * from './src/table'
+export * from './src'

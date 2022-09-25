@@ -24,7 +24,7 @@ const query = [
     label: "组织机构：",
     optLabel: 'deptName',
     optValue: 'deptCode',
-    value: "partyCode",
+    value: "",
     url: '/api/admin/user/query',
     method: "post",
     headers: {

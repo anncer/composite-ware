@@ -5,8 +5,8 @@ import { createRouter } from "./router/index";
 import App from './App.vue'
 import elementPlus from "element-plus";
 import CompositePlus from '../../packages/components';
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-// import IconExternalLink from './components/IconExternalLink.vue'
 import "element-plus/dist/index.css";
 import "@composite-ware/theme-chalk/src/index.scss";
 import "./styles/index.scss";
@@ -16,8 +16,9 @@ const head = createHead()
 const router = createRouter();
 
 const app = createApp(App)
-// .component('IconExternalLink', IconExternalLink)
 app.component('ProCode', ProCode)
-
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 
 app.use(elementPlus).use(CompositePlus).use(router).use(head).mount('#app')

@@ -8,32 +8,32 @@ const enUS: RouteRecordRaw[] = [
     path: "/en-US/",
     redirect: "/en-US/guide/",
     component: Layout,
-    meta: { title: "Guide", icon: markRaw(House) },
+    meta: { title: "指南", icon: markRaw(House) },
     children: [
       {
         path: "/en-US/guide/introduction",
         component: () => import("../../docs/en-US/guide/introduction.md"),
-        meta: { title: "Introduction" }
+        meta: { title: "介绍" }
       },
       {
         path: "/en-US/guide/",
         component: () => import("../../docs/en-US/guide/index.md"),
-        meta: { title: "Quick Start" }
+        meta: { title: "快速上手" }
       },
       {
         path: "/en-US/guide/i18n",
         component: () => import("../../docs/en-US/guide/i18n.md"),
-        meta: { title: "Internationalization" }
+        meta: { title: "国际化" }
       },
       {
         path: "/en-US/guide/theme",
         component: () => import("../../docs/en-US/guide/theme.md"),
-        meta: { title: "Custom Theme" }
+        meta: { title: "自定义主题" }
       },
       {
         path: "/en-US/guide/changelog",
         component: () => import("../../../CHANGELOG.md"),
-        meta: { title: "Changelog" }
+        meta: { title: "更新日志" }
       }
     ]
   },
@@ -41,7 +41,7 @@ const enUS: RouteRecordRaw[] = [
     path: "/en-US/components/",
     redirect: "/en-US/components/link",
     component: Layout,
-    meta: { title: "Components", icon: markRaw(TakeawayBox) },
+    meta: { title: "组件", icon: markRaw(TakeawayBox) },
     children: [
       {
         path: "/en-US/components/link",
@@ -49,9 +49,29 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: "link" }
       },
       {
+        path: "/en-US/components/card",
+        component: () => import("../../docs/en-US/components/card.md"),
+        meta: { title: "card" }
+      },
+      {
+        path: "/en-US/components/item",
+        component: () => import("../../docs/en-US/components/item.md"),
+        meta: { title: "item" }
+      },
+      {
+        path: "/en-US/components/title",
+        component: () => import("../../docs/en-US/components/title.md"),
+        meta: { title: "title" }
+      },
+      {
         path: "/en-US/components/table",
         component: () => import("../../docs/en-US/components/table.md"),
         meta: { title: "table" }
+      },
+      {
+        path: "/en-US/components/baseSelector",
+        component: () => import("../../docs/en-US/components/baseSelector.md"),
+        meta: { title: "baseSelector" }
       },
       {
         path: "/en-US/components/dialogSelector",

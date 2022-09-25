@@ -1,7 +1,8 @@
 .ce-item{
   .ce-item_label{
+    width: auto;
     text-align: right;
-    vertical-align: middle;
+    line-height: 32px;
     font-size: 14px;
     color: #606266;
     padding: 0 12px 0 0;
@@ -14,8 +15,9 @@
     position: relative;
   }
 }
-.inline{
-  .ce-item_label{
-    float: left;
+.ce-item.inline{
+  display: flex;
+  .ce-item_content{
+    flex: 1;
   }
 }

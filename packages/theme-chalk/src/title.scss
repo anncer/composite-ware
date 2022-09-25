@@ -2,29 +2,31 @@
 .ce-title{
   font-size: 16px;
   font-weight: bold;
-  .ce-title_text{
-    float: left;
-    height: 100%;
+  padding: 14px 20px;
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
   }
   .ce-title-line{
     float: left;
     border-left: 2px solid #409eff;
     width: 12px;
     height: 16px;
-    margin-top: 0.5rem;
+    margin-top: 3px;
   }
-}
-.ce-title_icons{
-  float: left;
-  height: 20px;
-  line-height: 20px;
-  margin-top: 19px;
-  width: auto;
-  max-width: 200px;
-  span{
+  .ce-title_text{
+    float: left;
+  }
+  .ce-title_suffix{
+    float: left;
+    cursor: pointer;
     margin-left: 10px;
+    margin-top: 2px;
   }
 }
+
 .ce-title_btns{
   float: right;
+  margin-right: 20px;
 }

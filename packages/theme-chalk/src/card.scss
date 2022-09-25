@@ -9,6 +9,7 @@
   color: #303133;
   transition: .3s;
   flex-direction: column;
+  border: 1px solid rgba(230, 241, 255, 1);
 
   &:hover {
     box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
@@ -16,22 +17,23 @@
 
   .ce-card_header {
     width: 100%;
-    height: 50px;
-    line-height: 50px;
+    // height: 50px;
+    // line-height: 50px;
+    padding: 20px;
     box-sizing: border-box;
     border-bottom: 1px solid #ededed;
   }
 
   .ce-card_body {
-    // padding: 24px;
+    padding: 20px;
     background: #fdfdfd;
     flex: 1;
 
   }
 
   .ce-card_footer {
-    height: 50px;
-    line-height: 50px;
+    border-top: 1px solid #ededed;
+    padding: 20px;
     font-size: 14px;
   }
 }

@@ -1,369 +1,242 @@
 ---
 title: table
-meta:
-  - name: table
-    content: table
+
 ---
 
-# Table
+## Table
 
-用于展示多条结构类似的数据， 可对数据进行排序、筛选、对比或其他自定义操作。
+基于 el-table 实现，用传入参数 clumns 的方式代替写很多的 el-table-column 标签，简化template模板的代码量和修改成本
 
-## 基础表格
+clumns 支持 el-table-column 的属性和方法
+
+整合分页和表格两个组件，快速生成表格页面
+
+继承 element-Plus el-table 和 el-pagination 组件的事件和属性
+
+### 基础表格
 
 基础的表格展示用法。
 
-当 el-table 元素中注入 data 对象数组后，在 el-table-column 中用 prop 属性来对应对象中的键名即可填入数据，用 label 属性来定义表格的列名。 可以使用 width 属性来定义列宽。
-
-::: example 示例
+::: example
 @docs/example/table/base.vue
 :::
 
-## Striped Table
+### 带分页的表格
 
-Striped table makes it easier to distinguish different rows.
+基础的表格展示用法。
 
-:::demo Attribute `stripe` accepts a `Boolean`. If `true`, table will be striped.
-
-table/striped
-
+::: example
+@docs/example/table/tablepage.vue
 :::
 
-## Table with border
+### 格式化和重写表头和内容
 
-:::demo By default, Table has no vertical border. If you need it, you can set attribute `border` to `true`.
+基础的表格展示用法。
 
-table/with-border
-
+::: example
+@docs/example/table/formate.vue
 :::
 
-## Table with status
-
-You can highlight your table content to distinguish between "success, information, warning, danger" and other states.
-
-:::demo Use `row-class-name` in `el-table` to add custom classes to a certain row. Then you can style it with custom classes.
-
-table/with-status
-
-:::
-
-## Table with fixed header
-
-When there are too many rows, you can use a fixed header.
-
-:::demo By setting the attribute `height` of `el-table`, you can fix the table header without any other codes.
-
-table/fixed-header
-
-:::
-
-## Table with fixed column
-
-When there are too many columns, you can fix some of them.
-
-:::demo Attribute `fixed` is used in `el-table-column`, it accepts a `Boolean`. If `true`, the column will be fixed at left. It also accepts two string literals: 'left' and 'right', both indicating that the column will be fixed at corresponding direction.
-
-table/fixed-column
-
-:::
-
-## Table with fixed columns and header
-
-When you have huge chunks of data to put in a table, you can fix the header and columns at the same time.
-
-:::demo Fix columns and header at the same time by combining the above two examples.
-
-table/fixed-column-and-header
-
-:::
-
-## Fluid-height Table with fixed header (and columns)
-
-When the the data is dynamically changed, you might want the table to have a maximum height rather than a fixed height and to show the scroll bar if needed.
-
-:::demo By setting the attribute `max-height` of `el-table`, you can fix the table header. The table body scrolls only if the height of the rows exceeds the max height value.
-
-table/fixed-header-with-fluid-header
-
-:::
-
-## Grouping table head
-
-When the data structure is complex, you can use group header to show the data hierarchy.
-
-:::demo Only need to place el-table-column inside a el-table-column, you can achieve group header.
-
-table/grouping-header
-
-:::
-
-## Single select
-
-Single row selection is supported.
-
-:::demo Table supports single row selection. You can activate it by adding the `highlight-current-row` attribute. An event called `current-change` will be triggered when row selection changes, and its parameters are the rows after and before this change: `currentRow` and `oldCurrentRow`. If you need to display row index, you can add a new `el-table-column` with its `type` attribute assigned to `index`, and you will see the index starting from 1.
-
-table/single-select
-
-:::
-
-## Multiple select
-
-You can also select multiple rows.
-
-:::demo Activating multiple selection is easy: simply add an `el-table-column` with its `type` set to `selection`. Apart from multiple selection, this example also uses `show-overflow-tooltip`: by default, if the content is too long, it will break into multiple lines. If you want to keep it in one line, use attribute `show-overflow-tooltip`, which accepts a `Boolean` value. When set `true`, the extra content will show in tooltip when hover on the cell.
-
-table/multi-select
-
-:::
-
-## Sorting
-
-Sort the data to find or compare data quickly.
-
-:::demo Set attribute `sortable` in a certain column to sort the data based on this column. It accepts `Boolean` with a default value `false`. Set table attribute `default-sort` to determine default sort column and order. To apply your own sorting rules, use `sort-method` or `sort-by`. If you need remote sorting from backend, set `sortable` to `custom`, and listen to the `sort-change` event on Table. In the event handler, you have access to the sorting column and sorting order so that you can fetch sorted table data from API. In this example we use another attribute named `formatter` to format the value of certain columns. It accepts a function which has two parameters: `row` and `column`. You can handle it according to your own needs.
-
-table/sort
-
-:::
-
-## Filter
-
-Filter the table to find desired data.
-
-:::demo Set attribute `filters` and `filter-method` in `el-table-column` makes this column filterable. `filters` is an array, and `filter-method` is a function deciding which rows are displayed. It has three parameters: `value`, `row` and `column`.
-
-table/filter
-
-:::
-
-## Custom column template
-
-Customize table column so it can be integrated with other components.
-
-:::demo You have access to the following data: row, column, $index and store (state management of Table) by [slot](https://v3.vuejs.org/guide/component-slots.html).
-
-table/custom-column
-
-:::
-
-## Table with custom header
-
-Customize table header so it can be even more customized.
-
-:::demo You can customize how the header looks by header [slots](https://v3.vuejs.org/guide/component-slots.html).
-
-table/custom-header
-
-:::
-
-## Expandable row
-
-When the row content is too long and you do not want to display the horizontal scroll bar, you can use the expandable row feature.
-
-:::demo Activate expandable row by adding type="expand" and slot. The template for el-table-column will be rendered as the contents of the expanded row, and you can access the same attributes as when you are using `slot` in custom column templates.
-
-table/expandable-row
-
-:::
-
-## Tree data and lazy mode
-
-:::demo You can display tree structure data. When row contains the `children` field, it is treated as nested data. For rendering nested data, the prop `row-key` is required. Also, child row data can be loaded asynchronously. Set `lazy` property of Table to true and the function `load`. Specify `hasChildren` attribute in row to determine which row contains children. Both `children` and `hasChildren` can be configured via `tree-props`.
-
-table/tree-and-lazy
-
-:::
-
-## Summary row
-
-For table of numbers, you can add an extra row at the table footer displaying each column's sum.
-
-:::demo You can add the summary row by setting `show-summary` to `true`. By default, for the summary row, the first column does not sum anything up but always displays 'Sum' (you can configure the displayed text using `sum-text`), while other columns sum every number in that column up and display them. You can of course define your own sum behaviour. To do so, pass a method to `summary-method`, which returns an array, and each element of the returned array will be displayed in the columns of the summary row. The second table of this example is a detailed demo.
-
-table/summary
-
-:::
-
-## Rowspan and colspan
-
-Configuring rowspan and colspan allows you to merge cells
-
-:::demo Use the `span-method` attribute to configure rowspan and colspan. It accepts a method, and passes an object to that method including current row `row`, current column `column`, current row index `rowIndex` and current column index `columnIndex`. The method should return an array of two numbers, the first number being `rowspan` and second `colspan`. It can also return an object with `rowspan` and `colspan` props.
-
-table/rowspan-and-colspan
-
-:::
-
-## Custom index
-
-You can customize row index in `type=index` columns.
-
-:::demo To customize row indices, use `index` attribute on `el-table-column` with `type=index`. If it is assigned to a number, all indices will have an offset of that number. It also accepts a method with each index (starting from `0`) as parameter, and the returned value will be displayed as index.
-
-table/custom-index
-
-:::
-
-## Table Layout
-
-The [table-layout](https://developer.mozilla.org/en-US/docs/Web/CSS/table-layout) property sets the algorithm used to lay out table cells, rows, and columns.
-
-:::demo
-
-table/table-layout
-
-:::
-
-## Table Attributes
-
-| Attribute                               | Description                                                                                                                                                                                                                                                                 | Type                                                        | Accepted Values                 | Default                                                                        |
-| --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------ |
-| data                                    | Table data                                                                                                                                                                                                                                                                  | array                                                       | —                               | —                                                                              |
-| height                                  | Table's height. By default it has an `auto` height. If its value is a number, the height is measured in pixels; if its value is a string, the value will be assigned to element's style.height, the height is affected by external styles                                   | string / number                                             | —                               | —                                                                              |
-| max-height                              | Table's max-height. The legal value is a number or the height in px.                                                                                                                                                                                                        | string / number                                             | —                               | —                                                                              |
-| stripe                                  | whether Table is striped                                                                                                                                                                                                                                                    | boolean                                                     | —                               | false                                                                          |
-| border                                  | whether Table has vertical border                                                                                                                                                                                                                                           | boolean                                                     | —                               | false                                                                          |
-| size                                    | size of Table                                                                                                                                                                                                                                                               | string                                                      | large / default /small          | —                                                                              |
-| fit                                     | whether width of column automatically fits its container                                                                                                                                                                                                                    | boolean                                                     | —                               | true                                                                           |
-| show-header                             | whether Table header is visible                                                                                                                                                                                                                                             | boolean                                                     | —                               | true                                                                           |
-| highlight-current-row                   | whether current row is highlighted                                                                                                                                                                                                                                          | boolean                                                     | —                               | false                                                                          |
-| current-row-key                         | key of current row, a set only prop                                                                                                                                                                                                                                         | string / number                                             | —                               | —                                                                              |
-| row-class-name                          | function that returns custom class names for a row, or a string assigning class names for every row                                                                                                                                                                         | function(\{ row, rowIndex \}) / string                      | —                               | —                                                                              |
-| row-style                               | function that returns custom style for a row, or an object assigning custom style for every row                                                                                                                                                                             | function(\{ row, rowIndex \}) / object                      | —                               | —                                                                              |
-| cell-class-name                         | function that returns custom class names for a cell, or a string assigning class names for every cell                                                                                                                                                                       | function(\{ row, column, rowIndex, columnIndex \}) / string | —                               | —                                                                              |
-| cell-style                              | function that returns custom style for a cell, or an object assigning custom style for every cell                                                                                                                                                                           | function(\{ row, column, rowIndex, columnIndex \}) / object | —                               | —                                                                              |
-| header-row-class-name                   | function that returns custom class names for a row in table header, or a string assigning class names for every row in table header                                                                                                                                         | function(\{ row, rowIndex }\) / string                      | —                               | —                                                                              |
-| header-row-style                        | function that returns custom style for a row in table header, or an object assigning custom style for every row in table header                                                                                                                                             | function(\{ row, rowIndex \}) / object                      | —                               | —                                                                              |
-| header-cell-class-name                  | function that returns custom class names for a cell in table header, or a string assigning class names for every cell in table header                                                                                                                                       | function(\{ row, column, rowIndex, columnIndex \}) / string | —                               | —                                                                              |
-| header-cell-style                       | function that returns custom style for a cell in table header, or an object assigning custom style for every cell in table header                                                                                                                                           | function(\{ row, column, rowIndex, columnIndex \}) / object | —                               | —                                                                              |
-| row-key                                 | key of row data, used for optimizing rendering. Required if `reserve-selection` is on or display tree data. When its type is String, multi-level access is supported, e.g. `user.info.id`, but `user.info[0].id` is not supported, in which case `Function` should be used. | function(row) / string                                      | —                               | —                                                                              |
-| empty-text                              | Displayed text when data is empty. You can customize this area with `#empty`                                                                                                                                                                                                | string                                                      | —                               | No Data                                                                        |
-| default-expand-all                      | whether expand all rows by default, works when the table has a column type="expand" or contains tree structure data                                                                                                                                                         | boolean                                                     | —                               | false                                                                          |
-| expand-row-keys                         | set expanded rows by this prop, prop's value is the keys of expand rows, you should set row-key before using this prop                                                                                                                                                      | array                                                       | —                               | —                                                                              |
-| default-sort                            | set the default sort column and order. property `prop` is used to set default sort column, property `order` is used to set default sort order                                                                                                                               | object                                                      | `order`: ascending / descending | if `prop` is set, and `order` is not set, then `order` is default to ascending |
-| tooltip-effect                          | tooltip `effect` property                                                                                                                                                                                                                                                   | string                                                      | dark / light                    | dark                                                                           |
-| show-summary                            | whether to display a summary row                                                                                                                                                                                                                                            | boolean                                                     | —                               | false                                                                          |
-| sum-text                                | displayed text for the first column of summary row                                                                                                                                                                                                                          | string                                                      | —                               | Sum                                                                            |
-| summary-method                          | custom summary method                                                                                                                                                                                                                                                       | function(\{ columns, data \})                               | —                               | —                                                                              |
-| span-method                             | method that returns rowspan and colspan                                                                                                                                                                                                                                     | function(\{ row, column, rowIndex, columnIndex \})          | —                               | —                                                                              |
-| select-on-indeterminate                 | controls the behavior of master checkbox in multi-select tables when only some rows are selected (but not all). If true, all rows will be selected, else deselected.                                                                                                        | boolean                                                     | —                               | true                                                                           |
-| indent                                  | horizontal indentation of tree data                                                                                                                                                                                                                                         | number                                                      | —                               | 16                                                                             |
-| lazy                                    | whether to lazy loading data                                                                                                                                                                                                                                                | boolean                                                     | —                               | —                                                                              |
-| load                                    | method for loading child row data, only works when `lazy` is true                                                                                                                                                                                                           | function(row, treeNode, resolve)                            | —                               | —                                                                              |
-| tree-props                              | configuration for rendering nested data                                                                                                                                                                                                                                     | object                                                      | —                               | `{ hasChildren: 'hasChildren', children: 'children' }`                         |
-| table-layout                            | Sets the algorithm used to lay out table cells, rows, and columns                                                                                                                                                                                                           | string                                                      | fixed / auto                    | fixed                                                                          |
-| scrollbar-always-on                     | always show scrollbar                                                                                                                                                                                                                                                       | boolean                                                     | —                               | false                                                                          |
-| flexible <VersionTag version="2.2.1" /> | ensure main axis minimum-size doesn't follow the content                                                                                                                                                                                                                    | boolean                                                     | —                               | false                                                                          |
+### Table属性
+
+| 属性 | 描述 | 类型  | 参数 | 默认  |
+| ---- | -------- | ----------------- | ------ | ------ |
+| data  | 显示的数据  | array | — | —  |
+| columns  | 显示的列  | array | — | —  |
+| isPage  | 是否分页   | Boolean | — | false  |
+| singleSelection  | 是否单选（暂不支持）  | Boolean | — | false  |
+| boxStyle  | 组件外层div的样式  | object | — | —  |
+| height  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。  | string / number | — | —  |
+| max-height  | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。 | string / number | — | —  |
+| stripe  | 是否为斑马纹 table  | boolean | — | false  |
+| border  | whet是否带有纵向边框  | boolean | — | false  |
+| size  | Table 的尺寸  | string  | large / default /small  | —  |
+| fit | 列的宽度是否自撑开| boolean | — | true |
+| show-header | 是否显示表头  | boolean | — | true |
+| highlight-current-row | 是否要高亮当前行| boolean | — | false  |
+| current-row-key | 当前行的 key，只写属性  | string / number | — | —  |
+| row-class-name  | 行的 className 的回调方法，也可以使用字符串为所有行设置一个固定的 className。| — | —  |
+| row-style | 行的 style 的回调方法，也可以使用一个固定的 Object 为所有行设置一样的 Style。  | function(\{ row, rowIndex \}) / object  | — | —  |
+| cell-class-name | 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。  | function(\{ row, column, rowIndex, columnIndex \}) / string | — | —  |
+| cell-style  | 单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有单元格设置一样的 Style。  | function(\{ row, column, rowIndex, columnIndex \}) / object | — | —  |
+| header-row-class-name | 表头行的 className 的回调方法，也可以使用字符串为所有表头行设置一个固定的 className。  | function(\{ row, rowIndex }\) / string  | — | —  |
+| header-row-style  | 表头行的 style 的回调方法，也可以使用一个固定的 Object 为所有表头行设置一样的 Style。  | function(\{ row, rowIndex \}) / object  | — | —  |
+| header-cell-class-name  | 表头单元格的 className 的回调方法，也可以使用字符串为所有表头单元格设置一个固定的 className。 | function(\{ row, column, rowIndex, columnIndex \}) / string | — | —  |
+| header-cell-style | 表头单元格的 style 的回调方法，也可以使用一个固定的 Object 为所有表头单元格设置一样的 Style。  | function(\{ row, column, rowIndex, columnIndex \}) / object | — | —  |
+| row-key | 行数据的 Key，用来优化 Table 的渲染； 在使用reserve-selection功能与显示树形数据时，该属性是必填的。 类型为 String 时，支持多层访问：user.info.id，但不支持 user.info[0].id，此种情况请使用 Function。 | function(row) / string  | — | —  |
+| empty-text  | 空数据时显示的文本内容， 也可以通过 #empty 设置 | string  | — | No Data  |
+| default-expand-all  | 是否默认展开所有行，当 Table 包含展开行存在或者为树形表格时有效| boolean | — | false  |
+| expand-row-keys | 可以通过该属性设置 Table 目前的展开行，需要设置 row-key 属性才能使用，该属性为展开行的 keys 数组。 | array | — | —  |
+| default-sort  | 默认的排序列的 prop 和顺序。 它的 prop 属性指定默认的排序的列，order 指定默认排序的顺序| object  | `order`: ascending / descending | 如果 prop 已配置, 同时 order 未配置, 那么 order 默认为升序 |
+| tooltip-effect  | tooltip `effect` 属性 | string  | dark / light  | dark |
+| show-summary  | 是否在表尾显示合计行 | boolean | — | false  |
+| sum-text  | displ合计行第一列的文本 | string  | — | Sum  |
+| summary-method  | 自定义的合计计算方法| function(\{ columns, data \}) | — | —  |
+| span-method | 合并行或列的计算方法| function(\{ row, column, rowIndex, columnIndex \})  | — | —  |
+| select-on-indeterminate | 在多选表格中，当仅有部分行被选中时，点击表头的多选框时的行为。 若为 true，则选中所有行；若为 false，则取消选择所有行 | boolean | — | true |
+| indent  | 展示树形数据时，树节点的缩进| number  | — | 16 |
+| lazy  | 是否懒加载子节点数据 | boolean | — | —  |
+| load  | 加载子节点数据的函数，lazy 为 true 时生效，函数第二个参数包含了节点的层级信息| function(row, treeNode, resolve)  | — | —  |
+| tree-props  | 渲染嵌套数据的配置选项| object  | — | `{ hasChildren: 'hasChildren', children: 'children' }` |
+| table-layout  | 设置表格单元、行和列的布局方式| string  | fixed / auto  | fixed  |
+| scrollbar-always-on | 总是显示滚动条| boolean | — | false  |
+| flexible | 确保主轴的最小尺寸 | boolean | — | false  |
 
 ## Table Events
 
-| Event Name         | Description                                                                                                                                  | Parameters                        |
+| 事件名 | 说明  | 回调参数  |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| select             | triggers when user clicks the checkbox in a row                                                                                              | selection, row                    |
-| select-all         | triggers when user clicks the checkbox in table header                                                                                       | selection                         |
-| selection-change   | triggers when selection changes                                                                                                              | selection                         |
-| cell-mouse-enter   | triggers when hovering into a cell                                                                                                           | row, column, cell, event          |
-| cell-mouse-leave   | triggers when hovering out of a cell                                                                                                         | row, column, cell, event          |
-| cell-click         | triggers when clicking a cell                                                                                                                | row, column, cell, event          |
-| cell-dblclick      | triggers when double clicking a cell                                                                                                         | row, column, cell, event          |
-| cell-contextmenu   | triggers when user right clicks on a cell                                                                                                    | row, column, cell, event          |
-| row-click          | triggers when clicking a row                                                                                                                 | row, column, event                |
-| row-contextmenu    | triggers when user right clicks on a row                                                                                                     | row, column, event                |
-| row-dblclick       | triggers when double clicking a row                                                                                                          | row, column, event                |
-| header-click       | triggers when clicking a column header                                                                                                       | column, event                     |
-| header-contextmenu | triggers when user right clicks on a column header                                                                                           | column, event                     |
-| sort-change        | triggers when Table's sorting changes                                                                                                        | `{ column, prop, order }`         |
-| filter-change      | column's key. If you need to use the filter-change event, this attribute is mandatory to identify which column is being filtered             | filters                           |
-| current-change     | triggers when current row changes                                                                                                            | currentRow, oldCurrentRow         |
-| header-dragend     | triggers after changing a column's width by dragging the column header's border                                                              | newWidth, oldWidth, column, event |
-| expand-change      | triggers when user expands or collapses a row (for expandable table, second param is expandedRows; for tree Table, second param is expanded) | row, (expandedRows \| expanded)   |
+| select | 当用户手动勾选数据行的 Checkbox 时触发的事件 | selection, row  |
+| select-all | 当用户手动勾选全选 Checkbox 时触发的事件| selection |
+| selection-change | 当选择项发生变化时会触发该事件 | selection |
+| cell-mouse-enter | 当单元格 hover 进入时会触发该事件| row, column, cell, event  |
+| cell-mouse-leave | 当单元格 hover 退出时会触发该事件| row, column, cell, event  |
+| cell-click | 当某个单元格被点击时会触发该事件 | row, column, cell, event  |
+| cell-dblclick  | 当某个单元格被双击击时会触发该事件| row, column, cell, event  |
+| cell-contextmenu | 当某个单元格被鼠标右键点击时会触发该事件 | row, column, cell, event  |
+| row-click  | 当某一行被点击时会触发该事件| row, column, event  |
+| row-contextmenu  | 当某一行被鼠标右键点击时会触发该事件| row, column, event  |
+| row-dblclick | 当某一行被双击时会触发该事件 | row, column, event  |
+| header-click | 当某一列的表头被点击时会触发该事件| column, event |
+| header-contextmenu | 当某一列的表头被鼠标右键点击时触发该事件| column, event |
+| sort-change  | 当表格的排序条件发生变化的时候会触发该事件 | `{ column, prop, order }` |
+| filter-change  | column 的 key， 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件| filters |
+| table-current | 当表格的当前行发生变化的时候会触发该事件，如果要高亮当前行，请打开表格的 highlight-current-row 属性  | currentRow, oldCurrentRow |
+| header-dragend | 当拖动表头改变了列的宽度的时候会触发该事件 | newWidth, oldWidth, column, event |
+| expand-change  | 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded）| row, (expandedRows \| expanded) |
 
-## Table Methods
+## Table 方法
 
-| Method             | Description                                                                                                                                                       | Parameters                                            |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| clearSelection     | used in multiple selection Table, clear user selection                                                                                                            | —                                                     |
-| getSelectionRows   | returns the currently selected rows                                                                                                                               |                                                       |
-| toggleRowSelection | used in multiple selection Table, toggle if a certain row is selected. With the second parameter, you can directly set if this row is selected                    | row, selected                                         |
-| toggleAllSelection | used in multiple selection Table, toggle select all and deselect all                                                                                              | —                                                     |
-| toggleRowExpansion | used in expandable Table or tree Table, toggle if a certain row is expanded. With the second parameter, you can directly set if this row is expanded or collapsed | row, expanded                                         |
-| setCurrentRow      | used in single selection Table, set a certain row selected. If called without any parameter, it will clear selection.                                             | row                                                   |
-| clearSort          | clear sorting, restore data to the original order                                                                                                                 | —                                                     |
-| clearFilter        | clear filters of the columns whose `columnKey` are passed in. If no params, clear all filters                                                                     | columnKeys                                            |
-| doLayout           | refresh the layout of Table. When the visibility of Table changes, you may need to call this method to get a correct layout                                       | —                                                     |
-| sort               | sort Table manually. Property `prop` is used to set sort column, property `order` is used to set sort order                                                       | prop: string, order: string                           |
-| scrollTo           | scrolls to a particular set of coordinates                                                                                                                        | (options: ScrollToOptions \| number, yCoord?: number) |
-| setScrollTop       | set vertical scroll position                                                                                                                                      | top                                                   |
-| setScrollLeft      | set horizontal scroll position                                                                                                                                    | left                                                  |
-
-## Table Slots
-
-| Name   | Description                                                                                                                                                                                   | Subtags      |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ |
-| -      | customize default content                                                                                                                                                                     | Table-column |
-| append | Contents to be inserted after the last row. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. | —            |
-| empty  | you can customize content when data is empty.                                                                                                                                                 | —            |
-
-## Table-column Attributes
-
-| Attribute             | Description                                                                                                                                                                                                         | Type                                    | Accepted Values                                                                                                                  | Default                           |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| type                  | type of the column. If set to `selection`, the column will display checkbox. If set to `index`, the column will display index of the row (staring from 1). If set to `expand`, the column will display expand icon. | string                                  | selection / index / expand                                                                                                       | —                                 |
-| index                 | customize indices for each row, works on columns with `type=index`                                                                                                                                                  | number / function(index)                | —                                                                                                                                | —                                 |
-| label                 | column label                                                                                                                                                                                                        | string                                  | —                                                                                                                                | —                                 |
-| column-key            | column's key. If you need to use the filter-change event, you need this attribute to identify which column is being filtered                                                                                        | string                                  | —                                                                                                                                | —                                 |
-| prop                  | field name. You can also use its alias: `property`                                                                                                                                                                  | string                                  | —                                                                                                                                | —                                 |
-| width                 | column width                                                                                                                                                                                                        | string / number                         | —                                                                                                                                | —                                 |
-| min-width             | column minimum width. Columns with `width` has a fixed width, while columns with `min-width` has a width that is distributed in proportion                                                                          | string / number                         | —                                                                                                                                | —                                 |
-| fixed                 | whether column is fixed at left / right. Will be fixed at left if `true`                                                                                                                                            | string / boolean                        | true / 'left' / 'right'                                                                                                          | —                                 |
-| render-header         | render function for table header of this column                                                                                                                                                                     | function(\{ column, $index \})          | —                                                                                                                                | —                                 |
-| sortable              | whether column can be sorted. Remote sorting can be done by setting this attribute to 'custom' and listening to the `sort-change` event of Table                                                                    | boolean / string                        | true / false / 'custom'                                                                                                          | false                             |
-| sort-method           | sorting method, works when `sortable` is `true`. Should return a number, just like Array.sort                                                                                                                       | function(a, b)                          | —                                                                                                                                | —                                 |
-| sort-by               | specify which property to sort by, works when `sortable` is `true` and `sort-method` is `undefined`. If set to an Array, the column will sequentially sort by the next property if the previous one is equal        | function(row, index) / string / array   | —                                                                                                                                | —                                 |
-| sort-orders           | the order of the sorting strategies used when sorting the data, works when `sortable` is `true`. Accepts an array, as the user clicks on the header, the column is sorted in order of the elements in the array     | array                                   | the elements in the array need to be one of the following: `ascending`, `descending` and `null` (restores to the original order) | ['ascending', 'descending', null] |
-| resizable             | whether column width can be resized, works when `border` of `el-table` is `true`                                                                                                                                    | boolean                                 | —                                                                                                                                | true                              |
-| formatter             | function that formats cell content                                                                                                                                                                                  | function(row, column, cellValue, index) | —                                                                                                                                | —                                 |
-| show-overflow-tooltip | whether to hide extra content and show them in a tooltip when hovering on the cell                                                                                                                                  | boolean                                 | —                                                                                                                                | false                             |
-| align                 | alignment                                                                                                                                                                                                           | string                                  | left / center / right                                                                                                            | left                              |
-| header-align          | alignment of the table header. If omitted, the value of the above `align` attribute will be applied                                                                                                                 | string                                  | left / center / right                                                                                                            | —                                 |
-| class-name            | class name of cells in the column                                                                                                                                                                                   | string                                  | —                                                                                                                                | —                                 |
-| label-class-name      | class name of the label of this column                                                                                                                                                                              | string                                  | —                                                                                                                                | —                                 |
-| selectable            | function that determines if a certain row can be selected, works when `type` is 'selection'                                                                                                                         | function(row, index)                    | —                                                                                                                                | —                                 |
-| reserve-selection     | whether to reserve selection after data refreshing, works when `type` is 'selection'. Note that `row-key` is required for this to work                                                                              | boolean                                 | —                                                                                                                                | false                             |
-| filters               | an array of data filtering options. For each element in this array, `text` and `value` are required                                                                                                                 | array[{ text, value }]                  | —                                                                                                                                | —                                 |
-| filter-placement      | placement for the filter dropdown                                                                                                                                                                                   | string                                  | top / top-start / top-end / bottom / bottom-start / bottom-end / left / left-start / left-end / right / right-start / right-end  | —                                 |
-| filter-multiple       | whether data filtering supports multiple options                                                                                                                                                                    | boolean                                 | —                                                                                                                                | true                              |
-| filter-method         | data filtering method. If `filter-multiple` is on, this method will be called multiple times for each row, and a row will display if one of the calls returns `true`                                                | function(value, row, column)            | —                                                                                                                                | —                                 |
-| filtered-value        | filter value for selected data, might be useful when table header is rendered with `render-header`                                                                                                                  | array                                   | —                                                                                                                                | —                                 |
-
-## Table-column Slots
-
-| Name   | Description                                                                        |
-| ------ | ---------------------------------------------------------------------------------- |
-| —      | Custom content for table columns. The scope parameter is `{ row, column, $index }` |
-| header | Custom content for table header. The scope parameter is `{ column, $index }`       |
-
-## FAQ
-
-#### How to use image preview in the table?
+想要使用表格的方法需要获取到表格的实例
+通过 getTableRef 方法获取
 
 ```vue
-<el-table-column label="Thumbnail" width="180">
-    <template #default="scope">
-        <div style="display: flex; align-items: center">
-            <el-image :preview-src-list="srcList"/>
-        </div>
-    </template>
-</el-table-column>
+  <template>
+ <ce-table ref="refCeTable"></ce-table>
+  </template>
+  <script setup lang="ts">
+ const table = refCeTable.value.getTableRef()
+ table.value.toggleAllSelection();
+  </script>
 ```
 
-PS: since the fixed column is implement by sticky, when you have fixed columns in table, please add the `preview-teleported` attribute in image
+| 方法 | 说明 | 参数  |
+| ------------------ | --------------- | ------------- |
+| clearSelection | 用于多选表格，清空用户的选择| — |
+| getSelectionRows | 返回当前选中的行| |
+| toggleRowSelection | 用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否 | row, selected |
+| toggleAllSelection | 用于多选表格，切换全选和全不选| — |
+| toggleRowExpansion | 用于可扩展的表格或树表格，如果某行被扩展，则切换。 使用第二个参数，您可以直接设置该行应该被扩展或折叠。| row, expanded |
+| setCurrentRow  | 用于单选表格，设定某一行为选中行， 如果调用时不加参数，则会取消目前高亮行的选中状态。| row |
+| clearSort  | 用于清空排序条件，数据会恢复成未排序的状态| — |
+| clearFilter  | 传入由 `columnKey`  组成的数组以清除指定列的过滤条件。 如果没有参数，清除所有过滤器 | columnKeys  |
+| doLayout | 对 Table 进行重新布局。 当表格可见性变化时，您可能需要调用此方法以获得正确的布局| — |
+| sort | 手动排序表格。 参数 `prop` 属性指定排序列， `order` 指定排序顺序。 | prop: string, order: string |
+| scrollTo | 滚动到一组特定坐标 | (options: ScrollToOptions \| number, yCoord?: number) |
+| setScrollTop | 设置垂直滚动位置 | top |
+| setScrollLeft  | 设置水平滚动位置 | left  |
 
-#### Why column is not rendered when use DOM templates?
+## Table插槽
 
-Typical issue: [#5046](https://github.com/element-plus/element-plus/issues/5046) [#5862](https://github.com/element-plus/element-plus/issues/5862) [#6919](https://github.com/element-plus/element-plus/issues/6919)
+::: tip 提示
+不支持 el-table 本身插槽，本组件扩展自身插槽如下
+:::
 
-This is because the HTML spec only allows a few specific elements to omit closing tags, the most common being `<input>` and `<img>`. For all other elements, if you omit the closing tag, the native HTML parser will think you never terminated the opening tag
+| 插槽名 | 说明 |
+| ---- | -------- |
+| —| 插入到内容后面的内容，可放入 el-table-column 的操作列等 |
+| prev| 插入到内容前面的内容，可放入 el-table-column 的操作列等 |
 
-For more details please refer to [vue docs](https://vuejs.org/guide/essentials/component-basics.html#self-closing-tags)
+## Table-column 属性
+
+| Attribute | Description | Type  | Accepted Values  | Default |
+| --------------------- | --------------- | -------- | ------------- | ----------------- |
+| type  | 对应列的类型。 如果设置了selection则显示多选框； 如果设置了 index 则显示该行的索引（从 1 开始计算）； 如果设置了 expand 则显示为一个可展开的按钮| string  | selection / index / expand | — |
+| index | 如果设置了 type=index，可以通过传递 index 属性来自定义索引 | number / function(index)  | —  | — |
+| label | column 的 key，如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件  | string  | —  | — |
+| code  | 字段名称 对应列内容的字段名  | string  | —  | — |
+| column-key  | column 的 key， column 的 key， 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件  | string  | —  | — |
+| width | 宽度  | string / number | —  | — |
+| min-width | 对应列的最小宽度， 对应列的最小宽度， 与 width 的区别是 width 是固定的，min-width 会把剩余宽度按比例分配给设置了 min-width 的列| string / number | —  | — |
+| fixed | 列是否固定在左侧或者右侧。 `true` 表示固定在左侧 | string / boolean  | true / 'left' / 'right'  | — |
+| render-header | 列标题 Label 区域渲染使用的 Function | function(\{ column, $index \})  | —  | — |
+| sortable  | 对应列是否可以排序， 如果设置为 'custom'，则代表用户希望远程排序，需要监听 Table 的 sort-change 事件 | boolean / string  | true / false / 'custom'  | false |
+| sort-method | 指定数据按照哪个属性进行排序，仅当`sortable`设置为`true`的时候有效。 应该如同 Array.sort 那样返回一个 Number | function(a, b)  | —  | — |
+| sort-by | 指定数据按照哪个属性进行排序，仅当 `sortable` 设置为 `true` 且没有设置 `sort-method` 的时候有效。 如果 `sort-by` 为数组，则先按照第 1 个属性排序，如果第 1 个相等，再按照第 2 个排序，以此类推l  | function(row, index) / string / array | —  | — |
+| sort-orders | 数据在排序时所使用排序策略的轮转顺序，仅当 sortable 为 true 时有效。 需传入一个数组，随着用户点击表头，该列依次按照数组中元素的顺序进行排序 | array | 数组中的元素需为以下三者之一：ascending 表示升序，descending 表示降序，null 表示还原为原始顺序 | ['ascending', 'descending', null] |
+| resizable | 对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真）  | boolean | —  | true  |
+| formatter | 用来格式化内容 | function(row, column, cellValue, index) | —  | — |
+| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip | boolean | —  | false |
+| align | 对齐方式 | string  | left / center / right  | left  |
+| header-align  | 表头对齐方式， 若不设置该项，则使用表格的对齐方式 | string  | left / center / right  | — |
+| class-name  | 列的 className | string  | —  | — |
+| label-class-name  | 当前列标题的自定义类名 | string  | —  | — |
+| selectable  | 仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选 | function(row, index)  | —  | — |
+| reserve-selection | 仅对 type=selection 的列有效， 请注意， 需指定 row-key 来让这个功能生效。  | boolean | —  | false |
+| filters | 数据过滤的选项， 数组格式，数组中的元素需要有 text 和 value 属性。 数组中的每个元素都需要有 text 和 value 属性。| array[{ text, value }]  | —  | — |
+| filter-placement  | 过滤弹出框的定位 | string  | top / top-start / top-end / bottom / bottom-start / bottom-end / left / left-start / left-end / right / right-start / right-end  | — |
+| filter-multiple | 数据过滤的选项是否多选  | boolean | —  | true  |
+| filter-method | 数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。  | function(value, row, column)  | —  | — |
+| filtered-value  | 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。 | array | —  | — |
+
+## table-column插槽
+
+> 以table的prev/default插槽 插入的table-column使用组件本身的插槽，即template #default="scope"
+::: tip 提示
+由于table-column以数据形式传入到组件中，所以以方法的形式接受两个插槽的内容 renderSlot => #header; renderDefault => #default， 两个函数的参数都是scope对象
+:::
+
+| 插槽名 | 说明 |
+| ---- | -------- |
+| —| 插入到内容后面的内容，可放入 el-table-column 的操作列等 |
+| prev| 插入到内容前面的内容，可放入 el-table-column 的操作列等 |
+
+### 分页的属性
+
+| Name| Description  | Type | Accepted Values  | Default |
+| -------------------- | ------------------- | --------------------- | ------------- | ------------ |
+| small  | 是否使用小型分页样式  | boolean | —  | false|
+| background| 是否为分页按钮添加背景色 | boolean | —  | false|
+| page-size | 每页显示条目个数，支持 v-model 双向绑定  | number  | —  | 10 |
+| default-page-size | 每页显示条目数的初始值  | number  | -  | -  |
+| total  | 总条目数| number  | —  | —  |
+| page-count| 总页数， total 和 page-count 设置任意一个就可以达到显示页码的功能；如果要支持 page-sizes 的更改，则需要使用 total 属性 | number  | —  | —  |
+| pager-count  | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠| number  | (介于 5 和 21 之间的奇数) | 7  |
+| current-page | 当前页数，支持 v-model 双向绑定 | number  | —  | 1  |
+| default-current-page | 当前页数的初始值 | number  | -  | -  |
+| layout | 组件布局，子组件名用逗号分隔  | string  | `sizes` / `prev` / `pager` / `next` / `jumper` / `->` / `total` / `slot` | 'prev, pager, next, jumper, ->, total' |
+| page-sizes|  每页显示个数选择器的选项设置| number[]| —  | [10, 20, 30, 40, 50, 100]|
+| popper-class | 每页显示个数选择器的下拉框类名  | string  | —  | —  |
+| prev-text | 替代图标显示的上一页文字| string  | —  | —  |
+| prev-icon | 上一页的图标， 比 prev-text 优先级更高 | `string \| Component` | —  | ArrowLeft  |
+| next-text | 替代图标显示的下一页文字| string  | —  | —  |
+| next-icon | 下一页的图标， 比 next-text 优先级更高  | `string \| Component` | —  | ArrowRight |
+| disabled  | 是否禁用分页| boolean | —  | false|
+| hide-on-single-page  | 只有一页时是否隐藏  | boolean | —  | -  |
+
+:::warning
+
+我们现在会检查一些不合理的用法，如果发现分页器未显示，可以核对是否违反以下情形：
+
+- total 和 page-count 必须传一个，不然组件无法判断总页数；优先使用 page-count;
+
+- 如果传入了 current-page，必须监听 current-page 变更的事件（@update:current-page），否则分页切换不起作用；
+
+- 如果传入了 page-size，且布局包含 page-size 选择器（即 layout 包含 sizes），必须监听 page-size 变更的事件（@update:page-size），否则分页大小的变化将不起作用。
+
+:::
+
+## 分页的事件
+
+| Name| Description  | Parameters|
+| -------------- | ----------------------------------------------------------------- | -------------------- |
+| size-change | page-size 改变时触发  | the new page size |
+| current-change | current-page 改变时触发  | the new current page |
+| prev-click  | 用户点击上一页按钮改变当前页时触发 | the new current page |
+| next-click  | 用户点击下一页按钮改变当前页时触发 | the new current page |
+
+:::warning
+
+以上事件不推荐使用（但由于兼容的原因仍然支持，在以后的版本中将会被删除）；如果要监听 current-page 和 page-size 的改变，使用 v-model 双向绑定是个更好的选择。
+
+:::

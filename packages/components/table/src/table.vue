@@ -1,5 +1,5 @@
 <template>
-  <div :style="sty">
+  <div class="ce-table" :style="sty">
     <el-table
       ref="elTableRef"
       :data="data"
@@ -16,9 +16,13 @@
           :prop="item && item.code"
           v-bind="item"
           >
-            <template v-if="item && !item.renderContext" #default></template>
+            <template  v-if="item && item.renderSlot" #header >
+              <div v-html="renderHead(item)"></div>
+            </template>
+
+            <template v-if="item && !item.renderDefault" #default></template>
             <template v-else #default="scope">
-              <div v-html="item.renderContext(scope)"></div>
+              <div v-html="item.renderDefault(scope)"></div>
             </template>
         </el-table-column>
         </template>
@@ -29,55 +33,28 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineExpose, toRefs, watch, computed } from 'vue'
-import { tableProps, tableEmits, paginationKeys, IElKey, paginationEs } from './default'
+import { ref, defineExpose, toRefs, } from 'vue'
+import { tableProps, tableEmits, paginationKeys, TableColumnProp, tablePropKeys, paginationEs } from './default'
 import { isEmpty } from '@composite-ware/utils'
 // import TableItem from './tableItem.vue'
-
-// type IElKeys<T = typeof hasdProps> = IElKey<T>[]
-// type IElProps<T = typeof hasdProps> = {
-//   [Key in IElKey<T>]: T[Key]
-// }
-
-  const tableKeys:IElKey[] = [
-    "height",
-    "maxHeight",
-    "border",
-    "stripe",
-    "spanMethod",
-    "rowClassName",
-    "rowStyle",
-    "cellClassName",
-    "cellStyle",
-    "headerRowClassName",
-    "headerRowStyle",
-    "headerCellClassName",
-    "headerCellStyle",
-    "defaultSort",
-    "spanMethod",
-    "rowClassName",
-    "rowStyle",
-    "cellClassName",
-    "cellStyle",
-    "headerRowClassName",
-    "headerRowStyle",
-    "headerCellClassName",
-    "headerCellStyle",
-    "defaultSort",
-  ]
 
   defineOptions({
     name: 'CeTable',
   })
+
+  function renderHead(it: TableColumnProp) {
+    return it.renderSlot && it.renderSlot()
+  }
+
   const props = defineProps(tableProps)
-  const emit = defineEmits(tableEmits)
+  const emit = defineEmits(tableEmits.concat(paginationEs))
 
   const { columns, data, isPage,  boxStyle, currentPage, pageSize, total  } = toRefs(props)
 
   let elProps:any = {}
   let paginationProps:any = {}
 
-  tableKeys.forEach(key => {
+  tablePropKeys.forEach(key => {
     if (props[key] !== undefined && props[key] !== "") {
       elProps[key] = props[key]
     }
@@ -88,9 +65,6 @@ import { isEmpty } from '@composite-ware/utils'
       paginationProps[key] = props[key]
     }
   });
-
-  console.log(isPage, 'isPage')
-  console.log(paginationProps, 'paginationProps')
 
   let sty = {}
   if (!isEmpty(boxStyle)) {

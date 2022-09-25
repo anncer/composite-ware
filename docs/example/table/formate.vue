@@ -1,12 +1,7 @@
 <template>
 
-  <ce-table :columns="columns" :data="list" @row-click="rowClick" :select-on-indeterminate="false" >
-    <el-table-column label="Operations">
-      <template #default>
-        <el-button size="small">Edit</el-button>
-        <el-button size="small" type="danger" >Delete</el-button>
-      </template>
-    </el-table-column>
+  <ce-table :columns="columns" :data="list"  >
+
   </ce-table>
 
 </template>
@@ -22,14 +17,23 @@ const columns = [
     label: "姓名",
     code: 'name',
     align: 'left',
+    renderDefault: (scope) => {
+      return `<span style="color: green">姓名是：${scope.row.name}</span>`
+    }
   },
   {
     label: "工号",
     code: 'code',
+    renderSlot: () => {
+      return `<span style="color: red">这是工号</span>`
+    }
   },
   {
     label: "地址",
     code: 'address',
+    formatter: (row, column, cellValue, index) =>{
+      return `居住在：${cellValue}`
+    }
   },
 ]
 const list = [

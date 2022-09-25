@@ -3,14 +3,8 @@ export const ItemProps = ({
     type: String,
     require: true
   },
+  inline: Boolean,
   labelWidth: {
     type: [String, Number]
   },
-  height: {
-    default: '40px',
-    type: [String, Number]
-  },
-  width: {
-    type: [String, Number]
-  }
 })

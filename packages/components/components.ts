@@ -8,7 +8,7 @@ export * from './base-selector'
 export * from './dialog-selector'
 
 import { CeLink } from './link'
-import { CeTable } from './table/src/table'
+import { CeTable } from './table/src'
 import { CeBreadcrumb } from './breadcrumb'
 import { CeItem } from './item'
 import { CeTitle } from './title'
