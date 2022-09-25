@@ -1,26 +1,27 @@
 import { PropType } from 'vue'
 import { ITableColumns } from '@composite-ware/components/table/src/default'
-
+import type { UnknownFunction, UnknownObject } from '../../types/index'
 export interface IQueryProp {
   code: string,
   type: 'select' | 'input'
   label?: string,
+  labelWidth?: string | number,
+  // 数据需要获取的值的key
   optValue?: string,
+  // 数据需要显示的文字信息的key
   optLabel?: string,
+
   url?: string,
   method?: 'get' | 'post' | 'delete' | 'patch',
-  headers?: any,
+  headers?: UnknownObject,
+  // 搜索选项的默认值，暂时不支持
   value?: any,
-  params?: any
+  // 在做数据请求时的请求内容
+  params?: any,
+  formatter?: UnknownFunction
 }
 
 export type IQuerys = Array<IQueryProp>
-
-// export interface IQueryPropsValue extends IQueryProps{
-//   value: any
-// }
-
-// export type IQueryPropsValues = Array<IQueryPropsValue>
 
 export interface dataProp {
   key: string
@@ -33,45 +34,25 @@ export interface IFieldsProp {
 export interface IUserParamsProp {
   url?: string
   method?: string
-  headers?: Object
-  params?: Object,
+  headers?: UnknownObject
+  params?: UnknownObject,
   loading?: Boolean,
-  fields?: IFieldsProp
+  fields?: IFieldsProp,
+  formatter?: UnknownFunction
 }
 export const baseSelectorProps = ({
-  show: {
-    default: false,
-    type: Boolean
+  stripe: {
+     default: true,
+      type: Boolean
   },
-  title: {
-    default: "选择器",
-    type: String
-  },
-  label: {
-    type: String,
-    require: true
-  },
-  width: {
-    default: '100%',
-    type: String
+  border: {
+     default: false,
+      type: Boolean
   },
   // 人员选择器接口的选项
   userParams: {
     type: Object as PropType<IUserParamsProp>
   },
-  // // 人员选择器接口的地址
-  // userSrc: {
-  //   type: String,
-  // },
-
-  // userRequestMethod: {
-  //   type: String,
-  //   default: "POST"
-  // },
-  // orgSrc: {
-  //   type: String,
-  //   require: true
-  // },
   columns: {
     type: Array as PropType<ITableColumns>,
     require: true
@@ -84,16 +65,15 @@ export const baseSelectorProps = ({
     type: Array as PropType<IQuerys>
   },
   defalutSelected: {
-    type: Array,
+    type: Array as PropType<string[]>,
   },
   // 数据的唯一键，用于标识数据
-  prop: {
-    type: Object as PropType<dataProp>,
-    default: () => ({ key: 'id' })
+  rowKey: {
+    type: String,
+    default: "id"
   }
 }) as const
 
 export const baseSelectorEmits = [
-  'closed',
-  'seelcted'
+  'select'
 ]

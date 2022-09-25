@@ -4,9 +4,11 @@ meta:
   - name: description
     content: 如何自定义 composite-ware 组件库的主题
 ---
+ 
+## 自定义主题
 
-# 自定义主题
-
+开发中...
+<!--
 ::: tip 提示
 ElementPlus `v2.2.0` 已经支持深色模式，你仅需要遵循 [Dark Mode](https://element-plus.org/zh-CN/guide/dark-mode.html) 使用即可控制两个组件库颜色
 :::
@@ -72,4 +74,4 @@ html.other {
 
 - Element Plus 的深色模式 css-variables
 
-<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css
+<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css -->

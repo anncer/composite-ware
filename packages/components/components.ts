@@ -5,6 +5,7 @@ export * from './item'
 export * from './title'
 export * from './card'
 export * from './base-selector'
+export * from './dialog-selector'
 
 import { CeLink } from './link'
 import { CeTable } from './table/src/table'
@@ -13,6 +14,7 @@ import { CeItem } from './item'
 import { CeTitle } from './title'
 import { CeCard } from './card'
 import { CeBaseSelector } from './base-selector'
+import { CeDialogSelector } from './dialog-selector'
 
 import type { Plugin } from 'vue'
 
@@ -23,7 +25,8 @@ export default {
  CeItem,
  CeTitle,
  CeCard,
- CeBaseSelector
+ CeBaseSelector,
+ CeDialogSelector
 } as Record<string, Plugin>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -36,6 +39,7 @@ declare module '@vue/runtime-core' {
     CeItem: typeof CeItem
     CeTitle: typeof CeTitle,
     CeCard: typeof CeCard,
-    CeBaseSelector: typeof CeBaseSelector
+    CeBaseSelector: typeof CeBaseSelector,
+    CeDialogSelector: typeof CeDialogSelector,
   }
 }

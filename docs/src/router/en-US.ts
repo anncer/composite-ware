@@ -31,11 +31,6 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: "Custom Theme" }
       },
       {
-        path: "/en-US/guide/router",
-        component: () => import("../../docs/en-US/guide/router.md"),
-        meta: { title: "Router and Menu" }
-      },
-      {
         path: "/en-US/guide/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "Changelog" }
@@ -59,9 +54,9 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: "table" }
       },
       {
-        path: "/en-US/components/orgSelector",
-        component: () => import("../../docs/en-US/components/orgSelector.md"),
-        meta: { title: "orgSelector" }
+        path: "/en-US/components/dialogSelector",
+        component: () => import("../../docs/en-US/components/dialogSelector.md"),
+        meta: { title: "dialogSelector" }
       }
     ]
   }

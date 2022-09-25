@@ -24,7 +24,7 @@
         </template>
       <slot></slot>
     </el-table>
-    <el-pagination  v-if="isPage"  v-model:currentPage="currentPage" v-model:page-size="pageSize" v-on="paginationEvents" v-bind="paginationProps"/>
+    <el-pagination v-if="isPage" v-model:currentPage="currentPage" v-model:page-size="pageSize" :total="total" v-on="paginationEvents" v-bind="paginationProps"/>
   </div>
 </template>
 
@@ -38,6 +38,7 @@ import { isEmpty } from '@composite-ware/utils'
 // type IElProps<T = typeof hasdProps> = {
 //   [Key in IElKey<T>]: T[Key]
 // }
+
   const tableKeys:IElKey[] = [
     "height",
     "maxHeight",
@@ -71,7 +72,7 @@ import { isEmpty } from '@composite-ware/utils'
   const props = defineProps(tableProps)
   const emit = defineEmits(tableEmits)
 
-  const { columns, data, isPage,  boxStyle, currentPage, pageSize  } = toRefs(props)
+  const { columns, data, isPage,  boxStyle, currentPage, pageSize, total  } = toRefs(props)
 
   let elProps:any = {}
   let paginationProps:any = {}
@@ -83,7 +84,7 @@ import { isEmpty } from '@composite-ware/utils'
   });
 
   paginationKeys.forEach(key => {
-    if (props[key] !== undefined && props[key] !== "" && !['currentPage', 'pageSize'].includes(key)) {
+    if (props[key] !== undefined && props[key] !== "" && !['currentPage', 'total', 'pageSize'].includes(key)) {
       paginationProps[key] = props[key]
     }
   });

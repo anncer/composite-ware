@@ -31,11 +31,6 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: "自定义主题" }
       },
       {
-        path: "/zh-CN/guide/router",
-        component: () => import("../../docs/zh-CN/guide/router.md"),
-        meta: { title: "路由和菜单" }
-      },
-      {
         path: "/zh-CN/guide/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "更新日志" }
@@ -79,9 +74,9 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: "baseSelector" }
       },
       {
-        path: "/zh-CN/components/orgSelector",
-        component: () => import("../../docs/zh-CN/components/orgSelector.md"),
-        meta: { title: "orgSelector" }
+        path: "/zh-CN/components/dialogSelector",
+        component: () => import("../../docs/zh-CN/components/dialogSelector.md"),
+        meta: { title: "dialogSelector" }
       }
     ]
   }

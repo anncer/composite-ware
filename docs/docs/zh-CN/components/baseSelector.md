@@ -5,15 +5,12 @@ meta:
     content: baseSelector
 ---
 
+## baseSelector
 
-# baseSelector
-
-
-## 基础用法
+### basic
 
 基础的搜索器展示用法。
 
-
-::: example 示例
+::: example
 @docs/example/base-selector/base.vue
 :::

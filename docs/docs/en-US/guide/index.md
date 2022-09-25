@@ -1,62 +1,54 @@
 ---
-title: Quick start
+title: 快速上手
 meta:
   - name: description
-    content: Quick start with composite-ware component library
+    content: 快速上手 composite-ware 组件库
 ---
 
-# Quick start
+## 准备
 
-You can refer to the [template project](https://github.com/tolking/element-admin-template) to use, or build it yourself through the following content
-
-## Ready
-
-You may need the vue3 version of the scaffolding tool before you start
+在开始前你可能需要 vue3 版本脚手架工具
 
 - [vite](https://vitejs.dev/)
-- [vue-cli](https://cli.vuejs.org/)
+- [vue-cli](https://cli.vuejs.org/zh/)
 
-## Install
+## 安装
 
-[![Latest tag via npm](https://img.shields.io/npm/v/composite-ware.svg?style=flat-square&logo=npm)](https://npmjs.com/package/composite-ware)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/composite-ware?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/composite-ware)
-[![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Fcomposite-ware&query=$.time.modified)](https://www.npmjs.com/package/composite-ware)
+::: tip 提示
+内网环境下安装（不开代理）
+registry地址为[http://10.122.163.225:8081/repository/npm-repo-group/](http://10.122.163.225:8081/repository/npm-repo-group/)
+或者在[http://10.122.163.225:8081/#browse/browse:npm-repo-hostd](http://10.122.163.225:8081/#browse/browse:npm-repo-hostd)中查看
+:::
 
+``` shell
+npm i composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
+# 或者
+yarn add composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
+# 或者
+pnpm add composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
 ```
-npm i composite-ware
-# or
-yarn add composite-ware
-# or
-pnpm add composite-ware
-```
 
-## Fully import
+## 完整引入
 
 ```js
 import { createApp } from "vue";
 import App from "./App.vue";
-import ElementPro from "composite-ware";
-import "composite-ware/lib/styles/index";
+import compositeWare from "composite-ware";
+import 'composite-ware/theme-chalk/index.css'
 
 const app = createApp(App);
 
-app.use(ElementPro);
+app.use(compositeWare);
 app.mount("#app");
 ```
 
-## On demand
+## 按需引入样式
 
-::: tip Tip
-Since `0.12.0`, it is recommended to use the js file in the style folder imported on demand instead of the css file to avoid repeated references of styles.
+### 推荐使用 unplugin-vue-components
 
-Since `1.0.0`, support CommonJS by import `.cjs`
-:::
+安装及使用查看 [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
 
-### Recommended unplugin-vue-components
-
-Installation and use view [unplugin-vue-components](https://www.npmjs.com/package/unplugin-vue-components)
-
-- Configuration information
+- 配置信息
 
 ```js
 {
@@ -67,7 +59,7 @@ Installation and use view [unplugin-vue-components](https://www.npmjs.com/packag
         return {
           importName: name,
           path: 'composite-ware',
-          sideEffects: `composite-ware/lib/styles/${fileName}`
+          sideEffects: `composite-ware/theme-chalk/${fileName}`
         }
       }
     }
@@ -75,11 +67,11 @@ Installation and use view [unplugin-vue-components](https://www.npmjs.com/packag
 }
 ```
 
-### Use vite-plugin-style-import in vite
+### 在 vite 中使用 vite-plugin-style-import
 
-Installation and use view [vite-plugin-style-import](https://github.com/anncwb/vite-plugin-style-import)
+安装及使用查看 [vite-plugin-style-import](https://www.npmjs.com/package/vite-plugin-style-import)
 
-- change vite.config
+- 修改配置 vite.config
 
 ```js
 import styleImport from "vite-plugin-style-import";
@@ -91,9 +83,10 @@ export default {
         {
           importTest: /^Pro/,
           libraryName: "composite-ware",
+          esModule: true,
           ensureStyleFile: true,
           resolveStyle: (name) => {
-            return `composite-ware/lib/styles/${name.slice(4)}.css`;
+            return `composite-ware/theme-chalk/${name.slice(4)}`;
           }
         }
       ]
@@ -102,11 +95,11 @@ export default {
 };
 ```
 
-### Use babel-plugin-import in vue-cli
+### 在 vue-cli 中使用 babel-plugin-import
 
-Installation and use view [babel-plugin-import](https://github.com/ant-design/babel-plugin-import)
+安装及使用查看 [babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)
 
-- change babel.config
+- 修改配置 babel.config
 
 ```js
 module.exports = {
@@ -116,7 +109,7 @@ module.exports = {
       {
         libraryName: "composite-ware",
         customStyleName: (name) => {
-          return `composite-ware/lib/styles/${name.slice(4)}.css`;
+          return `composite-ware/theme-chalk/${name.slice(4)}`;
         }
       }
     ]
@@ -124,35 +117,29 @@ module.exports = {
 };
 ```
 
-### By hand
+### 手动引入样式
 
-example:
+例如：
 
 ```js
 import { ProLayout } from "composite-ware";
-import "composite-ware/lib/styles/layout";
+import "composite-ware/theme-chalk/layout";
 ```
 
-::: tip Tip
-Component list reference [components](https://github.com/anncer/composite-ware/blob/master/src/components.ts)
+::: tip 提示
+完整组件列表[参考里面的 components](https://github.com/anncer/composite-ware/blob/master/src/components.ts)
 
-In addition to components, you can also use some internal [utils](https://github.com/anncer/composite-ware/blob/master/src/utils/) or [composables](https://github.com/anncer/composite-ware/blob/master/src/composables/)
+在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/anncer/composite-ware/blob/master/src/utils/)与[composables](https://github.com/anncer/composite-ware/blob/master/src/composables/)，如果需要可以引用使用
 :::
 
-## ~~Global config~~
+## 开始使用
 
-::: danger Danger
-Since `1.0.0`, The global configuration has been removed, it is recommended to use related components to pass parameters or internationalization
-:::
+::: tip 提示
+文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
 
-## Start using
+如果使用 VS Code 开发，配合 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
 
-::: tip Tip
-Document example based on [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html), If you are not familiar with the syntax, please visit the official document
-
-If you use VS Code to develop, cooperate with [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) to provide complete components, prop, and event completion. example: input `<pro-` will list all components
-
-If you use VS Code with typescript to develop, It is recommended to use plug-in [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar). Just add the global component type definition to the `tsconfig.json` file
+对于使用 VS Code 配合 typescript 开发，推荐使用插件 [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)。只需要中向 `tsconfig.json` 文件中增加全局组件类型
 
 ```diff
 {
@@ -162,7 +149,7 @@ If you use VS Code with typescript to develop, It is recommended to use plug-in 
 }
 ```
 
-or
+或者
 
 ```diff
 {
@@ -172,13 +159,4 @@ or
 }
 ```
 
-You can also add to the global type definition file, eg: env.d.ts
-
-```diff
-+ /// <reference types="composite-ware/types/components" />
-```
-
-If you use webstorm to develop, complete components, prop, and event completions
-:::
-
-<<< @/docs/src/layout/Layout.vue
+也可以向全局类型定义文件中中增加，例如：env.d.ts

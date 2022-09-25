@@ -4,6 +4,8 @@ export type StringObject = Record<string, unknown>
 
 export type UnknownObject = Record<string | number, unknown>
 
+export type UnknownArray = unknown[]
+
 export type UnknownFunction = (...arg: unknown[]) => unknown
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

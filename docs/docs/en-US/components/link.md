@@ -13,7 +13,7 @@ meta:
 
 ### Basic Use
 
-::: example 示例
+::: example
 @docs/example/link/base.vue
 :::
 

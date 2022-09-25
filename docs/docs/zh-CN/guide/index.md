@@ -5,10 +5,6 @@ meta:
     content: 快速上手 composite-ware 组件库
 ---
 
-# 快速上手
-
-你可以直接使用已经准备好的[模版项目](https://github.com/tolking/element-admin-template)快速开始，或者参考下面内容自行搭建
-
 ## 准备
 
 在开始前你可能需要 vue3 版本脚手架工具
@@ -18,16 +14,18 @@ meta:
 
 ## 安装
 
-[![Latest tag via npm](https://img.shields.io/npm/v/composite-ware.svg?style=flat-square&logo=npm)](https://npmjs.com/package/composite-ware)
-[![npm bundle size](https://img.shields.io/bundlephobia/minzip/composite-ware?label=minzip&logo=npm&style=flat-square)](https://npmjs.com/package/composite-ware)
-[![Npm Last Updated](https://img.shields.io/badge/dynamic/json.svg?style=flat-square&logo=npm&label=last%20release&url=http%3A%2F%2Fregistry.npmjs.org%2Fcomposite-ware&query=$.time.modified)](https://www.npmjs.com/package/composite-ware)
+::: tip 提示
+内网环境下安装（不开代理）
+registry地址为[http://10.122.163.225:8081/repository/npm-repo-group/](http://10.122.163.225:8081/repository/npm-repo-group/)
+或者在[http://10.122.163.225:8081/#browse/browse:npm-repo-hostd](http://10.122.163.225:8081/#browse/browse:npm-repo-hostd)中查看
+:::
 
-```
-npm i composite-ware
+``` shell
+npm i composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
 # 或者
-yarn add composite-ware
+yarn add composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
 # 或者
-pnpm add composite-ware
+pnpm add composite-ware registry=http://10.122.163.225:8081/repository/npm-repo-group/
 ```
 
 ## 完整引入
@@ -35,22 +33,16 @@ pnpm add composite-ware
 ```js
 import { createApp } from "vue";
 import App from "./App.vue";
-import ElementPro from "composite-ware";
-import "composite-ware/lib/styles/index";
+import compositeWare from "composite-ware";
+import 'composite-ware/theme-chalk/index.css'
 
 const app = createApp(App);
 
-app.use(ElementPro);
+app.use(compositeWare);
 app.mount("#app");
 ```
 
 ## 按需引入样式
-
-::: tip 提示
-自 `0.12.0` 起，推荐使用按需引入样式文件夹中的 js 文件替代 css 文件，避免样式的重复引用
-
-自 `1.0.0` 起，增加对 CommonJS 支持，导入 `.cjs` 使用
-:::
 
 ### 推荐使用 unplugin-vue-components
 
@@ -67,7 +59,7 @@ app.mount("#app");
         return {
           importName: name,
           path: 'composite-ware',
-          sideEffects: `composite-ware/lib/styles/${fileName}`
+          sideEffects: `composite-ware/theme-chalk/${fileName}`
         }
       }
     }
@@ -94,7 +86,7 @@ export default {
           esModule: true,
           ensureStyleFile: true,
           resolveStyle: (name) => {
-            return `composite-ware/lib/styles/${name.slice(4)}`;
+            return `composite-ware/theme-chalk/${name.slice(4)}`;
           }
         }
       ]
@@ -117,7 +109,7 @@ module.exports = {
       {
         libraryName: "composite-ware",
         customStyleName: (name) => {
-          return `composite-ware/lib/styles/${name.slice(4)}`;
+          return `composite-ware/theme-chalk/${name.slice(4)}`;
         }
       }
     ]
@@ -131,19 +123,13 @@ module.exports = {
 
 ```js
 import { ProLayout } from "composite-ware";
-import "composite-ware/lib/styles/layout";
+import "composite-ware/theme-chalk/layout";
 ```
 
 ::: tip 提示
 完整组件列表[参考里面的 components](https://github.com/anncer/composite-ware/blob/master/src/components.ts)
 
 在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/anncer/composite-ware/blob/master/src/utils/)与[composables](https://github.com/anncer/composite-ware/blob/master/src/composables/)，如果需要可以引用使用
-:::
-
-## ~~全局配置~~
-
-::: danger 危险
-自 `1.0.0` 起，已经移除全局配置，推荐现在使用相关组件传参或者国际化实现
 :::
 
 ## 开始使用
@@ -174,12 +160,3 @@ import "composite-ware/lib/styles/layout";
 ```
 
 也可以向全局类型定义文件中中增加，例如：env.d.ts
-
-```diff
-+ /// <reference types="composite-ware/types/components" />
-```
-
-对于 webstorm 也提供了完整的组件、属性、事件补全
-:::
-
-<<< @/docs/src/layout/Layout.vue
