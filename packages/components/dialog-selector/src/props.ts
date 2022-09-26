@@ -1,6 +1,6 @@
-import { baseSelectorProps } from "@composite-ware/components/base-selector/src/props"
+import { BaseSelectorProps } from "@composite-ware/components/base-selector/src/props"
 
-export const dialogSelectorProps = ({
+export const DialogSelectorProps = ({
   show: {
     default: false,
     type: Boolean
@@ -17,14 +17,14 @@ export const dialogSelectorProps = ({
     default: '100%',
     type: String
   },
-  ...baseSelectorProps
+  ...BaseSelectorProps
 }) as const
 
-type basePropKeys = Array<keyof typeof baseSelectorProps>
+type basePropKeys = Array<keyof typeof BaseSelectorProps>
 
-export const basePropKeys = Object.keys(baseSelectorProps) as basePropKeys
+export const basePropKeys = Object.keys(BaseSelectorProps) as basePropKeys
 
 export const dialogSelectorEmits = [
-  'closed',
-  'seelcted'
+  'cancel',
+  'confirm'
 ]

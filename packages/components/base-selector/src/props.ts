@@ -1,7 +1,7 @@
 import { PropType } from 'vue'
-import { ITableColumns } from '@composite-ware/components/table/src/default'
+import { TableColumns } from '@composite-ware/components/table/src/default'
 import type { UnknownFunction, UnknownObject } from '../../types/index'
-export interface IQueryProp {
+export interface BaseQueryProp {
   code: string,
   type: 'select' | 'input'
   label?: string,
@@ -21,26 +21,22 @@ export interface IQueryProp {
   formatter?: UnknownFunction
 }
 
-export type IQuerys = Array<IQueryProp>
+export type BaseQuerys = Array<BaseQueryProp>
 
-export interface dataProp {
-  key: string
-}
-
-export interface IFieldsProp {
+export interface BaseFieldsProp {
   name: string
   code: string
 }
-export interface IUserParamsProp {
+export interface BaseUserParamsProp {
   url?: string
   method?: string
   headers?: UnknownObject
   params?: UnknownObject,
   loading?: Boolean,
-  fields?: IFieldsProp,
+  fields?: BaseFieldsProp,
   formatter?: UnknownFunction
 }
-export const baseSelectorProps = ({
+export const BaseSelectorProps = ({
   stripe: {
      default: true,
       type: Boolean
@@ -51,10 +47,10 @@ export const baseSelectorProps = ({
   },
   // 人员选择器接口的选项
   userParams: {
-    type: Object as PropType<IUserParamsProp>
+    type: Object as PropType<BaseUserParamsProp>
   },
   columns: {
-    type: Array as PropType<ITableColumns>,
+    type: Array as PropType<TableColumns>,
     require: true
   },
   multiple: {
@@ -62,7 +58,7 @@ export const baseSelectorProps = ({
     type: Boolean
   },
   query: {
-    type: Array as PropType<IQuerys>
+    type: Array as PropType<BaseQuerys>
   },
   defalutSelected: {
     type: Array as PropType<string[]>,

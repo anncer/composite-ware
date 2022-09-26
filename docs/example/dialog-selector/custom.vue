@@ -1,24 +1,18 @@
+<template>
+  <div>
+    <el-button ref="refButton" @click="handleClick">显示搜索器</el-button>
+    <ce-dialogSelector :stripe="true" :multiple="false" :show="show" width="60%" @calcel="handleClosed" @confirm="handleSelected" :query="query">
+    </ce-dialogSelector>
+  </div>
+</template>
 
-export const baseUserServiceApi = "/api/admin-v2/user/page/or/list"
-import { TableColumns } from '@composite-ware/components/table/src/default'
-import { BaseQuerys } from './props'
-export const defalutColumns:TableColumns = [
-  {
-    label: '姓名',
-    code: 'name',
-    width: '100px'
-  },
-  {
-    label: 'ERP编号',
-    code: 'empNo'
-  },
-  {
-    label: 'id',
-    code: 'id'
-  }
-]
-
-export const defaultQuery:BaseQuerys = [
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+const show = ref(false)
+const handleClick = () => {
+  show.value = true
+}
+const query = [
   {
     code: 'name',
     type: 'input',
@@ -38,3 +32,35 @@ export const defaultQuery:BaseQuerys = [
     }
   },
 ]
+
+
+const columns2 = [
+    {
+      label: '姓名',
+      code: 'fullName',
+      width: '100px'
+    },
+    {
+      label: '组织机构',
+      code: 'deptName'
+    },
+    {
+      label: '用工类型',
+      code: 'empTypeName',
+    },
+    {
+      label: 'ERP编号',
+      code: 'erpNo'
+    }
+  ]
+const refButton:any = ref(null)
+
+const handleClosed = () => {
+  show.value = false
+}
+
+const handleSelected = (section) => {
+  console.log(section)
+  show.value = false
+}
+</script>

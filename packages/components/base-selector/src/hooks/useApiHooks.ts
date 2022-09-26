@@ -2,9 +2,10 @@ import Api from '@composite-ware/service'
 import { isEmpty, isProperty } from '@composite-ware/utils';
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import { IQuerys, IUserParamsProp } from '../props'
+import { BaseQuerys, BaseUserParamsProp } from '../props'
 import { baseUserServiceApi } from '../constant'
 import { UnknownArray } from '@composite-ware/components/types';
+import { defaultQuery } from '../constant'
 
 export const useApiService = (url: string, method: string = "GET", params?: Object) => {
   const reqParam:any = {
@@ -23,7 +24,7 @@ export const useGetDefaultSection = (arr: UnknownArray ) => {
     })
 }
 
-export const useGetData = (userParams: IUserParamsProp | undefined = {}, query?:object | undefined) => {
+export const useGetData = (userParams: BaseUserParamsProp | undefined = {}, query?:object | undefined) => {
   const { url, method, headers, params, loading} = userParams
   const userRequestMethod = method ? method : "post"
   const path: string = url ? url : baseUserServiceApi
@@ -34,39 +35,39 @@ export const useGetData = (userParams: IUserParamsProp | undefined = {}, query?:
     ids: [],
     params: {}
   }
+  console.log(query, 'query')
   const reqParams:any = { data: params || baseParams, loading: loading || true}
   query && (reqParams.data = Object.assign(reqParams.data, query))
   headers && (reqParams.headers = headers)
   return useApiService(path, userRequestMethod, reqParams)
 }
 
-export const useQueryParams = (query:IQuerys | undefined) => {
+export const useQueryParams = (query:BaseQuerys | undefined) => {
   const requestArr:any[] = []
-  const params:any = {}
+  const params:any = reactive({})
   // 是否有默认值
   let isDef = false
-  const queryProps:Ref<IQuerys> = ref([])
-  if (query) {
-    query.forEach(it => {
-      if (isProperty(it, 'vlaue') && it.value) {
-        isDef = true
+  const queryProps:Ref<BaseQuerys> = ref([])
+  const useQuery = query || defaultQuery
+  useQuery.forEach(it => {
+    if (isProperty(it, 'vlaue') && it.value) {
+      isDef = true
+    }
+    params[it.code] = isProperty(it, 'vlaue') ? it.value : ''
+    queryProps.value.push(it)
+    if (it.url) {
+      const method = it.method?.toUpperCase() || 'GET'
+      const reqParam:any = {
       }
-      params[it.code] = isProperty(it, 'vlaue') ? it.value : ''
-      queryProps.value.push(it)
-      if (it.url) {
-        const method = it.method?.toUpperCase() || 'GET'
-        const reqParam:any = {
-        }
-        if (it.headers) {
-          reqParam.headers = it.headers
-        }
-        if (it.params) {
-          reqParam.data = it.params
-        }
-        requestArr.push(useApiService(it.url, method, reqParam))
+      if (it.headers) {
+        reqParam.headers = it.headers
       }
-    })
-  }
+      if (it.params) {
+        reqParam.data = it.params
+      }
+      requestArr.push(useApiService(it.url, method, reqParam))
+    }
+  })
   // Promise.all(reqs)
   //   .then(responseArr => {
   //     console.log(responseArr[0], 'responseArr')

@@ -33,8 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineExpose, toRefs, } from 'vue'
-import { tableProps, tableEmits, paginationKeys, TableColumnProp, tablePropKeys, paginationEs } from './default'
+import { ref, toRefs, } from 'vue'
+import { CeTableProps, tableEmits, paginationKeys, TableColumnProp, tablePropKeys, paginationEs } from './default'
 import { isEmpty } from '@composite-ware/utils'
 // import TableItem from './tableItem.vue'
 
@@ -46,7 +46,7 @@ import { isEmpty } from '@composite-ware/utils'
     return it.renderSlot && it.renderSlot()
   }
 
-  const props = defineProps(tableProps)
+  const props = defineProps(CeTableProps)
   const emit = defineEmits(tableEmits.concat(paginationEs))
 
   const { columns, data, isPage,  boxStyle, currentPage, pageSize, total  } = toRefs(props)

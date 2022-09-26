@@ -4,7 +4,7 @@ import { withInstall } from '@composite-ware/utils'
 
 import type { IDefineProps } from '../../types/index'
 
-import { tableProps } from './default'
+import { CeTableProps } from './default'
 
 export const CeTable = withInstall(table)
-export type ITableProps = IDefineProps<typeof tableProps>
+export type ITableProps = IDefineProps<typeof CeTableProps>

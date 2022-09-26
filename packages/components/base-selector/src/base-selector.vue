@@ -19,7 +19,7 @@
             </el-select>
           </template>
           <template v-else> -->
-            <el-input v-model="it.value" @change="handleChangeParams" clearable></el-input>
+            <el-input v-model="searchParamsOptions[it.code]" @change="handleChangeParams" clearable></el-input>
           <!-- </template> -->
         </el-form-item>
       </el-form>
@@ -50,10 +50,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted, nextTick, toRefs } from 'vue';
+import { ref, onMounted, nextTick, toRefs } from 'vue';
 import type { Ref } from 'vue'
-import { baseSelectorProps, baseSelectorEmits } from './props'
-import { IQuerys } from './props'
+import { BaseSelectorProps, baseSelectorEmits } from './props'
+import { BaseQuerys } from './props'
 import CeTable from '@composite-ware/components/table'
 import { useChangeTableSelect, useMultipleSelectionChange,useSetCurrentSection, useSetEmitPlantArray } from './hooks/useSelectionHooks'
 import { useGetData, useQueryParams, useGetDefaultSection } from './hooks/useApiHooks'
@@ -65,7 +65,7 @@ import { UnknownArray } from '@composite-ware/components/types';
     name: 'CeBaseSelector',
   })
 
-  const props = defineProps(baseSelectorProps)
+  const props = defineProps(BaseSelectorProps)
   const emit = defineEmits(baseSelectorEmits)
 
   const { columns, multiple, defalutSelected, query, userParams } = props
@@ -80,18 +80,6 @@ import { UnknownArray } from '@composite-ware/components/types';
   const key = props.rowKey
   // 当前选中项
   let currentSelection:unknown[] = []
-
-  // 设置默认选中项
-  if (defalutSection.length) {
-    useGetDefaultSection(defalutSection)
-      .then((res:any) => {
-        const resdata = (formatter && formatter(res.data)) || res.data
-        if (isArray(resdata)) {
-          currentSelection = resdata
-        }
-        getPageData()
-      })
-  }
 
   const setCurrent = (data:UnknownArray) => {
     nextTick(() => {
@@ -117,14 +105,17 @@ import { UnknownArray } from '@composite-ware/components/types';
   // 获取表格数据相关
   const tableData:Ref<any[]> = ref([])
   const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
-  const searchParamsOptions:any = reactive({})
 
   const currentPage = ref(1)
   const pageSize = ref(10)
   const pageTotal = ref(0)
 
   const getPageData = () => {
-    useGetData(userParams, {page: currentPage.value, size: pageSize.value})
+    const query:any = {page: currentPage.value, size: pageSize.value}
+    if (searchParamsOptions) {
+      query.params = searchParamsOptions
+    }
+    useGetData(userParams, query)
       .then((res:any) => {
         const resdata = (formatter && formatter(res.data)) || res.data
         const {data, total} = resdata
@@ -144,18 +135,29 @@ import { UnknownArray } from '@composite-ware/components/types';
   }
 
   // 搜索相关
-  const {queryProps, isDef, params } = useQueryParams(query as IQuerys)
+  const {queryProps, isDef, params } = useQueryParams(query as BaseQuerys)
 
-  if (isDef) {
+  const searchParamsOptions = params || null
+
+  const handleChangeParams = () => {
+    currentPage.value = 1
     getPageData()
   }
 
-  console.log(query,isDef, params , 'query')
-
-  const handleChangeParams = () => {
-    // console.log(queryProps, 'queryProps')
-    // getPageData()
-    console.log('change')
-  }
+  onMounted(() => {
+    // 设置默认选中项
+    if (defalutSection.length) {
+      useGetDefaultSection(defalutSection)
+        .then((res:any) => {
+          const resdata = (formatter && formatter(res.data)) || res.data
+          if (isArray(resdata)) {
+            currentSelection = resdata
+          }
+          getPageData()
+        })
+    } else {
+      getPageData()
+    }
+  })
 
 </script>

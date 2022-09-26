@@ -16,8 +16,8 @@ export interface TableColumnProp {
   label?: string;
   code?: string;
   columnKey?: string;
-  width?: [string, number];
-  minWidth?: [string, number];
+  width?: string | number;
+  minWidth?: string | number;
   fixed?: boolean | 'left' | 'right';
   className?: string;
   labelClassName?: string;
@@ -41,7 +41,7 @@ export interface TableColumnProp {
   renderHeader?: UnknownFunction;
   renderSlot?: UnknownFunction;
 }
-export type ITableColumns = Array<TableColumnProp>
+export type TableColumns = Array<TableColumnProp>
 
 type PaginationKeys = Array<keyof typeof paginationProps>
 
@@ -147,7 +147,7 @@ const elTableProps = {
   flexible: Boolean,
 }
 
-export const tableProps = {
+export const CeTableProps = {
   ...paginationProps,
   ...elTableProps,
 
@@ -164,7 +164,7 @@ export const tableProps = {
   singleSelection: Boolean,
 
   columns: {
-    type: Array as PropType<ITableColumns>,
+    type: Array as PropType<TableColumns>,
     require: true
   },
   data: {

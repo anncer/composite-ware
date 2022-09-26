@@ -3,11 +3,12 @@
     v-model="isShow"
     :title='title'
     append-to-body
+    :close-on-click-modal="false"
     :width="width"
     @close="handleClosed"
   >
     <CeBaseSelector v-bind="baseProps" @select="handleSelect"></CeBaseSelector>
-    <div slot="footer">
+    <div slot="footer" class="ce-selector_footer">
       <el-button type="primary" @click="handleConfirm">确 定</el-button>
       <el-button @click="handleCancle">取 消</el-button>
     </div>
@@ -15,8 +16,7 @@
 </template>
 <script lang="ts" setup>
 import { ref, reactive, watch, toRefs, onMounted, nextTick } from 'vue';
-import { dialogSelectorProps, dialogSelectorEmits, basePropKeys } from './props'
-import { usePaginationEvents } from './hooks'
+import { DialogSelectorProps, dialogSelectorEmits, basePropKeys } from './props'
 import CeBaseSelector from '@composite-ware/components/base-selector'
 import { UnknownArray } from '@composite-ware/components/types';
 
@@ -24,7 +24,7 @@ import { UnknownArray } from '@composite-ware/components/types';
   defineOptions({
     name: 'CeDialogSelector',
   })
-  const props = defineProps(dialogSelectorProps)
+  const props = defineProps(DialogSelectorProps)
   const emit = defineEmits(dialogSelectorEmits)
 
   const { title,  show, width } = toRefs(props)
@@ -32,6 +32,8 @@ import { UnknownArray } from '@composite-ware/components/types';
   watch(show, (value) => {
     isShow.value = value
   })
+
+  const selection:any = ref(null)
 
   const baseProps:any = {}
 
@@ -42,11 +44,18 @@ import { UnknownArray } from '@composite-ware/components/types';
   });
 
   const handleSelect = (arr: UnknownArray) => {
-    console.log(arr)
+    selection.value = arr
   }
 
-  const { handleConfirm, handleCancle } = usePaginationEvents(emit)
+  const handleConfirm = () => {
+    emit('cancel', false)
+    isShow.value = false
+  }
+  const handleCancle = () => {
+    emit('confirm', selection.value)
+    isShow.value = false
+  }
   const handleClosed = () => {
-    emit('closed', false)
+
   }
 </script>

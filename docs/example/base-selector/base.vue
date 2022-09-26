@@ -2,7 +2,6 @@
   <div>
     <ce-baseSelector
       :stripe="true"
-      :defalutSelected="def"
       :multiple="true"
       :query="query"
       @select="handleSelect"

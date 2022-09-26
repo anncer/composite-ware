@@ -1,6 +1,8 @@
-.ce-base-selector .el-table__header .ce-table-radio {
-  .el-checkbox{
-    display: none !important;
+.ce-base-selector {
+  .el-table__header .ce-table-radio {
+    .el-checkbox {
+      display: none !important;
+    }
   }
 }
 
@@ -23,3 +25,4 @@
 .is-single .el-checkbox__input.is-checked .el-checkbox__inner::after {
   transform: translate(-50%, -50%) scale(1)
 }
+
