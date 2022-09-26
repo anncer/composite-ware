@@ -84,8 +84,10 @@ clumns 支持 el-table-column 的属性和方法
 
 ## Table Events
 
+> el-table 事件 current-change 由于和 分页器的事件冲突， 改为 table-current参数不变
+
 | 事件名 | 说明  | 回调参数  |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| ---------- | ----------------------------------- | ---------- |
 | select | 当用户手动勾选数据行的 Checkbox 时触发的事件 | selection, row  |
 | select-all | 当用户手动勾选全选 Checkbox 时触发的事件| selection |
 | selection-change | 当选择项发生变化时会触发该事件 | selection |
@@ -185,11 +187,6 @@ clumns 支持 el-table-column 的属性和方法
 ::: tip 提示
 由于table-column以数据形式传入到组件中，所以以方法的形式接受两个插槽的内容 renderSlot => #header; renderDefault => #default， 两个函数的参数都是scope对象
 :::
-
-| 插槽名 | 说明 |
-| ---- | -------- |
-| —| 插入到内容后面的内容，可放入 el-table-column 的操作列等 |
-| prev| 插入到内容前面的内容，可放入 el-table-column 的操作列等 |
 
 ### 分页的属性
 

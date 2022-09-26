@@ -36,7 +36,6 @@
 import { ref, toRefs, } from 'vue'
 import { CeTableProps, tableEmits, paginationKeys, TableColumnProp, tablePropKeys, paginationEs } from './default'
 import { isEmpty } from '@composite-ware/utils'
-// import TableItem from './tableItem.vue'
 
   defineOptions({
     name: 'CeTable',

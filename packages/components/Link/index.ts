@@ -1,5 +1,5 @@
 import { withInstall } from '@composite-ware/utils'
-import Link from './link'
+import Link from './Link'
 import { linkProps } from './props'
 import type { IDefineProps } from '../types/index'
 
