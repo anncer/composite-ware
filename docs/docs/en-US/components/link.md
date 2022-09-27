@@ -2,23 +2,32 @@
 title: Link
 meta:
   - name: description
-    content: Generate appropriate tags based on link information
+    content: 链接组件，链接到路由和地址
 ---
 
 ## Link
 
-> Generate appropriate tags based on link information
+> 链接组件，链接到路由和地址
 
-## Use
+## 使用
 
-### Basic Use
+### 基础用法
 
 ::: example
 @docs/example/link/base.vue
 :::
 
-### Props
+### 打开标签页
 
-| Name | Description  | Type              | Options | Default |
-| ---- | ------------ | ----------------- | ------- | ------- |
-| to   | link address | string / undefind | -       | -       |
+> 如果是 http 请求《符合 /^((ht|f)tps?):\/\/?/》 则自动为 _blank 如果是本地路由则 看target 参数
+
+::: example
+@docs/example/link/target.vue
+:::
+
+### 配置
+
+| 参数 | 说明     | 类型              | 可选值 | 默认值 |
+| ---- | -------- | ----------------- | ------ | ------ |
+| to   | 链接地址 | string / undefind | -      | -      |
+| target   | 是否开启新的标签页 | Boolean | -      | false      |

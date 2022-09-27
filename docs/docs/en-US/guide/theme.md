@@ -1,19 +1,21 @@
 ---
-title: Theme
+title: 自定义主题
 meta:
   - name: description
-    content: How to configure the theme of the composite-ware component library
+    content: 如何自定义 composite-ware 组件库的主题
 ---
+ 
+## 自定义主题
 
-# Custom theme
-
-::: tip Tip
-ElementPlus `v2.2.0` already supports dark mode, You only need to follow the [Dark Mode](https://element-plus.org/en-US/guide/dark-mode.html) to control the two component library colors.
+开发中...
+<!--
+::: tip 提示
+ElementPlus `v2.2.0` 已经支持深色模式，你仅需要遵循 [Dark Mode](https://element-plus.org/zh-CN/guide/dark-mode.html) 使用即可控制两个组件库颜色
 :::
 
-## Simple configuration
+## 简单配置
 
-css-variables is recommended
+推荐通过 css-variables 控制颜色
 
 ```css
 :root {
@@ -22,9 +24,9 @@ css-variables is recommended
 }
 ```
 
-## Dark Mode
+## 深色模式
 
-Only need to configure the dark mode of ElementPlus
+只需要配置 ElementPlus 的深色模式
 
 ```js
 import "element-plus/theme-chalk/dark/css-vars.css";
@@ -34,7 +36,7 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 <html class="dark"></html>
 ```
 
-## Multi-theme
+## 多主题
 
 ```css
 :root {
@@ -54,22 +56,22 @@ html.other {
 <html class="other"></html>
 ```
 
-::: tip Tip
-Then you can dynamically change the value of class through js
+::: tip 提示
+然后可以通过 js 动态改变 class 的值实现
 
-Use [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) or similar plugin of postcss to convert `css-variables` for better compatibility, so that the default value style can be displayed when `css-variables` is not supported.
+可以使用 postcss 插件 [postcss-custom-properties](https://github.com/postcss/postcss-custom-properties) 或者同类的插件转换 `css-variables` 获得更好的兼容性，以便在不支持 `css-variables` 时能够显示默认值样式
 :::
 
-## Provide configuration parameters
+## 提供配置的参数
 
-- public css-variables
+- 公共 css-variables
 
 <<< @/src/styles/vars.css
 
-- Light Mode css-variables of Element Plus
+- Element Plus 的浅色模式 css-variables
 
 <<< @/node_modules/element-plus/theme-chalk/el-var.css
 
-- Dark Mode css-variables of Element Plus
+- Element Plus 的深色模式 css-variables
 
-<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css
+<<< @/node_modules/element-plus/theme-chalk/dark/css-vars.css -->

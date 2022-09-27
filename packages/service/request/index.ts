@@ -46,7 +46,7 @@ class GlobalRequest {
           return data;
         }
         const status = data.code;
-        if (Number(status) === 20000) {
+        if (Number(status) === 20000 || Number(status) === 200) {
           return data;
         } else {
           // Msg("error", "请求失败！");
