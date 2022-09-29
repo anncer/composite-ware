@@ -3,28 +3,53 @@
 </template>
 
 <script setup lang="ts">
-import { loginToken } from './api';
+import { loginToken, getCrypto, getUserInfo } from './api';
 import { cookie } from '@composite-ware/utils/cache'
+import CryptoJS from 'crypto-js'
 
-const getAllQueryString = (src: string) => {
-  const query: any = {};
-  const str = src.substr(src.indexOf("?") + 1, src.length);
-  const arr = str.split("&");
-  for (let i = 0; i < arr.length; i++) {
-    const num = arr[i].indexOf("=");
-    if (num > 0) {
-      query[arr[i].substring(0, num)] = arr[i].substr(num + 1);
-    }
-  }
-  return query;
-};
-loginToken()
-  .then((res:any) => {
-    const str = res.data
-    const obj = getAllQueryString(str)
-    console.log(obj, 'obj')
-    obj.userid && cookie.set('USERID', obj.userid)
-    obj.esp_token && cookie.set('ESP-TOKEN', obj.esp_token)
-  })
+function encrypt(data: any, crypto: any) {
 
+  const enc = (d:any) => CryptoJS.enc.Utf8.parse(d)
+
+  const key = enc(crypto.key)
+  const iv = enc(crypto.iv)
+
+  const cfg = { iv, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+
+  const aes = (k:any) => CryptoJS.AES.encrypt(enc(k), key, cfg).ciphertext.toString()
+
+  const result:any = {}
+  Object.keys(data).forEach(k => { result[aes(k)] = aes(data[k]) })
+
+  return aes(JSON.stringify(result))
+}
+
+const loginSimulation = () => {
+  getCrypto()
+    .then((res:any) => {
+      const password = window.location.host.includes('10.28.89.11')? 'PTResp413Admin@123' : 'PTResp413@Admin123'
+      const f = {
+        username: 'xu_kun11',
+        password
+      }
+      loginToken(encrypt(f, res.data))
+        .then((r:any) => {
+          cookie.set('ESP-TOKEN', r.data)
+        })
+    })
+}
+const token = cookie.get("ESP-TOKEN")
+if (!token) {
+  loginSimulation()
+} else {
+  getUserInfo(token)
+    .then(res => {
+      console.log(res, 'response')
+      console.log('已登录')
+    })
+    .catch(e => {
+      console.log(e)
+      console.log(e.code, '')
+    })
+}
 </script>

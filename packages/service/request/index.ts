@@ -58,7 +58,7 @@ class GlobalRequest {
         if (error.response.status === 404) {
           console.log(404);
         }
-        return error;
+        return Promise.reject(error);
       }
     );
 

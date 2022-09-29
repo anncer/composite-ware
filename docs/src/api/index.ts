@@ -1,10 +1,25 @@
 
 import Api from '@composite-ware/service'
 
-export const loginToken = () => {
+export function getCrypto() {
   return Api.request({
-    url: '/api/admin/auth/loginByUsername',
+    url: '/api/admin/auth/crypto',
+    method: 'GET'
+  })
+}
+
+export function loginToken(param:any) {
+  return Api.request({
+    url: '/api/admin/auth/login',
+    method: 'POST',
+    headers: { 'Authentication-Param': param }
+  })
+}
+
+export function getUserInfo(token: string) {
+  return Api.request({
+    url: '/api/admin/auth/getUserInfo',
     method: 'get',
-    params: { username: "xu_kun" }
+    params: { token }
   })
 }
