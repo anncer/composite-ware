@@ -57,24 +57,34 @@ const compFilesTplReplacer = (meta) => {
   });
 };
 
-// 读取 packages/list.json 并更新
+// 读取 components.ts 并更新
+const singleSplit = '// sigleSplit'
 const listJsonTplReplacer = (meta) => {
-  const listFilePath = "../../packages/list.json";
+  const listFilePath = "../../packages/components/components.ts";
   const listFileTpl = fs.readFileSync(
     resolve(__dirname, listFilePath),
     "utf-8"
   );
-  const listFileContent = JSON.parse(listFileTpl);
-  listFileContent.push(meta);
-  const newListFileContentFile = JSON.stringify(listFileContent, null, 2);
-  fs.writeFile(
-    resolve(__dirname, listFilePath),
-    newListFileContentFile,
-    (err) => {
-      if (err) console.log(err);
-    }
-  );
-  return listFileContent;
+  const arr = listFileTpl.split(singleSplit)
+  let f0 = arr[0]
+  f0 = f0.concat(`export * from './${meta.compName}'\n` , singleSplit)
+
+  let f1 = arr[1]
+  f1 = f1.concat(`import { ${meta.tf} } from './${meta.compName}'\n` , singleSplit)
+
+  const f2 = arr[2] + singleSplit
+  const f4 = arr[4] + singleSplit
+  let f3 = arr[3]
+  f3 = f3.concat(`Ce${meta.tf},\n` , singleSplit)
+
+  let f5 = arr[5]
+  f5 = f5.concat(`Ce${meta.tf}: typeof Ce${meta.tf},\n` , singleSplit)
+
+  let f6 = arr[6]
+  const ctx = f0.concat(f1,f2,f3,f4,f5,f6)
+  fs.outputFile(resolve(__dirname, listFilePath), ctx, (err) => {
+    if (err) console.log(err);
+  });
 };
 
 // 更新 router.ts
@@ -103,41 +113,9 @@ const listJsonTplReplacer = (meta) => {
 //   });
 // };
 
-// 更新 install.ts
-// const installTsTplReplacer = (listFileContent) => {
-//   const installFileFrom = "./.template/install.ts.tpl";
-//   const installFileTo = "../../packages/index.ts"; // 这里没有写错，别慌
-//   const installFileTpl = fs.readFileSync(
-//     resolve(__dirname, installFileFrom),
-//     "utf-8"
-//   );
-//   const installMeta = {
-//     importPlugins: listFileContent
-//       .map(
-//         ({ compName }) => `import { ${compName}Plugin } from './${compName}';`
-//       )
-//       .join("\n"),
-//     installPlugins: listFileContent
-//       .map(({ compName }) => `${compName}Plugin.install?.(app);`)
-//       .join("\n    "),
-//     exportPlugins: listFileContent
-//       .map(({ compName }) => `export * from './${compName}'`)
-//       .join("\n")
-//   };
-//   const installFileContent = handlebars.compile(installFileTpl, {
-//     noEscape: true
-//   })(installMeta);
-//   fs.outputFile(
-//     resolve(__dirname, installFileTo),
-//     installFileContent,
-//     (err) => {
-//       if (err) console.log(err);
-//     }
-//   );
-// };
-
 module.exports = (meta) => {
   compFilesTplReplacer(meta);
+  listJsonTplReplacer(meta)
   // const listFileContent = listJsonTplReplacer(meta);
   // routerTplReplacer(listFileContent);
   // installTsTplReplacer(listFileContent);
