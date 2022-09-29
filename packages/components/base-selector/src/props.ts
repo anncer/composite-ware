@@ -21,6 +21,12 @@ export interface BaseQueryProp {
   formatter?: UnknownFunction
 }
 
+export interface FormQueryProp extends BaseQueryProp {
+  list?: any[]
+}
+
+export type FormQueryProps = Array<FormQueryProp>
+
 export type BaseQuerys = Array<BaseQueryProp>
 
 export interface BaseFieldsProp {

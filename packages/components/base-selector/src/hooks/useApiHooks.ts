@@ -2,7 +2,7 @@ import Api from '@composite-ware/service'
 import { isEmpty, isProperty } from '@composite-ware/utils';
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import { BaseQuerys, BaseUserParamsProp } from '../props'
+import { FormQueryProps, BaseUserParamsProp } from '../props'
 import { baseUserServiceApi } from '../constant'
 import { UnknownArray } from '@composite-ware/components/types';
 import { defaultQuery } from '../constant'
@@ -42,12 +42,12 @@ export const useGetData = (userParams: BaseUserParamsProp | undefined = {}, quer
   return useApiService(path, userRequestMethod, reqParams)
 }
 
-export const useQueryParams = (query:BaseQuerys | undefined) => {
+export const useQueryParams = (query:FormQueryProps | undefined) => {
   const requestArr:any[] = []
   const params:any = reactive({})
   // 是否有默认值
   let isDef = false
-  const queryProps:Ref<BaseQuerys> = ref([])
+  const queryProps:Ref<FormQueryProps> = ref([])
   const useQuery = query || defaultQuery
   useQuery.forEach(it => {
     if (isProperty(it, 'vlaue') && it.value) {
@@ -65,7 +65,29 @@ export const useQueryParams = (query:BaseQuerys | undefined) => {
       if (it.params) {
         reqParam.data = it.params
       }
-      requestArr.push(useApiService(it.url, method, reqParam))
+      it.list = [
+        {
+          name: '组织1',
+          code: '1'
+        },
+        {
+          name: '组织2',
+          code: '2'
+        },
+        {
+          name: '组织3',
+          code: '3'
+        },
+        {
+          name: '组织4',
+          code: '4'
+        },
+        {
+          name: '组织5',
+          code: '5'
+        },
+      ]
+      // requestArr.push(useApiService(it.url, method, reqParam))
     }
   })
   // Promise.all(reqs)

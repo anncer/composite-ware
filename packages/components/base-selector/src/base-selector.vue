@@ -7,10 +7,10 @@
         :inline="true"
       >
         <el-form-item v-for="it in queryProps" :key="it.code" :label="it.label" :label-width="it.labelWidth || '90px'">
-          <!-- <template v-if="it.type==='select'">
-            <el-select v-model="it.value" placeholder="请选择" filterable clearable>
+          <template v-if="it.type==='select'">
+            <el-select v-model="searchParamsOptions[it.code]" @change="handleChangeParams" placeholder="请选择" filterable clearable>
               <el-option
-                v-for="opt in searchParamsOptions[it.code]"
+                v-for="opt in it.list"
                 :label="opt[it.optLabel || 'label']"
                 :value="opt[it.optValue || 'value']"
                 :key="opt.partyCode"
@@ -18,9 +18,9 @@
               </el-option>
             </el-select>
           </template>
-          <template v-else> -->
+          <template v-else>
             <el-input v-model="searchParamsOptions[it.code]" @change="handleChangeParams" clearable></el-input>
-          <!-- </template> -->
+          </template>
         </el-form-item>
       </el-form>
     </div>
@@ -53,7 +53,7 @@
 import { ref, onMounted, nextTick, toRefs } from 'vue';
 import type { Ref } from 'vue'
 import { BaseSelectorProps, baseSelectorEmits } from './props'
-import { BaseQuerys } from './props'
+import { FormQueryProps } from './props'
 import CeTable from '@composite-ware/components/table'
 import { useChangeTableSelect, useMultipleSelectionChange,useSetCurrentSection, useSetEmitPlantArray } from './hooks/useSelectionHooks'
 import { useGetData, useQueryParams, useGetDefaultSection } from './hooks/useApiHooks'
@@ -135,29 +135,34 @@ import { UnknownArray } from '@composite-ware/components/types';
   }
 
   // 搜索相关
-  const {queryProps, isDef, params } = useQueryParams(query as BaseQuerys)
+  const {queryProps, isDef, params } = useQueryParams(query as FormQueryProps)
 
   const searchParamsOptions = params || null
 
+  console.log(searchParamsOptions, 'searchParamsOptions')
+
+  console.log(queryProps, 'queryProps')
+
   const handleChangeParams = () => {
-    currentPage.value = 1
-    getPageData()
+    console.log(searchParamsOptions, 'searchParamsOptions')
+    // currentPage.value = 1
+    // getPageData()
   }
 
   onMounted(() => {
     // 设置默认选中项
-    if (defalutSection.length) {
-      useGetDefaultSection(defalutSection)
-        .then((res:any) => {
-          const resdata = (formatter && formatter(res.data)) || res.data
-          if (isArray(resdata)) {
-            currentSelection = resdata
-          }
-          getPageData()
-        })
-    } else {
-      getPageData()
-    }
+    // if (defalutSection.length) {
+    //   useGetDefaultSection(defalutSection)
+    //     .then((res:any) => {
+    //       const resdata = (formatter && formatter(res.data)) || res.data
+    //       if (isArray(resdata)) {
+    //         currentSelection = resdata
+    //       }
+    //       getPageData()
+    //     })
+    // } else {
+    //   getPageData()
+    // }
   })
 
 </script>
