@@ -2,8 +2,8 @@ import { withInstall } from '@composite-ware/utils'
 
 export * from './src'
 
-import {{ compName }} from './src/{{ compName }}.vue'
+import {{ tf }} from './src/{{ compName }}.vue'
 
-export const Ce{{ compName }} = withInstall({{ compName }})
+export const Ce{{ tf }} = withInstall({{ tf }})
 
-export default Ce{{ compName }}
+export default Ce{{ tf }}

@@ -3,7 +3,7 @@ const inquirer = require('inquirer');
 const fs = require("fs-extra");
 const { resolve } = require("path");
 
-const listFilePath = "../../components.json";
+const listFilePath = "../../packages/components";
 
 const RegxMap = {
   IS_COMP_NAME: /^[a-z]{1,}(\-{0,1}[a-z]{1,})+$/,
@@ -30,9 +30,9 @@ module.exports = async () => {
           done("请按要求输入正确的组件名！");
           return;
         }
-        const listData = fs.readJSONSync(resolve(__dirname, listFilePath));
+        const listData = fs.readdirSync(resolve(__dirname, listFilePath))
         if (listData.find((item) => item.compName === answer)) {
-          done("已存在同名组件，请确认后更换名字再重试。");
+          done("已存在同名文件，请确认后更换名字再重试。");
           return;
         }
         done(null, true);
@@ -59,8 +59,14 @@ module.exports = async () => {
       default: "默认：这是一个新组件"
     }
   ]);
-  // const { compName } = meta;
+  const { compName } = meta;
   // meta.compClassName = kebabCase(compName);
-  // meta.
+  meta.tf = compName.split('-').map(it => {
+    if (it.length > 1) {
+      return it.slice(0,1).toUpperCase() + it.slice(1, it.length )
+    } else {
+      return it.toUpperCase()
+    }
+  }).join("")
   return meta;
 };
