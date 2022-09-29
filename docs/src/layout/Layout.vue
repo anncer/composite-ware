@@ -34,7 +34,6 @@ import { useRouter } from "vue-router";
 import { useLang } from "../composables/index";
 
 import siderMenuItem from "@docs/src/layout/siderMenuItem.vue";
-import { useCurrentRoutes } from '../composables/index'
 
 import logo from "../public/logo.svg"
 const menuStype = `--el-menu-text-color: var(--de-font-color);

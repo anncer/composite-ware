@@ -6,7 +6,7 @@
 import { loginToken, getCrypto, getUserInfo } from './api';
 import { cookie } from '@composite-ware/utils/cache'
 import CryptoJS from 'crypto-js'
-
+import { ElMessage } from "element-plus";
 function encrypt(data: any, crypto: any) {
 
   const enc = (d:any) => CryptoJS.enc.Utf8.parse(d)
@@ -25,15 +25,23 @@ function encrypt(data: any, crypto: any) {
 }
 
 const loginSimulation = () => {
+  ElMessage({
+    type: "warning",
+    message: "当前未登录，自动登录中"
+  });
   getCrypto()
     .then((res:any) => {
       const password = window.location.host.includes('10.28.89.11')? 'PTResp413Admin@123' : 'PTResp413@Admin123'
       const f = {
-        username: 'xu_kun11',
+        username: 'xu_kun',
         password
       }
       loginToken(encrypt(f, res.data))
         .then((r:any) => {
+          ElMessage({
+            type: "success",
+            message: "登录成功"
+          });
           cookie.set('ESP-TOKEN', r.data)
         })
     })
@@ -48,8 +56,9 @@ if (!token) {
       console.log('已登录')
     })
     .catch(e => {
+      console.log('重新登录')
+      loginSimulation()
       console.log(e)
-      console.log(e.code, '')
     })
 }
 </script>
