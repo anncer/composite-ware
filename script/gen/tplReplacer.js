@@ -34,23 +34,22 @@ const getTplFilePath = (meta) => ({
     form: "./.template/src/prop.ts.tpl",
     to: `../../packages/components/${meta.compName}/src/prop.ts`
   },
-
   // 样式文件
-  style: {
-    form: "./.template/style.scss.tpl",
-    to: `../../packages/theme-chalk/src/${meta.compName}.scss`
-  }
+  // style: {
+  //   form: "./.template/style.scss.tpl",
+  //   to: `../../packages/theme-chalk/src/${meta.compName}.scss`
+  // }
 });
 
 const compFilesTplMaker = (meta) => {
   const filePaths = getTplFilePath(meta);
   Object.keys(filePaths).forEach((key) => {
     const fileTpl = fs.readFileSync(
-      resolveFile(__dirname, filePaths[key].from),
+      resolveFile(filePaths[key].from),
       "utf-8"
     );
     const fileContent = compileFile(fileTpl, meta)
-    fs.outputFile(resolveFile(__dirname, filePaths[key].to), fileContent, (err) => {
+    fs.outputFile(resolveFile(filePaths[key].to), fileContent, (err) => {
       if (err) console.log(err);
     });
   });
@@ -61,7 +60,7 @@ const singleSplit = '// sigleSplit'
 const compExpRefersh = (meta) => {
   const listFilePath = "../../packages/components/components.ts";
   const listFileTpl = fs.readFileSync(
-    resolveFile(__dirname, listFilePath),
+    resolveFile(listFilePath),
     "utf-8"
   );
   const arr = listFileTpl.split(singleSplit)
@@ -81,7 +80,7 @@ const compExpRefersh = (meta) => {
 
   let f6 = arr[6]
   const ctx = f0.concat(f1,f2,f3,f4,f5,f6)
-  fs.outputFile(resolveFile(__dirname, listFilePath), ctx, (err) => {
+  fs.outputFile(resolveFile(listFilePath), ctx, (err) => {
     if (err) console.log(err);
   });
 };
@@ -95,7 +94,7 @@ const compListRefersh = (meta) => {
     "desc": meta.compDesc
   })
   const newCompFileContext = JSON.stringify(compsList, null, 2)
-  fs.writeFileSync(resolveFile(__dirname, compsPath), newCompFileContext, err => {
+  fs.writeFileSync(resolveFile(compsPath), newCompFileContext, err => {
     if (err) console.log(err)
   })
 }

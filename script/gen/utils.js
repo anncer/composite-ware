@@ -16,8 +16,9 @@ const compileFile = (tpl, params, opts) => {
   return handlebars.compile(tpl, opts)(params);
 }
 
-const resolveFile = (dir, path) => {
-  return resolve(dir, path)
+const resolveFile = (src) => {
+  console.log(src, typeof src)
+  return resolve(__dirname, src)
 }
 
 module.exports = {

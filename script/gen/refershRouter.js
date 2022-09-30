@@ -24,11 +24,11 @@ const refershRouter = () => {
       return getRouterTpl(it, l)
     })
     const routerFileTpl = fs.readFileSync(
-      resolveFile(__dirname, routerFileFrom),
+      resolveFile(routerFileFrom),
       "utf-8"
     );
     const routerFileContent = compileFile(routerFileTpl, {lang: l, langUpper: l.split("-").join(""), list: routerList}, { noEscape: true })
-    fs.outputFileSync(resolveFile(__dirname, to + `${l}.ts`), routerFileContent, (err) => {
+    fs.outputFileSync(resolveFile(to + `${l}.ts`), routerFileContent, (err) => {
       if (err) console.log(err);
     });
   })
