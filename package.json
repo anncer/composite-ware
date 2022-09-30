@@ -29,6 +29,7 @@
     "lint": "eslint . --fix --ext .ts,.vue,.js",
     "lint:test": "eslint . --ext .ts,.vue,.js --max-warnings 0",
     "gen": "node ./script/gen/index.js",
+    "make": "node ./script/gen/makeRouter.js",
     "prettier": "prettier --write .",
     "prepare": "husky install"
   },

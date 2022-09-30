@@ -94,8 +94,6 @@ const compListRefersh = (meta) => {
     "cn-name": meta.compZhName,
     "desc": meta.compDesc
   })
-  // "path": `/${dir}/components/${meta.compName}`,
-  // "docs": `./../docs/${dir}/components/${meta.compName}.md`
   const newCompFileContext = JSON.stringify(compsList, null, 2)
   fs.writeFileSync(resolveFile(__dirname, compsPath), newCompFileContext, err => {
     if (err) console.log(err)

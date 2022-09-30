@@ -12,8 +12,8 @@ const getCompsList = () => {
   return JSON.parse(compsTpl)
 }
 
-const compileFile = (tpl,params, opts) => {
-  handlebars.compile(tpl, opts)(params);
+const compileFile = (tpl, params, opts) => {
+  return handlebars.compile(tpl, opts)(params);
 }
 
 const resolveFile = (dir, path) => {

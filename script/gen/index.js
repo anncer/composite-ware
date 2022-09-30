@@ -1,10 +1,10 @@
 const infoCollector = require("./infoCollector");
 const tplReplacer = require("./tplReplacer");
-const makeRouter = require('./makeRouter')
+const refershRouter = require('./refershRouter')
 async function run() {
   const meta = await infoCollector();
   tplReplacer(meta);
-  makeRouter();
+  refershRouter();
 }
 
 run();

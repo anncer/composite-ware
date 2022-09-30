@@ -1,3 +1,9 @@
+/* eslint-disable prettier/prettier */
+
+/**
+ * !--------- WARNING ----------!
+ * 根据 /components.json 目录下的组件所生成的组件类侧边导航栏配置，请勿手动修改
+ */
 import { markRaw } from "vue";
 import { House, TakeawayBox } from "@element-plus/icons-vue";
 import Layout from "../layout/Layout.vue";
@@ -43,41 +49,41 @@ const zhCN: RouteRecordRaw[] = [
     component: Layout,
     meta: { title: "组件", icon: markRaw(TakeawayBox) },
     children: [
-      {
-        path: "/zh-CN/components/link",
-        component: () => import("../../docs/zh-CN/components/link.md"),
-        meta: { title: "link" }
-      },
-      {
-        path: "/zh-CN/components/card",
-        component: () => import("../../docs/zh-CN/components/card.md"),
-        meta: { title: "card" }
-      },
-      {
-        path: "/zh-CN/components/item",
-        component: () => import("../../docs/zh-CN/components/item.md"),
-        meta: { title: "item" }
-      },
-      {
-        path: "/zh-CN/components/title",
-        component: () => import("../../docs/zh-CN/components/title.md"),
-        meta: { title: "title" }
-      },
-      {
-        path: "/zh-CN/components/table",
-        component: () => import("../../docs/zh-CN/components/table.md"),
-        meta: { title: "table" }
-      },
-      {
-        path: "/zh-CN/components/base-selector",
-        component: () => import("../../docs/zh-CN/components/base-selector.md"),
-        meta: { title: "base-selector" }
-      },
-      {
-        path: "/zh-CN/components/dialog-selector",
-        component: () => import("../../docs/zh-CN/components/dialog-selector.md"),
-        meta: { title: "dialog-selector" }
-      }
+        {
+          path: "/zh-CN/components/link",
+          component: () => import("../../docs/zh-CN/components/link.md"),
+          meta: { title: "link" }
+        },
+        {
+          path: "/zh-CN/components/card",
+          component: () => import("../../docs/zh-CN/components/card.md"),
+          meta: { title: "card" }
+        },
+        {
+          path: "/zh-CN/components/item",
+          component: () => import("../../docs/zh-CN/components/item.md"),
+          meta: { title: "item" }
+        },
+        {
+          path: "/zh-CN/components/title",
+          component: () => import("../../docs/zh-CN/components/title.md"),
+          meta: { title: "title" }
+        },
+        {
+          path: "/zh-CN/components/table",
+          component: () => import("../../docs/zh-CN/components/table.md"),
+          meta: { title: "table" }
+        },
+        {
+          path: "/zh-CN/components/base-selector",
+          component: () => import("../../docs/zh-CN/components/base-selector.md"),
+          meta: { title: "base-selector" }
+        },
+        {
+          path: "/zh-CN/components/dialog-selector",
+          component: () => import("../../docs/zh-CN/components/dialog-selector.md"),
+          meta: { title: "dialog-selector" }
+        }
     ]
   }
 ];

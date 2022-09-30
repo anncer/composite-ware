@@ -1,3 +1,9 @@
+/* eslint-disable prettier/prettier */
+
+/**
+ * !--------- WARNING ----------!
+ * 根据 /components.json 目录下的组件所生成的组件类侧边导航栏配置，请勿手动修改
+ */
 import { markRaw } from "vue";
 import { House, TakeawayBox } from "@element-plus/icons-vue";
 import Layout from "../layout/Layout.vue";
@@ -43,41 +49,41 @@ const enUS: RouteRecordRaw[] = [
     component: Layout,
     meta: { title: "组件", icon: markRaw(TakeawayBox) },
     children: [
-      {
-        path: "/en-US/components/link",
-        component: () => import("../../docs/en-US/components/link.md"),
-        meta: { title: "link" }
-      },
-      {
-        path: "/en-US/components/card",
-        component: () => import("../../docs/en-US/components/card.md"),
-        meta: { title: "card" }
-      },
-      {
-        path: "/en-US/components/item",
-        component: () => import("../../docs/en-US/components/item.md"),
-        meta: { title: "item" }
-      },
-      {
-        path: "/en-US/components/title",
-        component: () => import("../../docs/en-US/components/title.md"),
-        meta: { title: "title" }
-      },
-      {
-        path: "/en-US/components/table",
-        component: () => import("../../docs/en-US/components/table.md"),
-        meta: { title: "table" }
-      },
-      {
-        path: "/en-US/components/base-selector",
-        component: () => import("../../docs/en-US/components/base-selector.md"),
-        meta: { title: "base-selector" }
-      },
-      {
-        path: "/en-US/components/dialog-selector",
-        component: () => import("../../docs/en-US/components/dialog-selector.md"),
-        meta: { title: "dialog-selector" }
-      }
+        {
+          path: "/en-US/components/link",
+          component: () => import("../../docs/en-US/components/link.md"),
+          meta: { title: "link" }
+        },
+        {
+          path: "/en-US/components/card",
+          component: () => import("../../docs/en-US/components/card.md"),
+          meta: { title: "card" }
+        },
+        {
+          path: "/en-US/components/item",
+          component: () => import("../../docs/en-US/components/item.md"),
+          meta: { title: "item" }
+        },
+        {
+          path: "/en-US/components/title",
+          component: () => import("../../docs/en-US/components/title.md"),
+          meta: { title: "title" }
+        },
+        {
+          path: "/en-US/components/table",
+          component: () => import("../../docs/en-US/components/table.md"),
+          meta: { title: "table" }
+        },
+        {
+          path: "/en-US/components/base-selector",
+          component: () => import("../../docs/en-US/components/base-selector.md"),
+          meta: { title: "base-selector" }
+        },
+        {
+          path: "/en-US/components/dialog-selector",
+          component: () => import("../../docs/en-US/components/dialog-selector.md"),
+          meta: { title: "dialog-selector" }
+        }
     ]
   }
 ];
