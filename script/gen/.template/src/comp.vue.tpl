@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 
 defineOptions({
-   name: "{{ compName }}",
+   name: "Ce{{ tf }}",
 })
 
 </script>

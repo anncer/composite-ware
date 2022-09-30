@@ -25,4 +25,3 @@ meta:
 :-: | :-: | :-: | :-:
 `click` | 点击事件 | $event | 原生的 dom event
 `customEvent` | 自定义事件 | [a, b, c] | a：参数一；b：参数二；c：参数三
-

@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const { getCompsList, compileFile, resolveFile } = require("./utils")
+const { getCompsList, compileFile, resolveFile, compsPath } = require("./utils")
 
 const getTplFilePath = (meta) => ({
   // docs 目录
@@ -30,15 +30,10 @@ const getTplFilePath = (meta) => ({
     from: "./.template/src/index.ts.tpl",
     to: `../../packages/components/${meta.compName}/src/index.ts`
   },
-  prop: {
-    form: "./.template/src/prop.ts.tpl",
+  props: {
+    from: "./.template/src/prop.ts.tpl",
     to: `../../packages/components/${meta.compName}/src/prop.ts`
-  },
-  // 样式文件
-  // style: {
-  //   form: "./.template/style.scss.tpl",
-  //   to: `../../packages/theme-chalk/src/${meta.compName}.scss`
-  // }
+  }
 });
 
 const compFilesTplMaker = (meta) => {
@@ -65,7 +60,7 @@ const compExpRefersh = (meta) => {
   );
   const arr = listFileTpl.split(singleSplit)
   let f0 = arr[0]
-  f0 = f0.concat(`export * from './${meta.compName}'\n` , singleSplit)
+  f0 = f0.concat(`export * from './${meta.tf}'\n` , singleSplit)
 
   let f1 = arr[1]
   f1 = f1.concat(`import { ${meta.tf} } from './${meta.compName}'\n` , singleSplit)
@@ -90,7 +85,7 @@ const compListRefersh = (meta) => {
   const compsList = getCompsList()
   compsList.push({
     "name": meta.compName,
-    "cn-name": meta.compZhName,
+    "znName": meta.compZhName,
     "desc": meta.compDesc
   })
   const newCompFileContext = JSON.stringify(compsList, null, 2)
