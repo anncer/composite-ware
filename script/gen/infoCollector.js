@@ -21,7 +21,7 @@ module.exports = async () => {
   const meta = await inquirer.prompt([
     {
       type: "input",
-      message: "请输入你要新建的组件名（纯英文，大写开头, 如果名称有多个单词,请以 '-' 连接）：",
+      message: "请输入你要新建的组件名（纯英文，全小写, 如果名称有多个单词,请以 '-' 连接）：",
       name: "compName",
       validate(answer) {
         const done = this.async();
@@ -60,7 +60,6 @@ module.exports = async () => {
     }
   ]);
   const { compName } = meta;
-  // meta.compClassName = kebabCase(compName);
   meta.tf = compName.split('-').map(it => {
     if (it.length > 1) {
       return it.slice(0,1).toUpperCase() + it.slice(1, it.length )

@@ -3,7 +3,8 @@ const tplReplacer = require("./tplReplacer");
 
 async function run() {
   const meta = await infoCollector();
-  tplReplacer(meta);
+  console.log(meta)
+  // tplReplacer(meta);
 }
 
 run();

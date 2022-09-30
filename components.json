@@ -1,0 +1,38 @@
+[
+  {
+    "name": "link",
+    "znName": "link",
+    "desc": "link"
+  },
+  {
+    "name": "card",
+    "znName": "卡片",
+    "desc": "卡片"
+  },
+  {
+    "name": "item",
+    "znName": "item",
+    "desc": "item"
+  },
+  {
+    "name": "title",
+    "znName": "标题",
+    "desc": "标题"
+  },
+  {
+    "name": "table",
+    "znName": "表格",
+    "desc": "表格"
+  },
+  {
+    "name": "base-selector",
+    "znName": "基础选择器",
+    "desc": "基础选择器"
+  },
+  {
+    "name": "dialog-selector",
+    "znName": "弹窗选择器",
+    "desc": "弹窗选择器"
+  }
+]
+

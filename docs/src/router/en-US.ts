@@ -69,14 +69,14 @@ const enUS: RouteRecordRaw[] = [
         meta: { title: "table" }
       },
       {
-        path: "/en-US/components/baseSelector",
-        component: () => import("../../docs/en-US/components/baseSelector.md"),
-        meta: { title: "baseSelector" }
+        path: "/en-US/components/base-selector",
+        component: () => import("../../docs/en-US/components/base-selector.md"),
+        meta: { title: "base-selector" }
       },
       {
-        path: "/en-US/components/dialogSelector",
-        component: () => import("../../docs/en-US/components/dialogSelector.md"),
-        meta: { title: "dialogSelector" }
+        path: "/en-US/components/dialog-selector",
+        component: () => import("../../docs/en-US/components/dialog-selector.md"),
+        meta: { title: "dialog-selector" }
       }
     ]
   }

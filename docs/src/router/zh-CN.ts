@@ -69,14 +69,14 @@ const zhCN: RouteRecordRaw[] = [
         meta: { title: "table" }
       },
       {
-        path: "/zh-CN/components/baseSelector",
-        component: () => import("../../docs/zh-CN/components/baseSelector.md"),
-        meta: { title: "baseSelector" }
+        path: "/zh-CN/components/base-selector",
+        component: () => import("../../docs/zh-CN/components/base-selector.md"),
+        meta: { title: "base-selector" }
       },
       {
-        path: "/zh-CN/components/dialogSelector",
-        component: () => import("../../docs/zh-CN/components/dialogSelector.md"),
-        meta: { title: "dialogSelector" }
+        path: "/zh-CN/components/dialog-selector",
+        component: () => import("../../docs/zh-CN/components/dialog-selector.md"),
+        meta: { title: "dialog-selector" }
       }
     ]
   }

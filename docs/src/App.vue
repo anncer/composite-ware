@@ -27,7 +27,7 @@ function encrypt(data: any, crypto: any) {
 const loginSimulation = () => {
   ElMessage({
     type: "warning",
-    message: "当前未登录，自动登录中"
+    message: "当前未登录，自动登录账号 'xu_kun'"
   });
   getCrypto()
     .then((res:any) => {
