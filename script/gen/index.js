@@ -1,10 +1,10 @@
 const infoCollector = require("./infoCollector");
 const tplReplacer = require("./tplReplacer");
-
+const makeRouter = require('./makeRouter')
 async function run() {
   const meta = await infoCollector();
-  console.log(meta)
-  // tplReplacer(meta);
+  tplReplacer(meta);
+  makeRouter();
 }
 
 run();

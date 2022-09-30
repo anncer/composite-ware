@@ -1,6 +1,5 @@
 const fs = require("fs-extra");
-const handlebars = require("handlebars");
-const { resolve } = require("path");
+const { getCompsList, compileFile, resolveFile } = require("./utils")
 
 const getTplFilePath = (meta) => ({
   // docs 目录
@@ -47,11 +46,11 @@ const compFilesTplMaker = (meta) => {
   const filePaths = getTplFilePath(meta);
   Object.keys(filePaths).forEach((key) => {
     const fileTpl = fs.readFileSync(
-      resolve(__dirname, filePaths[key].from),
+      resolveFile(__dirname, filePaths[key].from),
       "utf-8"
     );
-    const fileContent = handlebars.compile(fileTpl)(meta);
-    fs.outputFile(resolve(__dirname, filePaths[key].to), fileContent, (err) => {
+    const fileContent = compileFile(fileTpl, meta)
+    fs.outputFile(resolveFile(__dirname, filePaths[key].to), fileContent, (err) => {
       if (err) console.log(err);
     });
   });
@@ -62,7 +61,7 @@ const singleSplit = '// sigleSplit'
 const compExpRefersh = (meta) => {
   const listFilePath = "../../packages/components/components.ts";
   const listFileTpl = fs.readFileSync(
-    resolve(__dirname, listFilePath),
+    resolveFile(__dirname, listFilePath),
     "utf-8"
   );
   const arr = listFileTpl.split(singleSplit)
@@ -82,7 +81,7 @@ const compExpRefersh = (meta) => {
 
   let f6 = arr[6]
   const ctx = f0.concat(f1,f2,f3,f4,f5,f6)
-  fs.outputFile(resolve(__dirname, listFilePath), ctx, (err) => {
+  fs.outputFile(resolveFile(__dirname, listFilePath), ctx, (err) => {
     if (err) console.log(err);
   });
 };
@@ -98,85 +97,13 @@ const compListRefersh = (meta) => {
   // "path": `/${dir}/components/${meta.compName}`,
   // "docs": `./../docs/${dir}/components/${meta.compName}.md`
   const newCompFileContext = JSON.stringify(compsList, null, 2)
-  fs.writeFileSync(resolve(__dirname, compsPath), newCompFileContext, err => {
+  fs.writeFileSync(resolveFile(__dirname, compsPath), newCompFileContext, err => {
     if (err) console.log(err)
   })
 }
-
-const fs = require("fs-extra");
-const { resolve } = require("path");
-const lang = ['en-US', 'zn-CN']
-
-const getRouterTpl = (item, dir = 'zn-CN') => {
-  const title = dir === 'zn-CN' ? meta.znName : meta.name
-  return `{
-          path: "/${dir}/components/${meta.name}",
-          component: () => import("../../docs/${dir}/components/${meta.name}.md"),
-          meta: { title: ${title} }
-        },`
-}
-
-const getCompsList = () => {
-  const compsPath = "../../components.json";
-  const compsTpl = fs.readFileSync(
-    resolve(__dirname, compsPath),
-    "utf-8"
-  );
-  return JSON.parse(compsTpl)
-}
-// 更新 docs router.ts
-const routerTplReplacer = () => {
-  const routerFileFrom = "./.template/router.ts.tpl";
-  const to = '../../docs/src/router/' // + ${lang}.ts
-  const compsList = getCompsList()
-  lang.forEach(l => {
-    const routerList = compsList.map(it => {
-      return getRouterTpl(it, l)
-    })
-    const routerFileTpl = fs.readFileSync(
-      resolve(__dirname, routerFileFrom),
-      "utf-8"
-    );
-    const routerFileContent = handlebars.compile(routerFileTpl, {
-      noEscape: true
-    })({lang: l, langUpper: l.split("-").join(""), list: routerList});
-    fs.outputFileSync(resolve(__dirname, to + `${lang}.ts`), routerFileContent, (err) => {
-      if (err) console.log(err);
-    });
-  })
-}
-routerTplReplacer()
-// const routerTplReplacer = (listFileContent) => {
-//   const routerFileFrom = "./.template/router.ts.tpl";
-//   const routerFileTo = "../../src/router.ts";
-//   const routerFileTpl = fs.readFileSync(
-//     resolve(__dirname, routerFileFrom),
-//     "utf-8"
-//   );
-//   const routerMeta = {
-//     routes: listFileContent.map((comp) => {
-//       return `{
-//     title: '${comp.compZhName}',
-//     name: '${comp.compName}',
-//     path: '/components/${comp.compName}',
-//     component: () => import('packages/${comp.compName}/docs/README.md'),
-//   }`;
-//     })
-//   };
-//   const routerFileContent = handlebars.compile(routerFileTpl, {
-//     noEscape: true
-//   })(routerMeta);
-//   fs.outputFile(resolve(__dirname, routerFileTo), routerFileContent, (err) => {
-//     if (err) console.log(err);
-//   });
-// };
 
 module.exports = (meta) => {
   compFilesTplMaker(meta);
   compExpRefersh(meta)
   compListRefersh(meta)
-  // routerTplReplacer(listFileContent);
-  // installTsTplReplacer(listFileContent);
-
-  console.log(`组件新建完毕，请前往 packages/${meta.compName} 目录进行开发`);
 };

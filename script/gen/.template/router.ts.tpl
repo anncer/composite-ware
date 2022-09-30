@@ -48,7 +48,8 @@ const {{ langUpper }}: RouteRecordRaw[] = [
     redirect: "/{{ lang }}/components/link",
     component: Layout,
     meta: { title: "组件", icon: markRaw(TakeawayBox) },
-    children: {{ list }}
+    children: [{{ list }}
+    ]
   }
 ];
 
