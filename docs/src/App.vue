@@ -7,6 +7,8 @@ import { loginToken, getCrypto, getUserInfo } from './api';
 import { cookie } from '@composite-ware/utils/cache'
 import CryptoJS from 'crypto-js'
 import { ElMessage } from "element-plus";
+import { ProxyTarget } from "../../vite.server"
+
 function encrypt(data: any, crypto: any) {
 
   const enc = (d:any) => CryptoJS.enc.Utf8.parse(d)
@@ -31,7 +33,12 @@ const loginSimulation = () => {
   });
   getCrypto()
     .then((res:any) => {
-      const password = window.location.host.includes('10.28.89.11')? 'PTResp413Admin@123' : 'PTResp413@Admin123'
+      let password
+      if (process.env.NODE_ENV === 'production') {
+        password = window.location.host.includes('10.28.89.11')? 'PTResp413Admin@123' : 'PTResp413@Admin123'
+      } else {
+        password = ProxyTarget.includes('10.28.89.11')? 'PTResp413Admin@123' : 'PTResp413@Admin123'
+      }
       const f = {
         username: 'xu_kun',
         password
@@ -44,21 +51,26 @@ const loginSimulation = () => {
           });
           cookie.set('ESP-TOKEN', r.data)
         })
+        .catch(e => {
+          ElMessage({
+            type: "error",
+            message: "登录失败！"
+          });
+        })
     })
 }
 const token = cookie.get("ESP-TOKEN")
-// if (!token) {
-//   loginSimulation()
-// } else {
-//   getUserInfo(token)
-//     .then(res => {
-//       console.log(res, 'response')
-//       console.log('已登录')
-//     })
-//     .catch(e => {
-//       console.log('重新登录')
-//       loginSimulation()
-//       console.log(e)
-//     })
-// }
+if (!token) {
+  loginSimulation()
+} else {
+  getUserInfo(token)
+    .then(res => {
+      console.log(res, 'response')
+      console.log('已登录')
+    })
+    .catch(e => {
+      console.log('重新登录')
+      loginSimulation()
+    })
+}
 </script>
