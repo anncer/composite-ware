@@ -26,20 +26,25 @@ const {{ langUpper }}: RouteRecordRaw[] = [
         component: () => import("../../docs/{{ lang }}/guide/index.md"),
         meta: { title: "快速上手" }
       },
-      {
-        path: "/{{ lang }}/guide/i18n",
-        component: () => import("../../docs/{{ lang }}/guide/i18n.md"),
-        meta: { title: "国际化" }
-      },
-      {
-        path: "/{{ lang }}/guide/theme",
-        component: () => import("../../docs/{{ lang }}/guide/theme.md"),
-        meta: { title: "自定义主题" }
-      },
+      //{
+      //  path: "/{{ lang }}/guide/i18n",
+      //  component: () => import("../../docs/{{ lang }}/guide/i18n.md"),
+      //  meta: { title: "国际化" }
+      //},
+      //{
+      //  path: "/{{ lang }}/guide/theme",
+      //  component: () => import("../../docs/{{ lang }}/guide/theme.md"),
+      //  meta: { title: "自定义主题" }
+      //},
       {
         path: "/{{ lang }}/guide/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "更新日志" }
+      },
+      {
+        path: "/{{ lang }}/guide/feature",
+        component: () => import("../../../feature.md"),
+        meta: { title: "开发计划" }
       }
     ]
   },

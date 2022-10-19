@@ -26,20 +26,25 @@ const zhCN: RouteRecordRaw[] = [
         component: () => import("../../docs/zh-CN/guide/index.md"),
         meta: { title: "快速上手" }
       },
-      {
-        path: "/zh-CN/guide/i18n",
-        component: () => import("../../docs/zh-CN/guide/i18n.md"),
-        meta: { title: "国际化" }
-      },
-      {
-        path: "/zh-CN/guide/theme",
-        component: () => import("../../docs/zh-CN/guide/theme.md"),
-        meta: { title: "自定义主题" }
-      },
+      //{
+      //  path: "/zh-CN/guide/i18n",
+      //  component: () => import("../../docs/zh-CN/guide/i18n.md"),
+      //  meta: { title: "国际化" }
+      //},
+      //{
+      //  path: "/zh-CN/guide/theme",
+      //  component: () => import("../../docs/zh-CN/guide/theme.md"),
+      //  meta: { title: "自定义主题" }
+      //},
       {
         path: "/zh-CN/guide/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "更新日志" }
+      },
+      {
+        path: "/zh-CN/guide/feature",
+        component: () => import("../../../feature.md"),
+        meta: { title: "开发计划" }
       }
     ]
   },
