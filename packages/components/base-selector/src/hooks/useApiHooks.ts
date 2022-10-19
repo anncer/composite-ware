@@ -2,7 +2,7 @@ import Api from '@composite-ware/service'
 import { isEmpty, isProperty } from '@composite-ware/utils';
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
-import { FormQueryProps, BaseUserParamsProp } from '../props'
+import { FormQueryProps, BaseUserRequestProp } from '../props'
 import { baseUserServiceApi } from '../constant'
 import { UnknownArray } from '@composite-ware/components/types';
 import { defaultQuery } from '../constant'
@@ -24,8 +24,8 @@ export const useGetDefaultSection = (arr: UnknownArray ) => {
     })
 }
 
-export const useGetData = (userParams: BaseUserParamsProp | undefined = {}, query?:object | undefined) => {
-  const { url, method, headers, params, loading} = userParams
+export const useGetData = (userRequest: BaseUserRequestProp | undefined = {}, query?:object | undefined) => {
+  const { url, method, headers, params, loading} = userRequest
   const userRequestMethod = method ? method : "post"
   const path: string = url ? url : baseUserServiceApi
   const baseParams = {

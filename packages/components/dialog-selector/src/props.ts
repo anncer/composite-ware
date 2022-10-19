@@ -6,15 +6,16 @@ export const DialogSelectorProps = ({
     type: Boolean
   },
   title: {
-    default: "选择器",
+    default: "人员选择器",
     type: String
   },
-  label: {
-    type: String,
-    require: true
-  },
+  // TODO
+  // label: {
+  //   type: String,
+  //   require: true
+  // },
   width: {
-    default: '100%',
+    default: '60%',
     type: String
   },
   ...BaseSelectorProps

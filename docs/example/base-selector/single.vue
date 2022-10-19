@@ -2,6 +2,7 @@
   <div>
     <ce-baseSelector
       :stripe="true"
+      :multiple="false"
       @select="handleSelect"
     ></ce-baseSelector>
   </div>

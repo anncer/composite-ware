@@ -1,7 +1,7 @@
 <template>
   <el-button @click="handleClick">显示搜索器</el-button>
 
-  <ce-dialogSelector :stripe="true" :multiple="false" :show="show" width="60%" @cancel="handleClosed" @confirm="handleSelected" >
+  <ce-dialogSelector :stripe="true" :multiple="false" :show="show" @cancel="handleClosed" @confirm="handleSelected" >
   </ce-dialogSelector>
 
 </template>

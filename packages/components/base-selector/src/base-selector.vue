@@ -3,7 +3,7 @@
     <div class="ce-params-line">
       <ce-item v-for="it in queryProps" :key="it.code" :label="it.label" :label-width="it.labelWidth || '90px'">
           <template v-if="it.type==='select'">
-            <el-select v-model="searchParamsOptions[it.code]" @change="handleChangeParams" :placeholder="it.placeholder || '请选择'" filterable clearable>
+            <el-select v-model="searchParamsOptions[it.code]" @change="handleChangeParams" :placeholder="it.placeholder || `请选择`" filterable clearable>
               <el-option
                 v-for="opt in it.list"
                 :label="opt[it.optLabel || 'label']"
@@ -14,7 +14,7 @@
             </el-select>
           </template>
           <template v-else>
-            <el-input v-model="searchParamsOptions[it.code]" @change="handleChangeParams" clearable></el-input>
+            <el-input v-model="searchParamsOptions[it.code]" @change="handleChangeParams" :placeholder="it.placeholder || `请输入`" clearable></el-input>
           </template>
       </ce-item>
     </div>
@@ -29,7 +29,7 @@
 
       :isPage="true"
       layout="prev, pager, next"
-      :total="100"
+      :total="pageTotal"
       :currentPage="currentPage"
       :pageSize="pageSize"
       :background="true"
@@ -62,9 +62,9 @@ import { UnknownArray } from '@composite-ware/components/types';
   const props = defineProps(BaseSelectorProps)
   const emit = defineEmits(baseSelectorEmits)
 
-  const { columns, multiple, defalutSelected, query, userParams } = props
+  const { columns, multiple, defalutSelected, query, request } = props
   const { stripe , border } = toRefs(props)
-  const formatter = userParams?.formatter
+  const formatter = request?.formatter
   const userColumns = columns || defalutColumns
   const refCeTable:any = ref(null)
   const defalutSection = defalutSelected || []
@@ -89,10 +89,11 @@ import { UnknownArray } from '@composite-ware/components/types';
     const table = refCeTable.value.getTableRef()
     if (!multiple) {
       currentSelection = useChangeTableSelect(section, table)
-      emit('select', useSetEmitPlantArray(currentSelection))
     } else {
       currentSelection = useMultipleSelectionChange(section, tableData.value, currentSelection, key)
     }
+    // 需要测试
+    emit('select', useSetEmitPlantArray(currentSelection))
   }
 
   // get table data
@@ -124,7 +125,7 @@ import { UnknownArray } from '@composite-ware/components/types';
       }
       query.params = p
     }
-    useGetData(userParams, query)
+    useGetData(request, query)
       .then((res:any) => {
         const resdata = (formatter && formatter(res.data)) || res.data
         const {data, total} = resdata

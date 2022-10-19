@@ -13,7 +13,7 @@ export interface BaseQueryProp {
   optLabel?: string,
 
   url?: string,
-  method?: 'get' | 'post' | 'delete' | 'patch',
+  method?: String,
   headers?: UnknownObject,
   // 搜索选项的默认值，
   value?: any,
@@ -34,13 +34,14 @@ export interface BaseFieldsProp {
   name: string
   code: string
 }
-export interface BaseUserParamsProp {
+export interface BaseUserRequestProp {
   url?: string
   method?: string
   headers?: UnknownObject
   params?: UnknownObject,
   loading?: Boolean,
-  fields?: BaseFieldsProp,
+  // TODO
+  // fields?: BaseFieldsProp,
   formatter?: UnknownFunction
 }
 export const BaseSelectorProps = ({
@@ -53,8 +54,8 @@ export const BaseSelectorProps = ({
       type: Boolean
   },
   // 人员选择器接口的选项
-  userParams: {
-    type: Object as PropType<BaseUserParamsProp>
+  request: {
+    type: Object as PropType<BaseUserRequestProp>
   },
   columns: {
     type: Array as PropType<TableColumns>,
@@ -68,7 +69,7 @@ export const BaseSelectorProps = ({
     type: Array as PropType<BaseQuerys>
   },
   defalutSelected: {
-    type: Array as PropType<string[]>,
+    type: Array as PropType<any[]>,
   },
   // 数据的唯一键，用于标识数据
   rowKey: {
