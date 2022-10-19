@@ -5,6 +5,7 @@ export interface BaseQueryProp {
   code: string,
   type: 'select' | 'input'
   label?: string,
+  placeholder?: string,
   labelWidth?: string | number,
   // 数据需要获取的值的key
   optValue?: string,
@@ -14,7 +15,7 @@ export interface BaseQueryProp {
   url?: string,
   method?: 'get' | 'post' | 'delete' | 'patch',
   headers?: UnknownObject,
-  // 搜索选项的默认值，暂时不支持
+  // 搜索选项的默认值，
   value?: any,
   // 在做数据请求时的请求内容
   params?: any,

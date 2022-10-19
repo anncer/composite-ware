@@ -15,7 +15,7 @@ export const useApiService = (url: string, method: string = "GET", params?: Obje
   }
   return Api.request(reqParam)
 }
-// 从接口获取默认数据，待优化 TODO
+// 从接口获取默认数据
 export const useGetDefaultSection = (arr: UnknownArray ) => {
   return useGetData(undefined, {
       enabledPage: false,
@@ -45,15 +45,16 @@ export const useGetData = (userParams: BaseUserParamsProp | undefined = {}, quer
 export const useQueryParams = (query:FormQueryProps | undefined) => {
   const requestArr:any[] = []
   const params:any = reactive({})
-  // 是否有默认值
-  let isDef = false
+  // is has default value
+  let isDefalut = false
   const queryProps:Ref<FormQueryProps> = ref([])
   const useQuery = query || defaultQuery
+  const queryApi:string[] = []
   useQuery.forEach(it => {
     if (isProperty(it, 'vlaue') && it.value) {
-      isDef = true
+      isDefalut = true
     }
-    params[it.code] = isProperty(it, 'vlaue') ? it.value : ''
+    params[it.code] = isProperty(it, 'value') ? it.value : ''
     queryProps.value.push(it)
     if (it.url) {
       const method = it.method?.toUpperCase() || 'GET'
@@ -65,34 +66,24 @@ export const useQueryParams = (query:FormQueryProps | undefined) => {
       if (it.params) {
         reqParam.data = it.params
       }
-      it.list = [
-        {
-          name: '组织1',
-          code: '1'
-        },
-        {
-          name: '组织2',
-          code: '2'
-        },
-        {
-          name: '组织3',
-          code: '3'
-        },
-        {
-          name: '组织4',
-          code: '4'
-        },
-        {
-          name: '组织5',
-          code: '5'
-        },
-      ]
-      // requestArr.push(useApiService(it.url, method, reqParam))
+      queryApi.push(it.code)
+      requestArr.push(useApiService(it.url, method, reqParam))
     }
   })
-  // Promise.all(reqs)
-  //   .then(responseArr => {
-  //     console.log(responseArr[0], 'responseArr')
-  //   })
-  return { queryProps, isDef, params }
+  console.log(params, 'params')
+  if (requestArr.length) {
+    Promise.all(requestArr)
+      .then(responseArr => {
+        responseArr.forEach((res, index) => {
+          const code = queryApi[index]
+          queryProps.value.forEach(q => {
+            if (q.code === code) {
+              const formatter = q?.formatter
+              q.list = (formatter && formatter(res.data)) || res.data
+            }
+          });
+        })
+      })
+  }
+  return { queryProps, isDefalut, params }
 }

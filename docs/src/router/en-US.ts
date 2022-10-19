@@ -83,6 +83,11 @@ const enUS: RouteRecordRaw[] = [
           path: "/en-US/components/dialog-selector",
           component: () => import("../../docs/en-US/components/dialog-selector.md"),
           meta: { title: "dialog-selector" }
+        },
+        {
+          path: "/en-US/components/calendar",
+          component: () => import("../../docs/en-US/components/calendar.md"),
+          meta: { title: "calendar" }
         }
     ]
   }

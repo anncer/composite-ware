@@ -1,14 +1,9 @@
 <template>
   <div class="ce-base-selector">
-    <div class="bi-params-line clearfix">
-      <el-form
-        ref="searchParams"
-        :model="queryProps"
-        :inline="true"
-      >
-        <el-form-item v-for="it in queryProps" :key="it.code" :label="it.label" :label-width="it.labelWidth || '90px'">
+    <div class="ce-params-line">
+      <ce-item v-for="it in queryProps" :key="it.code" :label="it.label" :label-width="it.labelWidth || '90px'">
           <template v-if="it.type==='select'">
-            <el-select v-model="searchParamsOptions[it.code]" @change="handleChangeParams" placeholder="请选择" filterable clearable>
+            <el-select v-model="searchParamsOptions[it.code]" @change="handleChangeParams" :placeholder="it.placeholder || '请选择'" filterable clearable>
               <el-option
                 v-for="opt in it.list"
                 :label="opt[it.optLabel || 'label']"
@@ -21,8 +16,7 @@
           <template v-else>
             <el-input v-model="searchParamsOptions[it.code]" @change="handleChangeParams" clearable></el-input>
           </template>
-        </el-form-item>
-      </el-form>
+      </ce-item>
     </div>
     <ce-table ref="refCeTable"
       :class="[multiple? 'is-multiple' : 'is-single']"
@@ -50,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, toRefs } from 'vue';
+import { ref, onMounted, nextTick, toRefs, unref } from 'vue';
 import type { Ref } from 'vue'
 import { BaseSelectorProps, baseSelectorEmits } from './props'
 import { FormQueryProps } from './props'
@@ -73,12 +67,11 @@ import { UnknownArray } from '@composite-ware/components/types';
   const formatter = userParams?.formatter
   const userColumns = columns || defalutColumns
   const refCeTable:any = ref(null)
-
   const defalutSection = defalutSelected || []
 
-  // 数据的唯一key
+  // the only key of data
   const key = props.rowKey
-  // 当前选中项
+  // current selection cache
   let currentSelection:unknown[] = []
 
   const setCurrent = (data:UnknownArray) => {
@@ -102,18 +95,34 @@ import { UnknownArray } from '@composite-ware/components/types';
     }
   }
 
-  // 获取表格数据相关
-  const tableData:Ref<any[]> = ref([])
+  // get table data
+  const tableData:Ref<Array<any>> = ref([])
   const selectionClazz = multiple?'ce-table-multiple':'ce-table-radio'
 
   const currentPage = ref(1)
   const pageSize = ref(10)
   const pageTotal = ref(0)
 
+  // for search
+  const {queryProps, params } = useQueryParams(query as FormQueryProps)
+
+  const searchParamsOptions = params || null
+
+  // api
   const getPageData = () => {
     const query:any = {page: currentPage.value, size: pageSize.value}
     if (searchParamsOptions) {
-      query.params = searchParamsOptions
+      // if prop has no value, delete prop, null or '' is no value
+      const p:any = {}
+      for (const key in searchParamsOptions) {
+        if (Object.prototype.hasOwnProperty.call(searchParamsOptions, key)) {
+          const v = searchParamsOptions[key];
+          if (v !== null && v !== '') {
+            p[key] = v
+          }
+        }
+      }
+      query.params = p
     }
     useGetData(userParams, query)
       .then((res:any) => {
@@ -129,40 +138,33 @@ import { UnknownArray } from '@composite-ware/components/types';
       })
   }
 
+  // event
+  const handleChangeParams = () => {
+    console.log(searchParamsOptions, 'searchParamsOptions')
+    currentPage.value = 1
+    getPageData()
+  }
+
   const handleCurrentChange = (v:any) => {
     currentPage.value = v
     getPageData()
   }
 
-  // 搜索相关
-  const {queryProps, isDef, params } = useQueryParams(query as FormQueryProps)
-
-  const searchParamsOptions = params || null
-
-  console.log(searchParamsOptions, 'searchParamsOptions')
-
-  console.log(queryProps, 'queryProps')
-
-  const handleChangeParams = () => {
-    console.log(searchParamsOptions, 'searchParamsOptions')
-    // currentPage.value = 1
-    // getPageData()
-  }
-
+  // run page
   onMounted(() => {
-    // 设置默认选中项
-    // if (defalutSection.length) {
-    //   useGetDefaultSection(defalutSection)
-    //     .then((res:any) => {
-    //       const resdata = (formatter && formatter(res.data)) || res.data
-    //       if (isArray(resdata)) {
-    //         currentSelection = resdata
-    //       }
-    //       getPageData()
-    //     })
-    // } else {
-    //   getPageData()
-    // }
+    // set default selection
+    if (defalutSection.length) {
+      useGetDefaultSection(defalutSection)
+        .then((res:any) => {
+          const resdata = (formatter && formatter(res.data)) || res.data
+          if (isArray(resdata)) {
+            currentSelection = resdata
+          }
+          getPageData()
+        })
+    } else {
+      getPageData()
+    }
   })
 
 </script>

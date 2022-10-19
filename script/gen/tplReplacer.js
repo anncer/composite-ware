@@ -60,10 +60,10 @@ const compExpRefersh = (meta) => {
   );
   const arr = listFileTpl.split(singleSplit)
   let f0 = arr[0]
-  f0 = f0.concat(`export * from './${meta.tf}'\n` , singleSplit)
+  f0 = f0.concat(`export * from './${meta.compName}'\n` , singleSplit)
 
   let f1 = arr[1]
-  f1 = f1.concat(`import { ${meta.tf} } from './${meta.compName}'\n` , singleSplit)
+  f1 = f1.concat(`import { Ce${meta.tf} } from './${meta.compName}'\n` , singleSplit)
 
   const f2 = arr[2] + singleSplit
   const f4 = arr[4] + singleSplit

@@ -21,6 +21,14 @@ clumns 支持 el-table-column 的属性和方法
 @docs/example/table/base.vue
 :::
 
+### 表格的边框
+
+基础的表格展示用法。
+
+::: example
+@docs/example/table/border.vue
+:::
+
 ### 带分页的表格
 
 基础的表格展示用法。

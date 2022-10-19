@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, toRefs, } from 'vue'
+import { ref, toRefs,watch } from 'vue'
 import { CeTableProps, tableEmits, paginationKeys, TableColumnProp, tablePropKeys, paginationEs } from './default'
 import { isEmpty } from '@composite-ware/utils'
 
@@ -49,18 +49,19 @@ import { isEmpty } from '@composite-ware/utils'
   const emit = defineEmits(tableEmits.concat(paginationEs))
 
   const { columns, data, isPage,  boxStyle, currentPage, pageSize, total  } = toRefs(props)
-
   let elProps:any = {}
   let paginationProps:any = {}
 
+  const handBindProps = ['data','currentPage', 'total', 'pageSize']
+
   tablePropKeys.forEach(key => {
-    if (props[key] !== undefined && props[key] !== "") {
+    if (props[key] !== undefined && props[key] !== "" && !handBindProps.includes(key)) {
       elProps[key] = props[key]
     }
   });
 
   paginationKeys.forEach(key => {
-    if (props[key] !== undefined && props[key] !== "" && !['currentPage', 'total', 'pageSize'].includes(key)) {
+    if (props[key] !== undefined && props[key] !== "" && !handBindProps.includes(key)) {
       paginationProps[key] = props[key]
     }
   });

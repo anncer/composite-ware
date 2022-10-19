@@ -1,6 +1,6 @@
 {
   "name": "composite-ware",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "a component library for Vue 3 base element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
@@ -28,8 +28,8 @@
     "test": "vitest",
     "lint": "eslint . --fix --ext .ts,.vue,.js",
     "lint:test": "eslint . --ext .ts,.vue,.js --max-warnings 0",
-    "gen": "node ./script/gen/index.js",
-    "make": "node ./script/gen/makeRouter.js",
+    "make": "node ./script/gen/index.js",
+    "reset": "node ./script/gen/makeRouter.js",
     "prettier": "prettier --write .",
     "prepare": "husky install"
   },

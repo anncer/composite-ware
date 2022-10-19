@@ -8,6 +8,7 @@ export * from './title'
 export * from './card'
 export * from './base-selector'
 export * from './dialog-selector'
+export * from './calendar'
 // sigleSplit
 
 import { CeLink } from './link'
@@ -18,6 +19,7 @@ import { CeTitle } from './title'
 import { CeCard } from './card'
 import { CeBaseSelector } from './base-selector'
 import { CeDialogSelector } from './dialog-selector'
+import { CeCalendar } from './calendar'
 // sigleSplit
 import type { Plugin } from 'vue'
 
@@ -31,7 +33,8 @@ export default {
  CeCard,
  CeBaseSelector,
  CeDialogSelector,
- // sigleSplit
+ CeCalendar,
+// sigleSplit
 } as Record<string, Plugin>
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -47,6 +50,7 @@ declare module '@vue/runtime-core' {
     CeCard: typeof CeCard,
     CeBaseSelector: typeof CeBaseSelector,
     CeDialogSelector: typeof CeDialogSelector,
-    // sigleSplit
+    CeCalendar: typeof CeCalendar,
+// sigleSplit
   }
 }

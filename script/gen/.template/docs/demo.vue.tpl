@@ -1,5 +1,5 @@
 <template>
 
-  <ce-{{compName}}>内容区域</ce-{{compName}}>
+  <ce-{{compName}}></ce-{{compName}}>
 
 </template>

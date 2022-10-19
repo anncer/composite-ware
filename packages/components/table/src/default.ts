@@ -47,10 +47,6 @@ type PaginationKeys = Array<keyof typeof paginationProps>
 
 export const paginationKeys = Object.keys(paginationProps) as PaginationKeys
 
-type ElTableProps = Array<keyof typeof elTableProps>
-
-export const tablePropKeys = Object.keys(paginationProps) as ElTableProps
-
 type Size = 'large' | 'default' | 'small'
 type Layout = 'fixed' | 'auto'
 
@@ -169,7 +165,7 @@ export const CeTableProps = {
   },
   data: {
     type: Array as PropType<DefaultRow[]>,
-    default: () => [],
+    default: [],
   },
 
   minHeight: [String, Number],
@@ -180,6 +176,10 @@ export const CeTableProps = {
   }
 }
 
+
+type ElTableProps = Array<keyof typeof elTableProps>
+
+export const tablePropKeys = Object.keys(elTableProps) as ElTableProps
 
 export const paginationEs = ["update:current-page", "update:page-size", 'size-change', 'current-change', 'prev-click', 'next-click']
 

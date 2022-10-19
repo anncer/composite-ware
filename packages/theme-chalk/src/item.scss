@@ -16,8 +16,15 @@
   }
 }
 .ce-item.inline{
-  display: flex;
+  display: inline-flex;
+  vertical-align:middle;
+  margin-right: 20px;
   .ce-item_content{
     flex: 1;
+    position: relative;
+  }
+  .el-input__suffix{
+    position: absolute;
+    right: 10px;
   }
 }
