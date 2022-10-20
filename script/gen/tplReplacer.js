@@ -33,6 +33,10 @@ const getTplFilePath = (meta) => ({
   props: {
     from: "./.template/src/prop.ts.tpl",
     to: `../../packages/components/${meta.compName}/src/prop.ts`
+  },
+  scss: {
+    from: "./.template/index.scss.tpl",
+    to: `../../packages/theme-chalk/src/${meta.compName}.scss`
   }
 });
 

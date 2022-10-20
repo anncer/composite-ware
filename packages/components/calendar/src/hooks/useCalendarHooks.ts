@@ -4,29 +4,29 @@ import { isProperty } from '@composite-ware/utils';
 import { parseTime } from '../utils'
 
 // 取到的当天的日期，固定数据
-const today = reactive<todayProp>({
-  todayStr: null,
-  todayTime: null,
-  todayDate: null,
-  toYear: null,
-  toMonth: null
-})
+
 
 // 当前显示的日期， 根据操作变化
-const current = reactive<currentProp>({
-  currentYear: null,
-  currentMonth: null,
-  currentStr: null
-})
 
-export const setThisDay = () => {
-  const _date = new Date()
-  const date = new Date(_date.getFullYear(), _date.getMonth(), _date.getDate())
-  today.todayStr = current.currentStr = formateDay(date)
-  today.todayTime = date.getTime()
-  today.todayDate = date
-  today.toYear = current.currentYear =  date.getFullYear()
-  today.toMonth = current.currentMonth = date.getMonth()
+export const setThisDay = (d?: string | Date) => {
+  const date =  d ? typeof d === 'string' ?  new Date(d) : d : new Date()
+
+  const current = reactive<currentProp>({
+
+    currentYear: date.getFullYear(),
+    currentMonth: date.getMonth(),
+    currentStr: formateDay(date)
+  })
+
+  const today = reactive<todayProp>({
+
+    todayStr: formateDay(date),
+    todayTime: date.getTime(),
+    todayDate: date,
+    toYear: date.getFullYear(),
+    toMonth: date.getMonth()
+  })
+  return {current, today}
 }
 
 // 格式化年月
@@ -50,12 +50,11 @@ const getWeekday = (year: number, month: number) => {
 
 // 获取某个月的天数
 const getDays = (year: number, month: number) => {
-  const d = new Date(year, month + 1, 0)
-  return d.getDate()
+  return new Date(year, month + 1, 0).getDate()
 }
 const dataMap:any = {}
 // 获取某年某月的日历数据
-const getCalendars = (y: number, m: number) => {
+export const getCalendars = (y: number, m: number, current:currentProp, today: todayProp) => {
   let list = null
   current.currentYear  = y
   current.currentMonth = m
@@ -67,9 +66,8 @@ const getCalendars = (y: number, m: number) => {
     list = dataMap[key]
   } else {
 
-    list = getMonthCalendarData(y, m - 1)
+    list = getMonthCalendarData(y, m - 1, today)
     dataMap[key]  = list
-    // this.initHistoryData()
   }
   return { list, title }
 }
@@ -93,7 +91,7 @@ const setCalendarWeekList = (list:any) => {
   return res
 }
 //
-const setCalendarList = (start: Date, current: Date, end: Date) => {
+const setCalendarList = (start: Date, end: Date, current: Date, today: todayProp) => {
   const y = start.getFullYear()
   const m = start.getMonth()
   const d = start.getDate()
@@ -108,7 +106,6 @@ const setCalendarList = (start: Date, current: Date, end: Date) => {
     const date = new Date(y, m, d + index)
     const str = formateDay(date)
     const t = date.getTime()
-    // const isToday = str === this.todayStr
     const isToday = t === today.todayTime
     list.push({
       string: str,
@@ -121,7 +118,7 @@ const setCalendarList = (start: Date, current: Date, end: Date) => {
 }
 
 // 获取某月的整月数据, type为获取的数据类型，默认为获取整月的一维数组。true时为周日历的二维数组
-const getMonthCalendarData = (year: number, month: number, type?: Boolean, ) => {
+const getMonthCalendarData = (year: number, month: number, today:todayProp, type?: Boolean, ) => {
   // 需要补全的天数
   const times = getWeekday(year, month)
   // 获取当月的天数
@@ -130,7 +127,7 @@ const getMonthCalendarData = (year: number, month: number, type?: Boolean, ) => 
   const date = new Date(year, month, 1 - times)
 
   // 获取日历数据
-  const list = setCalendarList(date, new Date(year, month, 1), new Date(year, month, days))
+  const list = setCalendarList(date,new Date(year, month, days), new Date(year, month, 1), today)
   return type ? setCalendarWeekList(list) : list
 }
 
