@@ -25,6 +25,10 @@ const DialogContextProps = {
     default: false,
     type: Boolean
   },
+  showClose: {
+    default: true,
+    type: Boolean
+  },
   lockScroll: {
     default: true,
     type: Boolean
@@ -44,6 +48,14 @@ const DialogContextProps = {
   draggable: {
     default: false,
     type: Boolean
+  },
+  openDelay: {
+    default: 0,
+    type: Number
+  },
+  closeDelay: {
+    default: 0,
+    type: Number
   }
 } as const
 

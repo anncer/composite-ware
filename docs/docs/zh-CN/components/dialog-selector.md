@@ -43,14 +43,29 @@ __弹窗选择器是基于基础选择 baseSelector 扩展了弹窗功能的选�
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ---- | -------- | ----------------- | ------ | ------ |
-| show | 是否显示 | Boolean | - | false |
+| __弹窗部分参数__ |  |  |  |  |
+| model-value / v-model | 是否显示 Dialog | boolean | — | — |
 | title | 弹窗标题 | String | - | 人员选择器 |
 | width | 弹窗宽度 | string | - | 60% |
+| top | Dialog CSS 中的 margin-top 值  | string | - | 15vh |
+| fullscreen | 是否为全屏 Dialog  | Boolean | - | false |
+| modal | 是否需要遮罩层  | Boolean | - | true |
+| show-close | 是否显示关闭按钮   | Boolean | - | true |
+| open-delay  | Dialog 打开的延时时间，单位毫秒    | number | - | 0 |
+| close-delay  | Dialog 关闭的延时时间，单位毫秒    | number | - | 0 |
+| append-to-body | Dialog 自身是否插入至 body 元素上。 嵌套的 Dialog 必须指定该属性并赋值为 true  | boolean | - | true |
+| lock-scroll | 是否在 Dialog 出现时将 body 滚动锁定  | boolean | - | true |
+| close-on-click-modal | 是否可以通过点击 modal 关闭 Dialog  | boolean | - | - |
+| close-on-press-escape | 是否可以通过按下 ESC 关闭 Dialog  | boolean | - | - |
+| destroy-on-close | 当关闭 Dialog 时，销毁其中的元素 | boolean | - | - |
+| draggable | 为 Dialog 启用可拖拽功能  | boolean | - | - |
+| before-close  | 关闭前的回调，会暂停 Dialog 的关闭. 回调函数内执行 done 参数方法的时候才是真正关闭对话框的时候.   | Function(done) (done 用来关闭 Dialog) | - | - |
+| __选择器部分参数__ |  |  |  |  |
 | stripe | 表格是否需要斑马线 | Boolean | - | true |
 | border | 表格是否需要边框（同table的border） | Boolean | - | false |
 | multiple | 是否多选 | Boolean | - | true |
-| defalutSelected | 默认值--需要配合主键使用，此属性为主键的数组 | Array | - | - |
-| rowKey | 表格数据的主键，唯一 | string | - | - |
+| defalut-selected | 默认值--需要配合主键使用，此属性为主键的数组 | Array | - | - |
+| row-key | 表格数据的主键，唯一 | string | - | - |
 | columns | 表格数据的列，同table中的columns | object | - | - |
 | request | 见下表 | object | - | - |
 | query | 见下表 | object | - | - |
