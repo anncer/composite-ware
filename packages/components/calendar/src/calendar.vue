@@ -31,6 +31,7 @@
 <script lang="ts" setup>
 import { ref, reactive } from 'vue'
 import { listProp} from './prop'
+import { setThisDay, getCalendars } from './hooks/useCalendarHooks'
 defineOptions({
    name: "CeCalendar",
 })
@@ -57,7 +58,13 @@ const handleDay = (s: any) => {
 //     this.setItemHeight()
 //   })
 // }
-
+// 判断如果传入具体日期，则显示今天，如果不传入则不显示，选择日期后则显示选择的那天
+const {current, today} = setThisDay()
+const a = getCalendars(current.currentYear as number, current.currentMonth as number, current, today)
+console.log(a)
+console.log(today, 'today')
+console.log(current, 'current')
+// https://cn.vuejs.org/guide/reusability/composables.html#mouse-tracker-example
 // const init = () => {
 //   this.setThisDay()
 //   this.handleToMonth(today)
