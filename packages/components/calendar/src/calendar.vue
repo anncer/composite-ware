@@ -1,45 +1,44 @@
 <template>
-  <div ref="calendarBox" shadow class="calendar-container">
-    <div :class="['calendar-title',titleHeight>40 ? 'calendar-title-l': '']" >
-      <!-- <span style="color:#0052CB;cursor: pointer;" @click="toRouteCare">行程关注</span> -->
-      <i class="calendar-left el-icon-arrow-left" @click="handlePrev" />
-      <span class="calendar-tit">{{ title }}</span>
-      <!-- <i class="calendar-icon icon-add el-icon-circle-plus"/> -->
-      <i class="calendar-right el-icon-arrow-right" @click="handleNext"/>
-      <!-- <i v-if="!isToMonth" class="calendar-icon calendar-today" @click="handleToMonth">今</i> -->
+  <div ref="calendarBox" shadow class="ce-calendar-container">
+    <div :class="['ce-calendar-title',titleHeight>40 ? 'ce-calendar-title-l': '']" >
+      <span class="ce-calendar-left" @click="handlePrev">
+        <el-icon :size="20" ><ArrowLeftBold /></el-icon>
+      </span>
+      <span class="ce-calendar-text">{{ title }}</span>
+      <span class="ce-calendar-right" @click="handleNext">
+        <el-icon :size="20"><ArrowRightBold /></el-icon>
+      </span>
+      <!-- <i v-if="!isToMonth" class="ce-calendar-icon ce-calendar-today" @click="handleToMonth">今</i> -->
     </div>
-    <div class="calendar-head">
+    <div class="ce-calendar-head">
       <!-- :style="itemStyle"  -->
-      <span v-for="it in titles" :key="it" class="calendar-cell">{{ it }}</span>
+      <span v-for="it in titles" :key="it" class="ce-calendar-cell">{{ it }}</span>
     </div>
-    <div class="calendar-content">
+    <div class="ce-calendar-content">
       <!-- :style="itemStyle" -->
       <span
         v-for="it in list"
         :key="(it.string as string)"
-        :class="{'other-month': it.type !=='current', today: it.today, 'calendar-point': it.point}"
-        class="calendar-cell"
+        :class="{'ce-calendar-other': it.type !=='current', today: it.today, 'ce-calendar-point': it.point}"
+        class="ce-calendar-cell"
         @click.stop="handleDay(it.string)"
       >
        <!-- :style="cellCircle" -->
-        <span class="calendar-inner">{{ it.day }}</span>
+        <span class="ce-calendar-inner">{{ it.day }}</span>
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from 'vue'
-import { listProp} from './prop'
+import { ref } from 'vue'
 import { setThisDay, getCalendars } from './hooks/useCalendarHooks'
 defineOptions({
    name: "CeCalendar",
 })
 
-const title = ref("")
 const titleHeight = ref(40)
 const titles = ['日', '一', '二', '三', '四', '五', '六']
-const list = ref<listProp[]>([])
 
 const handlePrev = () => {
 
@@ -60,14 +59,7 @@ const handleDay = (s: any) => {
 // }
 // 判断如果传入具体日期，则显示今天，如果不传入则不显示，选择日期后则显示选择的那天
 const {current, today} = setThisDay()
-const a = getCalendars(current.currentYear as number, current.currentMonth as number, current, today)
-console.log(a)
-console.log(today, 'today')
-console.log(current, 'current')
-// https://cn.vuejs.org/guide/reusability/composables.html#mouse-tracker-example
-// const init = () => {
-//   this.setThisDay()
-//   this.handleToMonth(today)
-// }
+const {title, list} = getCalendars(current.currentYear as number, current.currentMonth as number, current, today)
+
 </script>
 

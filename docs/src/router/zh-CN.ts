@@ -12,15 +12,20 @@ import type { RouteRecordRaw } from "vue-router";
 const zhCN: RouteRecordRaw[] = [
   {
     path: "/zh-CN/",
-    redirect: "/zh-CN/guide/",
+    redirect: "/zh-CN/introduction/",
     component: Layout,
     meta: { title: "指南", icon: markRaw(House) },
     children: [
       {
-        path: "/zh-CN/guide/introduction",
+        path: "/zh-CN/introduction",
         component: () => import("../../docs/zh-CN/guide/introduction.md"),
         meta: { title: "介绍" }
       },
+      //{
+      //  path: "/zh-CN/develop",
+      //  component: () => import("../../docs/zh-CN/guide/develop.md"),
+      //  meta: { title: "项目开发" }
+      //},
       {
         path: "/zh-CN/guide/",
         component: () => import("../../docs/zh-CN/guide/index.md"),

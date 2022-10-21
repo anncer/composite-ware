@@ -126,18 +126,10 @@ import { ProLayout } from "composite-ware";
 import "composite-ware/theme-chalk/layout";
 ```
 
-::: tip 提示
-完整组件列表[参考里面的 components](https://github.com/anncer/composite-ware/blob/master/src/components.ts)
-
-在导出组件的同时，一起导出的还包括内部使用的[utils](https://github.com/anncer/composite-ware/blob/master/src/utils/)与[composables](https://github.com/anncer/composite-ware/blob/master/src/composables/)，如果需要可以引用使用
-:::
-
 ## 开始使用
 
 ::: tip 提示
 文档示例基于 [组合式 API](https://v3.cn.vuejs.org/guide/composition-api-introduction.html) 语法，如果不熟悉语法请前往官方文档查看
-
-如果使用 VS Code 开发，配合 [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur) 使用提供完整的组件、属性、事件补全。例如：输入 `<pro-` 将罗列出所有组件库组件
 
 对于使用 VS Code 配合 typescript 开发，推荐使用插件 [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)。只需要中向 `tsconfig.json` 文件中增加全局组件类型
 

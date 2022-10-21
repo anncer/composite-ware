@@ -1,5 +1,6 @@
 @import '@docs/src/styles/mixin.scss';
 @import '@docs/src/styles/variables.scss';
+@import '../../../packages/theme-chalk/src/mixins/mixins.scss';
 
 .menu-wrapper{
   height: calc(100% - 18px);
@@ -8,7 +9,30 @@
   position: relative;
 }
 .menu-content{
-  margin-top: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: calc(100% - 68px);
+  @include scroll-bar()
+}
+
+.menu-head{
+  height: 50px;
+  line-height: 50px;
+  padding: 0 20px;
+  text-align: left;
+  // padding: 20px;
+  .menu-head-text{
+    display: inline-block;
+    text-align: left;
+    width: auto;
+    color: #fff;
+    font-size: 14px;
+  }
+  .menu-head-icon{
+    float: right;
+    height: 50px;
+    padding-top: 12px;
+  }
 }
 .menu-aside{
   transition: width 0.28s;
@@ -60,6 +84,10 @@
   margin-left: $sideBarWidth;
   padding: $commonPadding;
   background: #f2f3f9;
+}
+
+.wrap-container.max-container {
+  margin-left: $miniBarWidth;;
 }
 
 .app-main {

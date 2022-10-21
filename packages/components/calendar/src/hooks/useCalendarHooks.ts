@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import { todayProp, currentProp, listProp } from '../prop'
 import { isProperty } from '@composite-ware/utils';
 import { parseTime } from '../utils'
@@ -55,18 +55,18 @@ const getDays = (year: number, month: number) => {
 const dataMap:any = {}
 // 获取某年某月的日历数据
 export const getCalendars = (y: number, m: number, current:currentProp, today: todayProp) => {
-  let list = null
+  let list = ref<listProp[]>([])
   current.currentYear  = y
   current.currentMonth = m
-  const title = formateMonth(y, m - 1, true)
-  const key = formateMonth(y, m - 1)
+  const title = formateMonth(y, m, true)
+  const key = formateMonth(y, m)
   current.currentStr = key
 
   if (isProperty(dataMap, key)) {
     list = dataMap[key]
   } else {
 
-    list = getMonthCalendarData(y, m - 1, today)
+    list.value = getMonthCalendarData(y, m, today)
     dataMap[key]  = list
   }
   return { list, title }

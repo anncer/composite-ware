@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const { getCompsList, compileFile, resolveFile, compsPath } = require("./utils")
+const { getCompsList, compileFile, resolveFile, getComponents, listFilePath, compsPath, getStyle, stylePath } = require("./utils")
 
 const getTplFilePath = (meta) => ({
   // docs 目录
@@ -57,11 +57,7 @@ const compFilesTplMaker = (meta) => {
 // 读取 components.ts 并更新
 const singleSplit = '// sigleSplit'
 const compExpRefersh = (meta) => {
-  const listFilePath = "../../packages/components/components.ts";
-  const listFileTpl = fs.readFileSync(
-    resolveFile(listFilePath),
-    "utf-8"
-  );
+  const listFileTpl = getComponents()
   const arr = listFileTpl.split(singleSplit)
   let f0 = arr[0]
   f0 = f0.concat(`export * from './${meta.compName}'\n` , singleSplit)
@@ -98,8 +94,19 @@ const compListRefersh = (meta) => {
   })
 }
 
+// 更新 theme-chalk/index.scss
+const styleRefersh = (meta) => {
+  const styles = getStyle()
+  const newstyle = styles.concat(`@import "./${meta.compName}.scss";`)
+  fs.outputFile(resolveFile(stylePath), newstyle, (err) => {
+    if (err) console.log(err);
+  });
+}
+
+
 module.exports = (meta) => {
-  compFilesTplMaker(meta);
+  compFilesTplMaker(meta)
   compExpRefersh(meta)
   compListRefersh(meta)
+  styleRefersh(meta)
 };

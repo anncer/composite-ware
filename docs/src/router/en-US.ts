@@ -12,15 +12,20 @@ import type { RouteRecordRaw } from "vue-router";
 const enUS: RouteRecordRaw[] = [
   {
     path: "/en-US/",
-    redirect: "/en-US/guide/",
+    redirect: "/en-US/introduction/",
     component: Layout,
     meta: { title: "指南", icon: markRaw(House) },
     children: [
       {
-        path: "/en-US/guide/introduction",
+        path: "/en-US/introduction",
         component: () => import("../../docs/en-US/guide/introduction.md"),
         meta: { title: "介绍" }
       },
+      //{
+      //  path: "/en-US/develop",
+      //  component: () => import("../../docs/en-US/guide/develop.md"),
+      //  meta: { title: "项目开发" }
+      //},
       {
         path: "/en-US/guide/",
         component: () => import("../../docs/en-US/guide/index.md"),

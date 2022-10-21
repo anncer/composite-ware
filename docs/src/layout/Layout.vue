@@ -1,47 +1,56 @@
 <template>
-  <div class="menu-aside" :class="{ 'min-menu': false }">
+  <div class="menu-aside" :class="{ 'min-menu': collapsed }">
     <div class="menu-wrapper">
-      <div class="aside-logo">
-          <img :src="logo" alt="" />
+      <div class="menu-head">
+        <span v-if="!collapsed" class="menu-head-text" >Composite Ware</span>
+        <span class="menu-head-icon">
+          <el-tooltip :content="collapsed?'open': 'close'" placement="right">
+            <el-icon :size="22" color="#fff" style="cursor: pointer;" @click="handelClick"><Operation /></el-icon>
+          </el-tooltip>
+        </span>
       </div>
-      <el-menu
-        :style="menuStype"
-        class="menu-content"
-        :collapse="collapsed"
-        :collapse-transition="true"
-        :unique-opened="true"
-        mode="vertical"
-      >
-        <sider-menu-item
-          v-for="item in routes"
-          :item="item"
-        ></sider-menu-item>
-      </el-menu>
+      <div class="menu-content">
+        <el-menu
+          :style="menuStype"
+          :collapse="collapsed"
+          :collapse-transition="true"
+          mode="vertical"
+        >
+          <sider-menu-item
+            v-for="item in routes"
+            :item="item"
+          ></sider-menu-item>
+        </el-menu>
+      </div>
     </div>
   </div>
-  <div class="wrap-container">
-    <section class="app-main">
-      <transition name="fade-transform" mode="out-in">
-        <router-view></router-view>
-      </transition>
-    </section>
-  </div>
+  <transition name="fade-transform" mode="out-in">
+    <div class="wrap-container" :class="{ 'max-container': collapsed }">
+      <section class="app-main">
+          <router-view></router-view>
+      </section>
+    </div>
+  </transition>
 </template>
 
 <script setup lang="ts">
 import { computed, provide, shallowRef, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useLang } from "../composables/index";
-
+import { cookie } from '../../src/utils/cache'
 import siderMenuItem from "@docs/src/layout/siderMenuItem.vue";
 
-import logo from "../public/logo.svg"
+// import logo from "../public/logo.svg";
+
 const menuStype = `--el-menu-text-color: var(--de-font-color);
           --el-menu-bg-color: var(--de-bg-color);
           --el-menu-hover-bg-color: var(--de-bg-color);
           --el-menu-item-hover-fill: var(--de-bg-color);
           --el-menu-border-color: var(--de-bg-color);`
-const collapsed = ref(false)
+
+const collapsedCache = cookie.get('collapsed') === 'true' ? true : false
+
+const collapsed = ref(collapsedCache)
 const router = useRouter();
 const lang = useLang();
 
@@ -50,6 +59,11 @@ const routes = computed(() => {
   const _routes = router.options.routes;
   return _routes.filter((item) => reg.test(item.path));
 });
+
+const handelClick = () => {
+  collapsed.value = !collapsed.value
+  cookie.set('collapsed', collapsed.value)
+}
 </script>
 
 <style lang="scss">

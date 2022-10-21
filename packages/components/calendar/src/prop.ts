@@ -2,15 +2,15 @@ import { PropType } from "vue"
 import type { UnknownFunction, UnknownObject } from '../../types/index'
 
 export const calendarProp = ({
-  // 是否显示当天
-  isToday: {
-    default: true,
-    type: Boolean
-  },
   // 当前日期
   current: {
     default: new Date(),
     type: [Date, String]
+  },
+  // 是否显示当天
+  isToday: {
+    default: true,
+    type: Boolean
   },
   // 是否显示按钮
   isButton: {
