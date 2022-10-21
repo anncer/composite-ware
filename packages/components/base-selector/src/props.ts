@@ -40,11 +40,10 @@ export interface BaseUserRequestProp {
   headers?: UnknownObject
   params?: UnknownObject,
   loading?: Boolean,
-  // TODO
   // fields?: BaseFieldsProp,
   formatter?: UnknownFunction
 }
-export const BaseSelectorProps = ({
+export const BaseSelectorProps = {
   stripe: {
      default: true,
       type: Boolean
@@ -76,7 +75,7 @@ export const BaseSelectorProps = ({
     type: String,
     default: "id"
   }
-}) as const
+}
 
 export const baseSelectorEmits = [
   'select'

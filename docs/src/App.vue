@@ -60,17 +60,17 @@ const loginSimulation = () => {
     })
 }
 const token = cookie.get("ESP-TOKEN")
-// if (!token) {
-//   loginSimulation()
-// } else {
-//   getUserInfo(token)
-//     .then(res => {
-//       console.log(res, 'response')
-//       console.log('已登录')
-//     })
-//     .catch(e => {
-//       console.log('重新登录')
-//       loginSimulation()
-//     })
-// }
+if (!token) {
+  loginSimulation()
+} else {
+  getUserInfo(token)
+    .then(res => {
+      console.log(res, 'response')
+      console.log('已登录')
+    })
+    .catch(e => {
+      console.log('重新登录')
+      loginSimulation()
+    })
+}
 </script>

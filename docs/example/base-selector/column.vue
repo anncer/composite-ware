@@ -18,11 +18,11 @@ const query = [
     label: '姓名：',
   },
   {
-    code: 'dept',
+    code: 'deptId',
     type: 'select',
     label: "组织机构：",
     optLabel: 'name',
-    optValue: 'code',
+    optValue: 'id',
     url: '/api/admin-v2/org/children/3302',
     method: "get",
   },

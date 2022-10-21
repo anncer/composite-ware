@@ -1,8 +1,7 @@
 <template>
   <el-button @click="handleClick">显示搜索器</el-button>
 
-  <ce-dialogSelector :stripe="true" :multiple="false" :show="show" @cancel="handleClosed" @confirm="handleSelected" >
-  </ce-dialogSelector>
+  <ce-dialogSelector v-model="show" @confirm="handleSelected"></ce-dialogSelector>
 
 </template>
 
@@ -15,12 +14,7 @@ const handleClick = () => {
   show.value = true
 }
 
-const handleClosed = () => {
-  show.value = false
-}
-
 const handleSelected = (section) => {
   console.log(section)
-  show.value = false
 }
 </script>
