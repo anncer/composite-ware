@@ -1,120 +1,112 @@
-.ce-calendar-container {
+.ce-calendar_container {
   box-sizing: border-box;
   background: #fff;
+}
+.ce-calendar_header {
+  border-bottom: 1px solid #EAEAEA;
+  text-align: center;
+  position: relative;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 15px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 16px;
+  box-sizing: content-box;
+}
+.ce-calendar_icon {
+  position: absolute;
+  border-radius: 50%;
+  top: 12px;
+  left: calc(50% + 60px);
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-style: normal;
+  font-size: 12px;
+  cursor: pointer;
+}
 
-  .ce-calendar-title {
-    border-bottom: 1px solid #EAEAEA;
-    text-align: center;
-    position: relative;
-    -webkit-user-select: none;
-    user-select: none;
-    padding: 10px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 16px;
-    box-sizing: content-box;
-    // padding: 20px 0;
-    .ce-calendar-icon {
-      position: absolute;
-      top: 12px;
-      // right: 40px;
-      right: 10%;
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-      text-align: center;
-      font-style: normal;
-      font-size: 12px;
-      cursor: pointer;
-    }
+.ce-calendar_left,
+.ce-calendar_right {
+  display: inline-block;
+  margin: 0 10px;
+  cursor: pointer;
+  height: 20px;
+}
+.ce-calendar_left{
+  float: left;
+}
+.ce-calendar_right {
+  float: right;
+  margin-left: 0;
+  margin-right: 10px;
+}
 
-    .ce-calendar-left,
-    .ce-calendar-right {
-      display: inline-block;
-      margin: 0 10px;
-      cursor: pointer;
-      height: 20px;
-    }
-    .ce-calendar-left{
-      float: left;
-    }
-    .ce-calendar-right {
-      float: right;
-      margin-left: 0;
-      margin-right: 10px;
-    }
-  }
 
-  // .ce-calendar-title-l {
-    // padding: 30px 0;
-    // line-height: 20px;
-  // }
-
-  .ce-calendar-head {
-    display: flex;
-    flex-direction: row;
-    margin-top: 4px;
-    .ce-calendar-cell{
-      height: 40px;
-      line-height: 40px;
-    }
-  }
-
-  .ce-calendar-content {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .ce-calendar-content {
-    flex-wrap: wrap;
-  }
-
-  .ce-calendar-cell {
-    height: 32px;
-    line-height: 32px;
-    text-align: center;
-    display: block;
-    flex: 14.2857%;
-    font-size: 14px;
-    color: #172B4C;
-    font-family: PingFangSC-Regular, PingFang SC;
-    font-weight: 400;
-    cursor: pointer;
-
-    // &:nth-child(7n),&:nth-child(7n+1) {
-    //   color: #ff0000;
-    // }
-    &.ce-calendar-other {
-      color: #C0C9D9;
-      cursor: default;
-    }
-
-    position: relative;
-  }
-
-  .ce-calendar-point::after {
-    content: "·";
-    display: block;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -12px;
-    font-size: 36px;
-    color: red;
-  }
-
-  .ce-calendar-inner,
-  .ce-calendar-today {
-    display: inline-block;
-    border-radius: 50%;
-    line-height: 1;
-  }
-
-  .today .ce-calendar-inner,
-  .ce-calendar-today {
-    background: #0052CB;
-    text-align: center;
-    display: inline-block;
-    color: #fff;
+.ce-calendar_title {
+display: flex;
+flex-direction: row;
+margin-top: 4px;
+  .ce-calendar_cell{
+    height: 50px;
+    line-height: 50px;
   }
 }
+
+.ce-calendar_content {
+  display: flex;
+  flex-direction: row;
+}
+
+.ce-calendar_content {
+  flex-wrap: wrap;
+}
+
+.ce-calendar_cell {
+  text-align: center;
+  flex: 14.2857%;
+  font-size: 14px;
+  color: #172B4C;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  cursor: pointer;
+
+  // &:nth-child(7n),&:nth-child(7n+1) {
+  //   color: #ff0000;
+  // }
+  &.ce-calendar_other {
+    color: #C0C9D9;
+    cursor: default;
+  }
+
+  position: relative;
+}
+
+.ce-calendar-point::after {
+  content: "·";
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;
+  font-size: 36px;
+  color: red;
+}
+
+.ce-calendar_inner {
+  display: inline-block;
+  border-radius: 50%;
+  padding: 20px;
+  line-height: 1;
+}
+
+.ce-calendar_today .ce-calendar_inner,
+.ce-calendar_icon {
+  color: #fff;
+  background-color: #72b4f8;
+  text-align: center;
+  display: inline-block;
+}
+

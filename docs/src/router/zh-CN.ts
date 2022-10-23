@@ -85,6 +85,11 @@ const zhCN: RouteRecordRaw[] = [
           meta: { title: "table" }
         },
         {
+          path: "/zh-CN/components/calendar",
+          component: () => import("../../docs/zh-CN/components/calendar.md"),
+          meta: { title: "calendar" }
+        },
+        {
           path: "/zh-CN/components/base-selector",
           component: () => import("../../docs/zh-CN/components/base-selector.md"),
           meta: { title: "base-selector" }
@@ -93,11 +98,6 @@ const zhCN: RouteRecordRaw[] = [
           path: "/zh-CN/components/dialog-selector",
           component: () => import("../../docs/zh-CN/components/dialog-selector.md"),
           meta: { title: "dialog-selector" }
-        },
-        {
-          path: "/zh-CN/components/calendar",
-          component: () => import("../../docs/zh-CN/components/calendar.md"),
-          meta: { title: "calendar" }
         }
     ]
   }

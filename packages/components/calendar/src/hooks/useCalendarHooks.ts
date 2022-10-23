@@ -1,5 +1,5 @@
-import { reactive, ref } from 'vue'
-import { todayProp, currentProp, listProp } from '../prop'
+import { reactive } from 'vue'
+import { todayProp, currentProp, listProp , resProp} from '../prop'
 import { isProperty } from '@composite-ware/utils';
 import { parseTime } from '../utils'
 
@@ -9,22 +9,21 @@ import { parseTime } from '../utils'
 // 当前显示的日期， 根据操作变化
 
 export const setThisDay = (d?: string | Date) => {
-  const date =  d ? typeof d === 'string' ?  new Date(d) : d : new Date()
+  const _n = new Date()
+  const date =  d ? typeof d === 'string' ?  new Date(d) : d : new Date(_n.getFullYear(), _n.getMonth(), _n.getDate())
 
   const current = reactive<currentProp>({
-
-    currentYear: date.getFullYear(),
-    currentMonth: date.getMonth(),
-    currentStr: formateDay(date)
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    string: formateDay(date)
   })
 
   const today = reactive<todayProp>({
-
-    todayStr: formateDay(date),
-    todayTime: date.getTime(),
-    todayDate: date,
-    toYear: date.getFullYear(),
-    toMonth: date.getMonth()
+    string: formateDay(date),
+    year: date.getFullYear(),
+    month: date.getMonth(),
+    day: date.getDate(),
+    date
   })
   return {current, today}
 }
@@ -52,24 +51,43 @@ const getWeekday = (year: number, month: number) => {
 const getDays = (year: number, month: number) => {
   return new Date(year, month + 1, 0).getDate()
 }
-const dataMap:any = {}
+
+const setCurrent = (d: Date | string, current: currentProp) => {
+  const date =  d ? typeof d === 'string' ?  new Date(d) : d : new Date()
+  current.year = date.getFullYear(),
+  current.month = date.getMonth(),
+  current.string = formateDay(date)
+}
+
+export const getCalendatPressMonth = (num: number, current: currentProp, today: todayProp) => {
+  current.month = current.month as number + num
+  current.string = formateMonth(current.year as number, current.month as number)
+  return getCalendars(current, today)
+}
+
+export const getCalendarUseDate = (date: Date | string,current: currentProp, today: todayProp) => {
+  setCurrent(date, current)
+  return getCalendars(current, today)
+}
+
 // 获取某年某月的日历数据
-export const getCalendars = (y: number, m: number, current:currentProp, today: todayProp) => {
-  let list = ref<listProp[]>([])
-  current.currentYear  = y
-  current.currentMonth = m
+const dataMap:any = {}
+export const getCalendars = (current:currentProp, today: todayProp):resProp =>  {
+  let list: listProp[] = []
+  const y = current.year as number
+  const m = current.month as number
   const title = formateMonth(y, m, true)
   const key = formateMonth(y, m)
-  current.currentStr = key
-
+  current.string = key
+  const toMonth:boolean = current.year === today.year && current.month === today.month
   if (isProperty(dataMap, key)) {
     list = dataMap[key]
   } else {
 
-    list.value = getMonthCalendarData(y, m, today)
+    list = getMonthCalendarData(y, m, today)
     dataMap[key]  = list
   }
-  return { list, title }
+  return { list, title, toMonth }
 }
 
 // 把整月数据拆分成为周数据的二维数组
@@ -106,11 +124,13 @@ const setCalendarList = (start: Date, end: Date, current: Date, today: todayProp
     const date = new Date(y, m, d + index)
     const str = formateDay(date)
     const t = date.getTime()
-    const isToday = t === today.todayTime
+    const isToday = str === today.string
     list.push({
       string: str,
       today: isToday,
       day: date.getDate(),
+      month: date.getMonth(),
+      year: date.getFullYear(),
       type: currentTime > t ? 'prev' : endTime < t ? 'next' : 'current'
     })
   }
@@ -154,21 +174,3 @@ const getMonthCalendarData = (year: number, month: number, today:todayProp, type
 //   this.itemStyle = { height: itemHeight + 'px', lineHeight: itemHeight + 'px' }
 // }
 
-// const handleToMonth = (today: todayProp) => {
-//   getCalendars(today.toYear as number, today.toMonth as number)
-// }
-
-// const handlePrev = () => {
-//   this.getOtherDate(-1)
-// }
-
-// const handleNext = () => {
-//   this.getOtherDate(+1)
-// }
-
-// const getOtherDate = (num) => {
-//   const date = new Date(this.currentYear, (this.currentMonth + num - 1) * 1, 1)
-//   const year = date.getFullYear()
-//   const month = date.getMonth() + 1
-//   this.getCalendars(year, month)
-// }

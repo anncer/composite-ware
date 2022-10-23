@@ -25,6 +25,11 @@
     "desc": "表格"
   },
   {
+    "name": "calendar",
+    "znName": "日历",
+    "desc": "日历"
+  },
+  {
     "name": "base-selector",
     "znName": "基础选择器",
     "desc": "基础选择器"
@@ -33,10 +38,5 @@
     "name": "dialog-selector",
     "znName": "弹窗选择器",
     "desc": "弹窗选择器"
-  },
-  {
-    "name": "calendar",
-    "znName": "日历",
-    "desc": "日历"
   }
 ]
