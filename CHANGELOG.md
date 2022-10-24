@@ -4,6 +4,11 @@ meta:
   - name: changeLog
     content: composite-ware组件更新日志
 ---
+
+## 0.0.71
+
+- 修改日历组件的参数和文档
+
 ## 0.0.7
 
 ### 功能

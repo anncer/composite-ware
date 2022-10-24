@@ -1,6 +1,6 @@
 {
   "name": "composite-ware",
-  "version": "0.0.7",
+  "version": "0.0.71",
   "description": "a component library for Vue 3 base element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
