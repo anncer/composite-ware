@@ -1,20 +1,12 @@
-import Api from '@composite-ware/service'
-import { isEmpty, isProperty } from '@composite-ware/utils';
+import { isProperty } from '@composite-ware/utils';
 import { reactive, ref } from 'vue'
 import type { Ref } from 'vue'
 import { FormQueryProps, BaseUserRequestProp } from '../props'
 import { baseUserServiceApi } from '../constant'
 import { UnknownArray } from '@composite-ware/components/types';
+import { useApiService } from '@composite-ware/utils'
 import { defaultQuery } from '../constant'
 
-export const useApiService = (url: string, method: string = "GET", params?: Object) => {
-  const reqParam:any = {
-    url,
-    method,
-    ...params
-  }
-  return Api.request(reqParam)
-}
 // 从接口获取默认数据
 export const useGetDefaultSection = (arr: UnknownArray ) => {
   return useGetData(undefined, {
@@ -35,7 +27,6 @@ export const useGetData = (userRequest: BaseUserRequestProp | undefined = {}, qu
     ids: [],
     params: {}
   }
-  console.log(query, 'query')
   const reqParams:any = { data: params || baseParams, loading: loading || true}
   query && (reqParams.data = Object.assign(reqParams.data, query))
   headers && (reqParams.headers = headers)
@@ -70,7 +61,6 @@ export const useQueryParams = (query:FormQueryProps | undefined) => {
       requestArr.push(useApiService(it.url, method, reqParam))
     }
   })
-  console.log(params, 'params')
   if (requestArr.length) {
     Promise.all(requestArr)
       .then(responseArr => {

@@ -21,7 +21,7 @@
         v-for="it in data"
         :key="(it.string as string)"
         :class="{'ce-calendar_other': it.type !=='current', 'ce-calendar_today': it.today}"
-        class="ce-calendar_cell"
+        class="ce-calendar_cell ce-calendar_color"
         @click.stop="handleDay(it)"
       >
         <span v-if="$slots&&$slots.cell" class="ce-calendar_inner" >

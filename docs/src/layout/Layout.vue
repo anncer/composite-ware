@@ -28,14 +28,20 @@
     <div class="wrap-container" :class="{ 'max-container': collapsed }">
       <section class="app-main">
           <router-view></router-view>
+          <div class="app-linkbox">
+            <div class="app-title">本页目录</div>
+            <div class="app-link" v-for="it in ids">
+              <a :title="it" :href="`#${it}`">{{it}}</a>
+            </div>
+          </div>
       </section>
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
-import { computed, provide, shallowRef, ref } from "vue";
-import { useRouter } from "vue-router";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useLang } from "../composables/index";
 import { cookie } from '../../src/utils/cache'
 import siderMenuItem from "@docs/src/layout/siderMenuItem.vue";
@@ -54,6 +60,14 @@ const collapsed = ref(collapsedCache)
 const router = useRouter();
 const lang = useLang();
 
+const route = useRoute()
+
+watch(route, () => {
+  nextTick(() => {
+    ids.value = getBodyId()
+  })
+})
+
 const routes = computed(() => {
   const reg = new RegExp(`^\\/(${lang.value}|dev)\\/`);
   const _routes = router.options.routes;
@@ -64,6 +78,24 @@ const handelClick = () => {
   collapsed.value = !collapsed.value
   cookie.set('collapsed', collapsed.value)
 }
+
+const ids = ref<string[]>([])
+
+const getBodyId = () => {
+  const body:any = document.getElementsByClassName('markdown-body')[0]
+  const arr :string[]= []
+  const childs = body.children
+  for (let i = 0; i < childs.length; i++) {
+    const element = childs[i];
+    if (element.hasAttribute('id')) {
+      arr.push(element.getAttribute('id'))
+    }
+  }
+  return arr
+}
+onMounted(() => {
+  ids.value = getBodyId()
+})
 </script>
 
 <style lang="scss">

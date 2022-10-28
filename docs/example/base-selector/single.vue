@@ -11,6 +11,6 @@
 <script setup lang="ts">
 
 const handleSelect = (section) => {
-  console.log(section, 'section')
+  console.log(section)
 }
 </script>

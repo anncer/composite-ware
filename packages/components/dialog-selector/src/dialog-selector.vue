@@ -29,14 +29,8 @@ import { UnknownArray } from '@composite-ware/components/types';
 
   const { modelValue } = toRefs(props)
 
-  console.log(modelValue, 'modelValue')
 
   const { beforeClose } = props
-
-
-  // watch(modelValue, (value) => {
-  //   console.log(modelValue, value, 'modelValue22')
-  // })
 
   const selection:any = ref(null)
 

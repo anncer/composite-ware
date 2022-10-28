@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, nextTick, toRefs, unref } from 'vue';
+import { ref, onMounted, nextTick, toRefs } from 'vue';
 import type { Ref } from 'vue'
 import { BaseSelectorProps, baseSelectorEmits } from './props'
 import { FormQueryProps } from './props'
@@ -141,7 +141,6 @@ import { UnknownArray } from '@composite-ware/components/types';
 
   // event
   const handleChangeParams = () => {
-    console.log(searchParamsOptions, 'searchParamsOptions')
     currentPage.value = 1
     getPageData()
   }

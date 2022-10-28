@@ -19,7 +19,7 @@ meta:
 
 ### 打开标签页
 
-> 如果是 http 请求《符合 /^((ht|f)tps?):\/\/?/》 则自动为 _blank 如果是本地路由则 看target 参数
+> 如果是 http 请求符合正则 /^((ht|f)tps?):\/\/?/ 则自动为 _blank打开新的标签页， 如果是路由则 需要传target 参数
 
 ::: example
 @docs/example/link/target.vue

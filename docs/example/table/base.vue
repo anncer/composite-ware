@@ -40,6 +40,6 @@ const list = [
   {name: '刘七', code: '333', address: '广州市'},
 ]
 const rowClick = (a,b,c) => {
-  console.log(a,b,c, 'dd')
+  console.log(a,b,c)
 }
 </script>

@@ -67,7 +67,7 @@ meta:
 | ---------- | ----------------------------------- | ---------- |
 | select | 当选中项发生更改时 | selection  |
 
-### request配置 - 表格的网络请求
+### request配置
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ---- | -------- | ----------------- | ------ | ------ |
@@ -79,7 +79,7 @@ meta:
 | formatter | 请求数据的格式化方法, 需要返回一个含有data字段和total字段的对象。data为数据，total总条数 | function => {data: [], total: number} | - | - |
 | fields | 暂不开放 | array | - | - |
 
-### query配置 - 搜索条件
+### query配置
 
 搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](http://10.28.89.11:9209/zh-CN/components/item)
 

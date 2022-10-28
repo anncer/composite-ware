@@ -26,6 +26,6 @@ const query = [
   },
 ]
 const handleSelect = (section) => {
-  console.log(section, 'section')
+  console.log(section)
 }
 </script>

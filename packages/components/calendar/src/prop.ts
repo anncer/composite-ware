@@ -1,4 +1,3 @@
-import { PropType } from "vue"
 import type { UnknownFunction, UnknownObject } from '../../types/index'
 
 export const calendarProp = ({

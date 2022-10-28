@@ -73,9 +73,7 @@ margin-top: 4px;
   font-weight: 400;
   cursor: pointer;
 
-  // &:nth-child(7n),&:nth-child(7n+1) {
-  //   color: #ff0000;
-  // }
+
   &.ce-calendar_other {
     color: #C0C9D9;
     cursor: default;
@@ -83,7 +81,11 @@ margin-top: 4px;
 
   position: relative;
 }
-
+.ce-calendar_color {
+  &:nth-child(7n),&:nth-child(7n+1) {
+    color: #ff0000;
+  }
+}
 .ce-calendar-point::after {
   content: "·";
   display: block;

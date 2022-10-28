@@ -65,11 +65,16 @@ if (!token) {
 } else {
   getUserInfo(token)
     .then(res => {
-      console.log(res, 'response')
-      console.log('已登录')
+      ElMessage({
+        type: "success",
+        message: "已登录"
+      });
     })
     .catch(e => {
-      console.log('重新登录')
+      ElMessage({
+        type: "warning",
+        message: "重新登录"
+      });
       loginSimulation()
     })
 }

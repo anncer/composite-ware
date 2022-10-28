@@ -1,0 +1,43 @@
+.markdown-body {
+  border: var(--el-border);
+  border-radius: var(--el-border-radius-base);
+  background-color: var(--el-bg-color);
+  color: var(--el-text-color-regular);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+  color: var(--el-text-color-primary);
+}
+
+h2 {
+  border-bottom: 1px solid var(--el-border-color);
+}
+
+.markdown-body a {
+  color: var(--el-color-primary);
+}
+
+table:not(table[class]) tr {
+  border-top: 1px solid var(--el-border-color);
+}
+
+table:not(table[class]) tr:nth-child(2n) {
+  background-color: var(--el-fill-color-light);
+}
+
+table:not(table[class]) th,
+table:not(table[class]) td {
+  border: 1px solid var(--el-border-color);
+}
+
+blockquote {
+  border-left: 0.2rem solid var(--el-border-color);
+  color: var(--el-text-color-secondary);
+}

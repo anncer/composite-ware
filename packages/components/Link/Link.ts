@@ -40,7 +40,7 @@ export default defineComponent({
     return () =>
       h(
         resolveDynamicComponent(type.value) as DefineComponent,
-        mergeProps(attr.value, { class: 'e-link' }),
+        mergeProps(attr.value, { class: 'ce-link' }),
         slots
       )
   },
