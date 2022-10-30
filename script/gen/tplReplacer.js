@@ -31,8 +31,8 @@ const getTplFilePath = (meta) => ({
     to: `../../packages/components/${meta.compName}/src/index.ts`
   },
   props: {
-    from: "./.template/src/prop.ts.tpl",
-    to: `../../packages/components/${meta.compName}/src/prop.ts`
+    from: "./.template/src/props.ts.tpl",
+    to: `../../packages/components/${meta.compName}/src/props.ts`
   },
   scss: {
     from: "./.template/index.scss.tpl",

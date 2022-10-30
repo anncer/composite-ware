@@ -103,6 +103,11 @@ const zhCN: RouteRecordRaw[] = [
           path: "/zh-CN/components/tree-selector",
           component: () => import("../../docs/zh-CN/components/tree-selector.md"),
           meta: { title: "tree-selector" }
+        },
+        {
+          path: "/zh-CN/components/dialog-tree-selector",
+          component: () => import("../../docs/zh-CN/components/dialog-tree-selector.md"),
+          meta: { title: "dialog-tree-selector" }
         }
     ]
   }

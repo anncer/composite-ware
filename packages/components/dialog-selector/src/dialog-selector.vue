@@ -1,12 +1,17 @@
 <template>
   <el-dialog
     v-bind="dialogProps"
-    v-model="modelValue"
+    :model-value="modelValue"
+    :title="title"
     @close="handleClosed"
+    custom-class="ce-selector_dialog"
     :before-close="handleBeforeClosed"
   >
     <CeBaseSelector v-bind="baseProps" @select="handleSelect"></CeBaseSelector>
-    <div slot="footer" class="ce-selector_footer">
+    <div class="ce-selector_footer" v-if="$slots && $slots.footer">
+      <slot name="footer" v-bind="{ selection }"></slot>
+    </div>
+    <div v-else class="ce-selector_footer">
       <el-button type="primary" @click="handleConfirm">确 定</el-button>
       <el-button @click="handleCancle">取 消</el-button>
     </div>
@@ -15,7 +20,7 @@
 
 <script lang="ts" setup>
 
-import { ref, watch, toRefs } from 'vue';
+import { ref, toRefs } from 'vue';
 import { DialogSelectorProps, dialogSelectorEmits, basePropKeys, dialogPropKeys} from './props'
 import CeBaseSelector from '@composite-ware/components/base-selector'
 import { UnknownArray } from '@composite-ware/components/types';
@@ -30,7 +35,7 @@ import { UnknownArray } from '@composite-ware/components/types';
   const { modelValue } = toRefs(props)
 
 
-  const { beforeClose } = props
+  const { beforeClose, title } = props
 
   const selection:any = ref(null)
 

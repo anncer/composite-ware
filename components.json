@@ -43,5 +43,10 @@
     "name": "tree-selector",
     "znName": "树形选择器",
     "desc": "树形选择器"
+  },
+  {
+    "name": "dialog-tree-selector",
+    "znName": "树形弹窗选择器",
+    "desc": "树形弹窗选择器"
   }
 ]

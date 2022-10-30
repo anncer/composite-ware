@@ -1,8 +1,14 @@
-.ce-selector_dialog {
-  .el-dialog__body {
-    padding: 10px 20px;
-  }
-}
 .ce-selector_footer {
    text-align: right;
  }
+
+.ce-selector_dialog {
+  .el-dialog__header {
+    border-bottom: 1px solid #ddd;
+    margin-right: 0;
+  }
+
+  .el-dialog__body {
+    padding: 20px 20px;
+  }
+}

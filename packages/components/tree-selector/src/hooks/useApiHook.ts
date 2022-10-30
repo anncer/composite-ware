@@ -1,6 +1,6 @@
 
 import { defaultRequest } from '../constant'
-import { TreeSelectorRequestProp } from '../prop'
+import { TreeSelectorRequestProp } from '../props'
 import { useApiService } from '@composite-ware/utils'
 
 export const useGetTreeData = (userRequest: TreeSelectorRequestProp | undefined = {}) => {

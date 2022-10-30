@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { todayProp, currentProp, listProp , resProp} from '../prop'
+import { todayProp, currentProp, listProp , resProp} from '../props'
 import { isProperty } from '@composite-ware/utils';
 import { parseTime } from '../utils'
 

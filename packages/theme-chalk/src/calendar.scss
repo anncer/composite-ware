@@ -83,7 +83,7 @@ margin-top: 4px;
 }
 .ce-calendar_color {
   &:nth-child(7n),&:nth-child(7n+1) {
-    color: #ff0000;
+    color: #e58282;
   }
 }
 .ce-calendar-point::after {
@@ -94,7 +94,7 @@ margin-top: 4px;
   right: 0;
   bottom: -12px;
   font-size: 36px;
-  color: red;
+  color: #e58282;
 }
 
 .ce-calendar_inner {

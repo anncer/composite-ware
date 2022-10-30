@@ -103,6 +103,11 @@ const enUS: RouteRecordRaw[] = [
           path: "/en-US/components/tree-selector",
           component: () => import("../../docs/en-US/components/tree-selector.md"),
           meta: { title: "tree-selector" }
+        },
+        {
+          path: "/en-US/components/dialog-tree-selector",
+          component: () => import("../../docs/en-US/components/dialog-tree-selector.md"),
+          meta: { title: "dialog-tree-selector" }
         }
     ]
   }

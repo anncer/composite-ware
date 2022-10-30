@@ -14,30 +14,12 @@ __弹窗选择器是基于基础选择 baseSelector 扩展了弹窗功能的选�
 ::: example
 @docs/example/dialog-selector/base.vue
 :::
-<!-- 
-### 单选
+
+### footer
 
 ::: example
-@docs/example/base-selector/single.vue
+@docs/example/dialog-selector/custom.vue
 :::
-
-### 自定义搜索条件
-
-::: example
-@docs/example/base-selector/query.vue
-:::
-
-### 自定义列
-
-::: example
-@docs/example/base-selector/column.vue
-:::
-
-### 自定义列表请求
-
-::: example
-@docs/example/base-selector/reqtable.vue
-::: -->
 
 ### 基础配置
 

@@ -10,7 +10,7 @@ meta:
 树形选择器基于elementPlue的el-tree扩展而来，在组件中可以使用el-tree的部分参数，见下表
 
 ### 基础用法
-
+<!-- 
 ::: example
 @docs/example/tree-selector/base.vue
 :::
@@ -25,7 +25,7 @@ meta:
 
 ::: example
 @docs/example/tree-selector/slot.vue
-:::
+::: -->
 
 ### 使用已有数据
 
@@ -33,11 +33,11 @@ meta:
 @docs/example/tree-selector/owner.vue
 :::
 
-### footer
+<!-- ### footer
 
 ::: example
 @docs/example/tree-selector/footer.vue
-:::
+::: -->
 
 ### 配置
 
@@ -99,7 +99,6 @@ meta:
 
 事件名 | 说明 | 参数 |
 :-: | :-: | :-: |
-| select | 当选中项发生更改时 | 一个参数：当前选中的项  |
 | confirm | 点击确定时触发 | 一个参数：当前选中的项  |
 | cancle | 点击取消按钮时 | 无  |
 | __TREE的事件__ |

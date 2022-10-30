@@ -68,7 +68,8 @@
     "lodash": "^4.17.21",
     "sass": "^1.54.0",
     "vue": "^3.2.37",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "vue-tsc": "^1.0.9"
   },
   "devDependencies": {
     "@docsearch/css": "^3.1.1",
@@ -118,7 +119,6 @@
     "vite-plugin-pwa": "^0.12.3",
     "vite-plugin-vue-markdown": "^0.21.1",
     "vitest": "^0.19.1",
-    "vue-tsc": "^1.0.9",
     "workbox-window": "^6.5.3"
   },
   "pnpm": {

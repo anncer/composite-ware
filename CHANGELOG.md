@@ -9,15 +9,19 @@ meta:
 
 ### 0.0.8-功能
 
-- 添加树形选择器组件
+- 添加树形选择器组件[treeSelector](http://10.28.89.11:9209/zh-CN/components/tree-selector)
 
-- 添加树形弹窗选择器组件
+- 添加树形弹窗选择器组件[dialogTeeeSelector](http://10.28.89.11:9209/zh-CN/components/dialog-tree-selector)
 
 - 文档功能添加了页面内的导航，方便快速查阅文档
 
 ### 0.0.8-修改
 
 - 日历组件，在周六周日两列添加红色字体
+
+- 添加dialog-selector弹窗的class类名和样式
+
+- 添加dialog-selector弹窗的插槽 #footer
 
 ## 0.0.71
 

@@ -10,6 +10,7 @@ export * from './base-selector'
 export * from './dialog-selector'
 export * from './calendar'
 export * from './tree-selector'
+export * from './dialog-tree-selector'
 // sigleSplit
 
 import { CeLink } from './link'
@@ -22,6 +23,7 @@ import { CeBaseSelector } from './base-selector'
 import { CeDialogSelector } from './dialog-selector'
 import { CeCalendar } from './calendar'
 import { CeTreeSelector } from './tree-selector'
+import { CeDialogTreeSelector } from './dialog-tree-selector'
 // sigleSplit
 import type { Plugin } from 'vue'
 
@@ -37,6 +39,7 @@ export default {
  CeDialogSelector,
  CeCalendar,
 CeTreeSelector,
+CeDialogTreeSelector,
 // sigleSplit
 } as Record<string, Plugin>
 
@@ -55,6 +58,7 @@ declare module '@vue/runtime-core' {
     CeDialogSelector: typeof CeDialogSelector,
     CeCalendar: typeof CeCalendar,
 CeTreeSelector: typeof CeTreeSelector,
+CeDialogTreeSelector: typeof CeDialogTreeSelector,
 // sigleSplit
   }
 }

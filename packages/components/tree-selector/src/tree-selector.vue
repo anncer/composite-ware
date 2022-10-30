@@ -4,7 +4,6 @@
       <el-input prefix-icon="Search" v-model="filterText" clearable :placeholder="placeholder"></el-input>
     </div>
     <el-scrollbar wrap-class="ce-treesel_content">
-      <!-- :class="[multiple ? 'ce-treesel_multiple' : 'ce-treesel_single']" -->
       <el-tree
         ref="elTreeRef"
         :data="treeList"
@@ -33,7 +32,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
 import type { Ref } from 'vue'
-import { treeSelectotProp, treePropsKeys, treeEmits, treeEmitEs } from "./prop";
+import { treeSelectotProp, treePropsKeys, treeEmits, treeEmitEs } from "./props";
 import { useGetTreeData } from './hooks/useApiHook'
 import { defaultTreeProp } from './constant'
 
@@ -42,7 +41,7 @@ defineOptions({
 })
 
 const props = defineProps(treeSelectotProp)
-const emit = defineEmits(treeEmits)
+const emit = defineEmits(treeEmits.concat(treeEmitEs))
 
 const { list, search, footer, request, filterNodeMethod, placeholder } = props
 const defaultProp = props.props || defaultTreeProp
@@ -84,14 +83,13 @@ list && watch(list, (list) => {
   treeList.value = list
 })
 
-
-const treeEvents: any = {}
+const treeEvents = {}
 
 const handleEmit = (r: string, ...arg: any) => {
   emit(r, ...arg)
 }
 
-const makeEvents = (list: any[], enentProps: any) => {
+const makeEvents = (list: string[], enentProps: any) => {
   list.forEach(it => {
     enentProps[it] = (...args: any) => {
       handleEmit(it, ...args)
@@ -102,7 +100,7 @@ const makeEvents = (list: any[], enentProps: any) => {
 makeEvents(treeEmitEs, treeEvents)
 
 const handleConfirm = () => {
-  const arr = elTreeRef.value.getCheckedNodes()
+  const arr = elTreeRef.value.getCheckedKeys()
   emit('confirm', arr)
 }
 

@@ -24,19 +24,17 @@
       </div>
     </div>
   </div>
-  <transition name="fade-transform" mode="out-in">
-    <div class="wrap-container" :class="{ 'max-container': collapsed }">
-      <section class="app-main">
-          <router-view></router-view>
-          <div class="app-linkbox">
-            <div class="app-title">本页目录</div>
-            <div class="app-link" v-for="it in ids">
-              <a :title="it" :href="`#${it}`">{{it}}</a>
-            </div>
+  <div class="wrap-container" :class="{ 'max-container': collapsed }">
+    <section class="app-main">
+        <router-view></router-view>
+        <div class="app-linkbox">
+          <div class="app-title">本页目录</div>
+          <div class="app-link" v-for="it in ids">
+            <a :title="it" :href="`#${it}`">{{it}}</a>
           </div>
-      </section>
-    </div>
-  </transition>
+        </div>
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -36,7 +36,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { setThisDay, getCalendars, getCalendatPressMonth, getCalendarUseDate } from './hooks/useCalendarHooks'
-import { listProp, resProp, calendarProp, calendarEmits } from './prop'
+import { listProp, resProp, calendarProp, calendarEmits } from './props'
 
 defineOptions({
    name: "CeCalendar",

@@ -16,7 +16,6 @@ export interface TreeSelectorRequestProp {
   headers?: UnknownObject
   params?: UnknownObject,
   loading?: Boolean,
-  // fields?: BaseFieldsProp,
   formatter?: UnknownFunction
 }
 
@@ -105,7 +104,7 @@ export const elTreeProps = {
   }
 }
 
-export const treeSelectotProp = ({
+export const baseTreeSelectorProp = ({
   list: {
     type: Array as PropType<any[]>
   },
@@ -124,14 +123,10 @@ export const treeSelectotProp = ({
     default: false,
     type: Boolean
   },
-  // multiple: {
-  //   type: Boolean,
-  //   default: true
-  // },
-  // limit: {
-  //   type: Number,
-  //   default: 0
-  // },
+})
+
+export const treeSelectotProp = ({
+  ...baseTreeSelectorProp,
   ...elTreeProps
 }) as const
 
@@ -142,7 +137,6 @@ export const treePropsKeys = Object.keys(elTreeProps) as treeProps
 
 
 export const treeEmits = [
-  'select',
   'confirm',
   'cancle',
 ]

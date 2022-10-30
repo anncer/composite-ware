@@ -1,4 +1,4 @@
-import { TreeSelectorRequestProp, treePropAttr } from './prop'
+import { TreeSelectorRequestProp, treePropAttr } from './props'
 import { cookie } from '@composite-ware/utils/cache'
 
 export const defaultRequest:TreeSelectorRequestProp = {

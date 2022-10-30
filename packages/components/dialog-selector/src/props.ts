@@ -1,10 +1,6 @@
 import { BaseSelectorProps } from "@composite-ware/components/base-selector/src/props"
 
-const DialogContextProps = {
-  title: {
-    default: "人员选择器",
-    type: String
-  },
+export const DialogContextProps = {
   width: {
     default: '60%',
     type: String
@@ -57,7 +53,7 @@ const DialogContextProps = {
     default: 0,
     type: Number
   }
-} as const
+}
 
 export const DialogSelectorProps = {
   modelValue: {
@@ -66,6 +62,10 @@ export const DialogSelectorProps = {
   },
   beforeClose: {
     type: Function
+  },
+  title: {
+    default: "人员选择器",
+    type: String
   },
   ...DialogContextProps,
   ...BaseSelectorProps

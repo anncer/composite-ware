@@ -28,8 +28,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, PropType, toRefs, computed } from "vue";
-import { isProperty, isRealArray } from "../utils/comment.ts";
-import { IRouterItem } from "./types.d";
+import { isProperty, isRealArray } from "../utils/comment";
 import type { RouteRecordRaw } from 'vue-router'
 // import SvgIcon from "@/components/SvgIcon";
 

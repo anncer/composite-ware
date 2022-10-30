@@ -1,12 +1,14 @@
 <template>
+  <el-button @click="handleClick">显示搜索器</el-button>
 
-    <ce-tree-selector @check="handleChange" :list="data">
-    </ce-tree-selector>
+  <ce-dialog-treeSelector  v-model="show" :list="data" @confirm="handleSelected"></ce-dialog-treeSelector>
 
 </template>
-
-<script lang="ts" setup>
+<script setup lang="ts">
 import { ref } from 'vue'
+
+const show = ref(false)
+
 const data = ref([
   {
     name: 'Level one 1',
@@ -52,8 +54,11 @@ const data = ref([
   }
 ])
 
-const handleChange = (node, selection) => {
-  console.log(node, selection)
+const handleClick = () => {
+  show.value = true
+}
+
+const handleSelected = (section) => {
+  console.log(section)
 }
 </script>
-
