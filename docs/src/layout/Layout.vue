@@ -25,10 +25,10 @@
     </div>
   </div>
   <div class="wrap-container" :class="{ 'max-container': collapsed }">
-    <section class="app-main">
+    <section class="app-main"  :class="{ 'app-max': !isLinks }">
         <router-view></router-view>
-        <div class="app-linkbox">
-          <div class="app-title">本页目录</div>
+        <div class="app-linkbox" v-if="isLinks">
+          <div class="app-title" >本页目录</div>
           <div class="app-link" v-for="it in ids">
             <a :title="it" :href="`#${it}`">{{it}}</a>
           </div>
@@ -60,10 +60,9 @@ const lang = useLang();
 
 const route = useRoute()
 
+const isLinks = ref(false)
 watch(route, () => {
-  nextTick(() => {
-    ids.value = getBodyId()
-  })
+  getRouterState()
 })
 
 const routes = computed(() => {
@@ -79,6 +78,17 @@ const handelClick = () => {
 
 const ids = ref<string[]>([])
 
+const getRouterState = () => {
+  if (route.fullPath.includes('components')) {
+    isLinks.value = true
+  } else {
+    isLinks.value = false
+  }
+  nextTick(() => {
+    ids.value = getBodyId()
+  })
+}
+
 const getBodyId = () => {
   const body:any = document.getElementsByClassName('markdown-body')[0]
   const arr :string[]= []
@@ -92,6 +102,7 @@ const getBodyId = () => {
   return arr
 }
 onMounted(() => {
+  getRouterState()
   ids.value = getBodyId()
 })
 </script>

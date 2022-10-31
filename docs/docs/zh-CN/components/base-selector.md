@@ -72,7 +72,7 @@ meta:
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ---- | -------- | ----------------- | ------ | ------ |
 | url | 请求地址 | string | - | /api/admin-v2/user/page/or/list |
-| method | 请求方法 | string | - | post |
+| method | 请求方法 | string | - | GET |
 | loading | 请求时是否显示loading | Boolean | - | true |
 | params | 请求的参数 | object | - | - |
 | headers | 请求头 | object | - | - |
@@ -84,7 +84,7 @@ meta:
 搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](http://10.28.89.11:9209/zh-CN/components/item)
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
-| ---- | -------- | ----------------- | ------ | ------ |
+| ----- | -------- | ----------------- | ------ | ------ |
 | code | 搜索时查询的key | string | - | - |
 | type | 搜索类型 | string | select / input | - |
 | label | 搜索选项的文字 | string | - | - |

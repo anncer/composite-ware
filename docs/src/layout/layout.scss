@@ -97,6 +97,9 @@
   position: relative;
   overflow-x: hidden;
 }
+.app-max{
+  width: 100%;
+}
 .app-title{
   text-align: center;
   font-size: 12px;
@@ -108,9 +111,10 @@
   width: 130px;
   height: calc(100vh - 40px);
   background: #fff;
-  padding: 20px 10px;
+  padding: 20px 12px;
   border-radius: 5px;
 }
+
 .app-link{
   font-size: 12px;
   color: #2f84ef;

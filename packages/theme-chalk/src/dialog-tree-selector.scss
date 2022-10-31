@@ -6,6 +6,17 @@
   .el-dialog__body {
     padding: 10px 20px;
   }
+  .ce-treesel_container {
+    height: 60vh;
+    .el-scrollbar {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .ce-treesel_content {
+      height: 100%;
+    }
+  }
 }
 
 .ce-dialogtree_footer{

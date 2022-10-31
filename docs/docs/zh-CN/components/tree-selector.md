@@ -9,8 +9,12 @@ meta:
 
 树形选择器基于elementPlue的el-tree扩展而来，在组件中可以使用el-tree的部分参数，见下表
 
+:::warning 注意
+getCheckedKeys 方法在设置了 node-key 属性时，才能返回选中的项的主键，node-key 默认值为id。
+:::
+
 ### 基础用法
-<!-- 
+
 ::: example
 @docs/example/tree-selector/base.vue
 :::
@@ -25,7 +29,7 @@ meta:
 
 ::: example
 @docs/example/tree-selector/slot.vue
-::: -->
+:::
 
 ### 使用已有数据
 
@@ -33,11 +37,11 @@ meta:
 @docs/example/tree-selector/owner.vue
 :::
 
-<!-- ### footer
+### footer
 
 ::: example
 @docs/example/tree-selector/footer.vue
-::: -->
+:::
 
 ### 配置
 
@@ -79,7 +83,7 @@ meta:
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ---- | -------- | ----------------- | ------ | ------ |
 | url | 请求地址 | string | - | /api/admin-v2/org/children/3302/3 |
-| method | 请求方法 | string | - | post |
+| method | 请求方法 | string | - | GET |
 | loading | 请求时是否显示loading | Boolean | - | true |
 | params | 请求的参数 | object | - | - |
 | headers | 请求头 | object | - | - |
@@ -97,11 +101,11 @@ meta:
 
 ### 事件
 
-事件名 | 说明 | 参数 |
-:-: | :-: | :-: |
+| 事件名 | 说明 | 参数 |
+| ---- | -------- | ----------------- |
 | confirm | 点击确定时触发 | 一个参数：当前选中的项  |
 | cancle | 点击取消按钮时 | 无  |
-| __TREE的事件__ |
+| - | - | - | - | - |
 | node-click | 当节点被点击的时候触发 | 四个参数：对应于节点点击的节点对象，TreeNode 的 node 属性, TreeNode和事件对象 |
 | node-contextmenu | 当某一节点被鼠标右键点击时会触发该事件 | 共四个参数，依次为：event、传递给 data 属性的数组中该节点所对应的对象、节点对应的 Node、节点组件本身。 |
 | check-change | 当复选框被点击的时候触发 | 共三个参数，依次为：传递给 data 属性的数组中该节点所对应的对象、节点本身是否被选中、节点的子树中是否有被选中的节点 |
@@ -118,8 +122,8 @@ meta:
 
 ### 方法
 
-方法 | 描述 | 参数 |
-:-: | :-: | :-: |
+|方法 | 描述 | 参数 |
+| ---- | -------- | ----------------- |
 | getTreeRef | 返回elTree组件实例 | - |
 __Tree的方法，均返回当前选中的节点数组__|
 |filter | 过滤所有树节点，过滤后的节点将被隐藏 | 接收一个参数并指定为 filter-node-method 属性的第一个参数
