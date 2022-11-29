@@ -18,7 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import { TitleProps } from './props'
+import { toRefs  } from 'vue'
+import { TitleProps,  } from './props'
 
 defineOptions({
    name: "CeTitle",
@@ -26,11 +27,10 @@ defineOptions({
 const props = defineProps(TitleProps)
 
 const emits = defineEmits(['suffix'])
-  const { line, title, lineColor, boxStyle } = props
+const { line, title, lineColor, boxStyle } = toRefs(props)
 
-
-  const handleTap = ($event:Event) => {
-    emits('suffix', $event)
-  }
+const handleTap = ($event:Event) => {
+  emits('suffix', $event)
+}
 
 </script>

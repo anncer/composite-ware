@@ -1,6 +1,6 @@
 {
   "name": "composite-ware",
-  "version": "0.0.8",
+  "version": "0.0.81",
   "description": "a component library for Vue 3 base element-plus",
   "main": "lib/index.umd.js",
   "module": "lib/index.es.js",
@@ -147,5 +147,12 @@
     "theme-chalk",
     "types",
     "packages/components"
-  ]
+  ],
+  "lint-staged": {
+    "*.{vue,js,ts}": [
+      "npm run lint",
+      "npx prettier --write ./src  ",
+      "git add ."
+    ]
+  }
 }
