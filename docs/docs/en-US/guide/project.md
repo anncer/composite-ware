@@ -27,7 +27,7 @@ meta:
 
 ### 项目文件介绍
 
-项目目录及功能信息，具体内容请查看 [前端开发文档](./develop)
+项目目录及功能信息，具体内容请查看 [前端开发文档](./develop) <br />
 \- .vscode  vsCode编辑器配置  <br />
 \- public  项目公共文件夹 一般存放 浏览器角标等 <br />
 \- src 主程序 <br />
@@ -57,30 +57,19 @@ meta:
 
 ### 人员数据中台请求
 
-项目如需请求人员数据中台，获取相关信息，如果项目会挂载到综合平台中进行使用（如果不是联系@王振）
+在项目中请求人员数据中台获取相关信息时，如果项目会挂载到综合平台中进行使用（如果不是联系@王振）
 
-综合平台会提供  DMPP-TOKEN  dmppUserId 2个cookie 供其他项目使用（如果需要其他cookie，联系@王振）
+综合平台会提供  DMPP-TOKEN, dmppUserId 2个cookie 供挂载的项目使用, 使用这两个cookie可请求数据中台接口（如果需要其他cookie，联系@王振）
 
-只需要在你开发的时候，在cookie里面，把这两个cookie写入即可 __正常使用__ 数据中台相关接口
+如果是在线上环境，直接获取这两个cookie，按照下方实例配置中台api请求，即可请求数据中台；如果是本地开发环境，按下面进行操作
 
-在 vite.server.ts 中加入对 数据中台的 proxy, 然后在api中按照对应格式，最后在 service中配置即可，如下
+1. 在 vite.server.ts 中加入对 数据中台的 proxy,
 
-dmppProxy
+2. 再在api中按照对应格式，最后在 service中配置即可
 
-正式:
-前: <http://10.28.87.31:30718>
-后: <http://10.28.87.31:30719>
-网关: <http://10.28.87.31:30717>
+3. 然后在浏览器中登录想要请求的环境， application => cookie里面 复制 DMPP-TOKEN  dmppUserId 2个cookie
 
-测试:
-前: <http://10.28.87.33:30718>
-后: <http://10.28.87.33:30719>
-网关: <http://10.28.87.33:30717>
-
-开发:
-前: <http://11.11.141.49:3000>
-后: <http://11.11.141.49:3001>
-网关: <http://11.11.141.49:9717>
+4. 最后. 再在本地环境 application => cookie里面，把这两个cookie写入，如下
 
 ```js
 // vite.server.ts
@@ -130,7 +119,7 @@ interceptors: {
 }
 ```
 
-如果在本地项目中使用，则登录人员数据中台 登录之后，在cookie中获取
+如果在本地项目中使用，则登录人员数据中台后，在 application => cookie 中获取
 
   ![Alt](../../../assets/003.png#pic_center)
 
@@ -139,6 +128,23 @@ interceptors: {
   复制 userId 到本地环境中 为 dmppUserId 输入即可，如图
 
   ![Alt](../../../assets/004.png#pic_center)
+
+#### dmppProxy服务地址
+
+正式:
+前: <http://10.28.87.31:30718>
+后: <http://10.28.87.31:30719>
+网关: <http://10.28.87.31:30717>
+
+测试:
+前: <http://10.28.87.33:30718>
+后: <http://10.28.87.33:30719>
+网关: <http://10.28.87.33:30717>
+
+开发:
+前: <http://11.11.141.49:3000>
+后: <http://11.11.141.49:3001>
+网关: <http://11.11.141.49:9717>
 
 ### 关于TOKEN
 
@@ -149,7 +155,7 @@ interceptors: {
 ### 项目依赖下载
 
 :::tip warning
-推荐 nodejs 版本 > 16. 如果你有多个项目需要启动，推荐使用nodejs版本工具nvm.  
+推荐 nodejs 版本 > 16. 如果你有多个项目需要启动，推荐使用nodejs版本控制工具nvm.  
 [【NVM FOR MAC|LINUX】](https://github.com/nvm-sh/nvm)[【NVM FOR WINDOWS】](https://github.com/coreybutler/nvm-windows/releases)
 :::
 

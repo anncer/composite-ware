@@ -11,6 +11,14 @@ composite-ware 是一个基于[element-plus](https://element-plus.org/)和[vue3]
 
 [组件库git地址http://11.11.141.50/pkg/composite-ware/](http://11.11.141.50/pkg/composite-ware/)
 
+### 组件库下载与更新
+
+  组件库版本更新记录查看 [changelog](./changelog)
+
+  组件库开发计划查看 [feature](./feature)
+
+  组件版本更新后可以在 node_modules 中对应的包，修改 package.json 中 修改版本号重新下载即可
+
 ### 组件库的使用
 
   在创建完成的模板项目中，组件库已经内置到项目中去，只需要按照对应组件的示例和属性进行相关配置使用即可。
@@ -39,10 +47,6 @@ composite-ware 是一个基于[element-plus](https://element-plus.org/)和[vue3]
   ```
 
 ### 组件库的环境
-
-::: tip 提示
-本地和线上网络环境配置
-:::
 
 - 线上环境
 
@@ -83,11 +87,3 @@ composite-ware 是一个基于[element-plus](https://element-plus.org/)和[vue3]
   复制ESP-TOKEN 到本地环境中输入即可，如图
 
   ![Alt](../../../assets/002.png#pic_center)
-
-### 组件库下载与更新
-
-  组件库版本更新记录查看 [changelog](./changelog)
-
-  组件库开发计划查看 [feature](./feature)
-
-  组件版本更新后可以在 node_modules 中对应的包，修改 package.json 中 修改版本号重新下载即可
