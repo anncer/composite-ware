@@ -12,42 +12,42 @@ import type { RouteRecordRaw } from "vue-router";
 const {{ langUpper }}: RouteRecordRaw[] = [
   {
     path: "/{{ lang }}/",
-    redirect: "/{{ lang }}/introduction/",
+    redirect: "/{{ lang }}/project",
     component: Layout,
     meta: { title: "指南", icon: markRaw(House) },
     children: [
       {
-        path: "/{{ lang }}/introduction",
-        component: () => import("../../docs/{{ lang }}/guide/introduction.md"),
-        meta: { title: "介绍" }
+        path: "/zh-CN/introduction",
+        component: () => import("../../docs/zh-CN/guide/introduction.md"),
+        meta: { title: "组件和项目介绍" }
       },
-      //{
-      //  path: "/{{ lang }}/develop",
-      //  component: () => import("../../docs/{{ lang }}/guide/develop.md"),
-      //  meta: { title: "项目开发" }
-      //},
       {
-        path: "/{{ lang }}/guide/",
-        component: () => import("../../docs/{{ lang }}/guide/index.md"),
-        meta: { title: "快速上手" }
+       path: "/zh-CN/develop",
+       component: () => import("../../docs/zh-CN/guide/develop.md"),
+       meta: { title: "前端开发文档" }
       },
+      // {
+      //   path: "/zh-CN/guide",
+      //   component: () => import("../../docs/zh-CN/guide/index.md"),
+      //   meta: { title: "快速上手" }
+      // },
       //{
-      //  path: "/{{ lang }}/guide/i18n",
+      //  path: "/{{ lang }}/i18n",
       //  component: () => import("../../docs/{{ lang }}/guide/i18n.md"),
       //  meta: { title: "国际化" }
       //},
       //{
-      //  path: "/{{ lang }}/guide/theme",
-      //  component: () => import("../../docs/{{ lang }}/guide/theme.md"),
+      //  path: "/{{ lang }}/theme",
+      //  component: () => import("../../docs/{{ lang }}/theme.md"),
       //  meta: { title: "自定义主题" }
       //},
       {
-        path: "/{{ lang }}/guide/changelog",
+        path: "/{{ lang }}/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "更新日志" }
       },
       {
-        path: "/{{ lang }}/guide/feature",
+        path: "/{{ lang }}/feature",
         component: () => import("../../../feature.md"),
         meta: { title: "开发计划" }
       }

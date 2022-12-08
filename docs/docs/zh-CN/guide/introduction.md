@@ -1,8 +1,8 @@
 ---
-title: 介绍
+title: 组件介绍
 meta:
   - name: description
-    content: composite-ware 组件库的基础信息介绍
+    content: composite-ware 组件的介绍
 ---
 
 ## 组件介绍
@@ -11,32 +11,83 @@ composite-ware 是一个基于[element-plus](https://element-plus.org/)和[vue3]
 
 [组件库git地址http://11.11.141.50/pkg/composite-ware/](http://11.11.141.50/pkg/composite-ware/)
 
-## 项目介绍
+### 组件库的使用
 
-目前vue3的项目是基于 vite, vue3, vuex, scss, pnpm。项目中已自动引入了composite-ware组件库  
-[项目模板git地址http://11.11.141.50/cmp/cmp-template-ui](http://11.11.141.50/cmp/cmp-template-ui)
+  在创建完成的模板项目中，组件库已经内置到项目中去，只需要按照对应组件的示例和属性进行相关配置使用即可。
 
-如果你使用vscode编辑器，在开发此项目时，需要下载以下插件
+  组件基于elementPlus 需要引入elementPlus组件和样式
 
-- eslint
-- Vue Language Features (Volar)
-- Prettier - Code formatter
+  在main.js中引入后，按照文档即可使用
 
-## 依赖下载
+  ```js
+  import * as ElementPlusIconsVue from "@element-plus/icons-vue";
+  import elementPlus from "element-plus";
+  import "element-plus/dist/index.css";
+  import compositeWare from "composite-ware";
+  import 'composite-ware/theme-chalk/index.css'
 
-- 推荐 nodejs 版本 > 16. 如果你有多个项目需要启动，推荐使用nodejs版本工具nvm.  
-[【NVM FOR MAC|LINUX】](https://github.com/nvm-sh/nvm)[【NVM FOR WINDOWS】](https://github.com/coreybutler/nvm-windows/releases)
+  const app = createApp(App);
 
-- 项目推荐使用pnpm代替npm => [【VIEW PNPM DOCUMENT】](https://pnpm.io/zh/)
+  for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component);
+  }
 
-在项目目录中，已设置了依赖下载配置 .npmrc， __内网环境下关闭代理__ 即可下载 `pnpm install`
+  app.use(elementPlus);
+  app.use(compositeWare);
+  app.mount("#app");
 
-__如果使用的是vue2的项目，则不适用于此文档__ 需要外网下载
+  ```
 
-## 浏览器支持
+### 组件库的环境
 
-理论上同 element-plus
+::: tip 提示
+本地和线上网络环境配置
+:::
 
-| ![IE](https://cdn.jsdelivr.net/npm/@browser-logos/edge/edge_32x32.png) | ![Firefox](https://cdn.jsdelivr.net/npm/@browser-logos/firefox/firefox_32x32.png) | ![Chrome](https://cdn.jsdelivr.net/npm/@browser-logos/chrome/chrome_32x32.png) | ![Safari](https://cdn.jsdelivr.net/npm/@browser-logos/safari/safari_32x32.png) |
-| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
-| Edge ≥ 79                                                              | Firefox ≥ 78                                                                      | Chrome ≥ 64                                                                    | Safari ≥ 12                                                                    |
+- 线上环境
+
+  如果使用baseSelector,dialogSelector等需要请求接口的组件，在线上（测试、开发、生产）环境中，
+  会自动请求相应的环境中所对应的接口，不需要配置（默认接口或者是配置的不含有 http(s)的接口）。
+
+  eg: baseSelector会默认接口 /api/admin-v2/user/page/or/list， 此接口会自动请求对应服务的相应接口，不需要更改，
+  如果想请求别的接口可以配置为此种格式(/api/admin-v2/org/XXXX), 也会请求到对应接口
+
+- 本地环境
+
+  在本地开发中，默认接口无法请求数据，需要配置 proxy 把组件使用到的接口转发到相应服务
+
+  dev: <http://10.28.89.11>
+
+  test: <http://11.11.141.59:30102>
+
+  在对应项目中根目录 vite.server.ts 中进行如下配置
+
+  ```js
+  const proxyTarget = 'http://10.28.89.11';
+
+  proxy: {
+    '/api/admin-v2': {
+      target: proxyTarget,
+      changeOrigin: true
+    //  rewrite: (path) => path.replace('/api/admin', '')
+    }
+  }
+  ```
+
+  如果请求的过程中出现401报错，则需要在环境中配置token
+
+  进入 上文中 proxyTarget 的地址，登录之后，获取token,如图
+
+  ![Alt](../../../assets/001.png#pic_center)
+
+  复制ESP-TOKEN 到本地环境中输入即可，如图
+
+  ![Alt](../../../assets/002.png#pic_center)
+
+### 组件库下载与更新
+
+  组件库版本更新记录查看 [changelog](./changelog)
+
+  组件库开发计划查看 [feature](./feature)
+
+  组件版本更新后可以在 node_modules 中对应的包，修改 package.json 中 修改版本号重新下载即可

@@ -73,7 +73,7 @@ __弹窗选择器是基于基础选择 baseSelector 扩展了弹窗功能的选�
 
 ### query配置 - 搜索条件
 
-搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](http://10.28.89.11:9209/zh-CN/components/item)
+搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](/zh-CN/components/item)
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ---- | -------- | ----------------- | ------ | ------ |

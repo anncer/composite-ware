@@ -1,4 +1,4 @@
-export const ProxyTarget = "http://10.28.89.11"
+export const ProxyTarget = "http://11.11.141.59:30102"
 export const DmppProxyTarget = "http://11.11.141.49:3001"
 
 export default {
@@ -11,11 +11,11 @@ export default {
         target: ProxyTarget,
         changeOrigin: true
       },
-      '/api/admin': {
-        target: ProxyTarget,
-        changeOrigin: true,
-        rewrite: (path) => path.replace('/api/admin', '')
-      },
+      // '/api/admin': {
+      //   target: ProxyTarget,
+      //   changeOrigin: true,
+      //   rewrite: (path) => path.replace('/api/admin', '')
+      // },
       '/dmpp/api': {
         target: DmppProxyTarget,
         changeOrigin: true,

@@ -2,13 +2,14 @@
   <div class="menu-aside" :class="{ 'min-menu': collapsed }">
     <div class="menu-wrapper">
       <div class="menu-head">
-        <span v-if="!collapsed" class="menu-head-text" >Composite Ware</span>
+        <span v-if="!collapsed" class="menu-head-text" >CompositeWare</span>
         <span class="menu-head-icon">
           <el-tooltip :content="collapsed?'open': 'close'" placement="right">
             <el-icon :size="22" color="#fff" style="cursor: pointer;" @click="handelClick"><Operation /></el-icon>
           </el-tooltip>
         </span>
       </div>
+      <!-- mode="vertical" -->
       <div class="menu-content">
         <el-menu
           :style="menuStype"
@@ -43,6 +44,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useLang } from "../composables/index";
 import { cookie } from '../../src/utils/cache'
 import siderMenuItem from "@docs/src/layout/siderMenuItem.vue";
+import { includes } from "lodash";
 
 // import logo from "../public/logo.svg";
 
@@ -79,7 +81,7 @@ const handelClick = () => {
 const ids = ref<string[]>([])
 
 const getRouterState = () => {
-  if (route.fullPath.includes('components')) {
+  if (route.fullPath.includes('components') || route.fullPath.includes('introduction') || route.fullPath.includes('develop') || route.fullPath.includes('project')) {
     isLinks.value = true
   } else {
     isLinks.value = false

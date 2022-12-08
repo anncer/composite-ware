@@ -12,42 +12,47 @@ import type { RouteRecordRaw } from "vue-router";
 const zhCN: RouteRecordRaw[] = [
   {
     path: "/zh-CN/",
-    redirect: "/zh-CN/introduction/",
+    redirect: "/zh-CN/project",
     component: Layout,
     meta: { title: "指南", icon: markRaw(House) },
     children: [
       {
+       path: "/zh-CN/project",
+       component: () => import("../../docs/zh-CN/guide/project.md"),
+       meta: { title: "项目介绍" }
+      },
+      {
         path: "/zh-CN/introduction",
         component: () => import("../../docs/zh-CN/guide/introduction.md"),
-        meta: { title: "介绍" }
+        meta: { title: "组件介绍" }
       },
-      //{
-      //  path: "/zh-CN/develop",
-      //  component: () => import("../../docs/zh-CN/guide/develop.md"),
-      //  meta: { title: "项目开发" }
-      //},
       {
-        path: "/zh-CN/guide/",
-        component: () => import("../../docs/zh-CN/guide/index.md"),
-        meta: { title: "快速上手" }
+       path: "/zh-CN/develop",
+       component: () => import("../../docs/zh-CN/guide/develop.md"),
+       meta: { title: "前端开发文档" }
       },
+      // {
+      //   path: "/zh-CN/guide",
+      //   component: () => import("../../docs/zh-CN/guide/index.md"),
+      //   meta: { title: "快速上手" }
+      // },
       //{
-      //  path: "/zh-CN/guide/i18n",
+      //  path: "/zh-CN/i18n",
       //  component: () => import("../../docs/zh-CN/guide/i18n.md"),
       //  meta: { title: "国际化" }
       //},
       //{
-      //  path: "/zh-CN/guide/theme",
+      //  path: "/zh-CN/theme",
       //  component: () => import("../../docs/zh-CN/guide/theme.md"),
       //  meta: { title: "自定义主题" }
       //},
       {
-        path: "/zh-CN/guide/changelog",
+        path: "/zh-CN/changelog",
         component: () => import("../../../CHANGELOG.md"),
         meta: { title: "更新日志" }
       },
       {
-        path: "/zh-CN/guide/feature",
+        path: "/zh-CN/feature",
         component: () => import("../../../feature.md"),
         meta: { title: "开发计划" }
       }

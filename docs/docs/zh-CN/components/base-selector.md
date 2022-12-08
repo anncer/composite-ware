@@ -15,7 +15,7 @@ meta:
 - 使用时可根据自身情况，更改接口及格式化数据
 ::: tip 提示
 - 在示例中均会使用默认接口进行。如需更改，请自行查阅文档
-- 如果需要弹窗，查阅 [dialog-selection](http://10.28.89.11:9209/zh-CN/components/dialog-selector)
+- 如果需要弹窗，查阅 [dialog-selection](/zh-CN/components/dialog-selector)
 :::
 
 ### 多选(默认)
@@ -81,7 +81,7 @@ meta:
 
 ### query配置
 
-搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](http://10.28.89.11:9209/zh-CN/components/item)
+搜索条件调用 ce-item 组件，暂不支持ce-item的参数，默认为inline下的样式，[详见](/zh-CN/components/item)
 
 | 参数 | 说明     | 类型              | 可选值 | 默认值 |
 | ----- | -------- | ----------------- | ------ | ------ |

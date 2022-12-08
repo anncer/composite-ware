@@ -6,7 +6,6 @@ export default (md: MarkdownIt): void => {
   md.renderer.rules.link_open = (tokens, idx, options, env, self) => {
     const token = tokens[idx];
     const href = token.attrGet("href");
-
     token.attrJoin("class", "md-link");
     if (href && /^((ht|f)tps?):\/\/?/.test(href)) {
       hasExternalLink = true;
